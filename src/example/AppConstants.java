@@ -31,4 +31,6 @@ public interface AppConstants {
 	public final String SELECT_ALL_CUSTOMERS_STMT = "SELECT * FROM CUSTOMER";
 	public final String SELECT_CUSTOMER_BY_NAME_STMT = "SELECT * FROM CUSTOMER "
 			+ "WHERE Name=?";
+	
+	public final String CREATE_BOOKS_TABLE = "CREAT TABLE BOOKS(idBooks INT(10) UNSIGNED PRIMARY KEY";
 }
