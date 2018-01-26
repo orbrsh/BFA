@@ -1,4 +1,4 @@
-package example.servlets;
+package booksForAll.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +23,8 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import com.google.gson.Gson;
 
-import example.AppConstants;
-import example.model.Customer;
+import booksForAll.AppConstants;
+import booksForAll.model.Customer;
 
 /**
  * Servlet implementation class CustomersServlet1

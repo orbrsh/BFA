@@ -1,11 +1,11 @@
-package example;
+package booksForAll;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
 
 import com.google.gson.reflect.TypeToken;
 
-import example.model.Customer;
+import booksForAll.model.Customer;
 
 /**
  * A simple place to hold global application constants
@@ -32,5 +32,6 @@ public interface AppConstants {
 	public final String SELECT_CUSTOMER_BY_NAME_STMT = "SELECT * FROM CUSTOMER "
 			+ "WHERE Name=?";
 	
-	public final String CREATE_BOOKS_TABLE = "CREAT TABLE BOOKS(idBooks INT(10) UNSIGNED PRIMARY KEY";
+	public final String CREATE_BOOKS_TABLE = "CREATE TABLE BOOKS(idBooks INT(10) UNSIGNED PRIMARY KEY";
+	
 }

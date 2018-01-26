@@ -1,4 +1,4 @@
-package example.listeners;
+package booksForAll.listeners;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,13 +24,13 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import example.AppConstants;
-import example.model.Customer;
+import booksForAll.AppConstants;
+import booksForAll.model.Customer;
 
 
 
 /**
- * An example listener that reads the customer json file and populates the data into a Derby database
+ * An booksForAll listener that reads the customer json file and populates the data into a Derby database
  */
 @WebListener
 public class ManageCustomerDBFromJsonFile implements ServletContextListener {

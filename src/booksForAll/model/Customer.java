@@ -1,4 +1,4 @@
-package example.model;
+package booksForAll.model;
 
 /**
  * A simple bean to hold data
