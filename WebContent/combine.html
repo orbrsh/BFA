@@ -1,26 +1,32 @@
-<html lang="en-US"><head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>BooksForAll</title>
-		
-		<!-- Optional - Google font -->
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gafata">
-		
-		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="css/bootstrap.css"> 
-		
-		<!-- Required - Form style -->
-		<link rel="stylesheet" href="css/style.css"> 
-		
-		<!-- jQuery -->
-		<script src="js/jquery-2.1.1.min.js"></script>
-		
-		<!-- Bootstrap JS -->
-		<script src="js/bootstrap.min.js"></script>
-		
-			<!-- JavaScript Code -->
-	<script>
+<html lang="en-US">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<title>BooksForAll</title>
+
+<!-- Optional - Google font -->
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Gafata">
+
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+<!-- Required - Form style -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- jQuery -->
+<script src="lib/jquery-3.2.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+<!-- JavaScript Code -->
+<script>
 	$(document).ready(function() {
 		
 		function wordCount( val ){
@@ -179,129 +185,147 @@
 	});
 		
 	</script>
-		
-	</head>
-	
-	<body>
-		<div class="container">
 
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
-<fieldset>
+</head>
 
-<!-- Form Name -->
-<legend>Registration</legend>
+<body>
+	<div class="container">
 
-<!-- Text input-->
+		<form class="well form-horizontal" action=" " method="post"
+			id="contact_form">
+			<fieldset>
 
-<div class="form-group">
-  <label class="col-md-4 control-label">Full Name</label>  
-  <div class="col-md-4 inputGroupContainer">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input  name="full_name" placeholder="Full Name" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
+				<!-- Form Name -->
+				<legend>Registration</legend>
 
-<!-- Text input-->
-       <div class="form-group">
-  <label class="col-md-4 control-label">E-Mail</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-  <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
+				<!-- Text input-->
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Full Name</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-user"></i></span> <input name="full_name"
+								placeholder="Full Name" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
+
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">E-Mail</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-envelope"></i></span> <input name="email"
+								placeholder="E-Mail Address" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
 
 
-<!-- Text input-->
-       
-<div class="form-group">
-  <label class="col-md-4 control-label">Phone #</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-  <input name="phone" placeholder="+972 55-1212121" class="form-control" type="text">
-    </div>
-  </div>
-</div>
+				<!-- Text input-->
 
-<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Phone #</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-earphone"></i></span> <input name="phone"
+								placeholder="+972 55-1212121" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
 
-<div class="form-group">
-  <label class="col-md-4 control-label">State</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="state" placeholder="state" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
+				<!-- Text input-->
 
-<!-- Select Basic -->
-   
-<div class="form-group"> 
-  <label class="col-md-4 control-label">City</label>
-    <div class="col-md-4 selectContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="state" class="form-control selectpicker" >
-      <option value=" " >Please select your city</option>
-      <option>Haifa</option>
-      <option>Tel Aviv</option>
-    </select>
-  </div>
-</div>
-</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">State</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-home"></i></span> <input name="state"
+								placeholder="state" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
 
-<div class="form-group">
-  <label class="col-md-4 control-label">Street</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="address" placeholder="Address" class="form-control" type="text">
-    </div>
-  </div>
-</div>
+				<!-- Select Basic -->
 
-<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">City</label>
+					<div class="col-md-4 selectContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-list"></i></span> <select name="state"
+								class="form-control selectpicker">
+								<option value=" ">Please select your city</option>
+								<option>Haifa</option>
+								<option>Tel Aviv</option>
+							</select>
+						</div>
+					</div>
+				</div>
 
-<div class="form-group">
-  <label class="col-md-4 control-label">Zip Code</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="zip" placeholder="Zip Code" class="form-control"  type="text">
-    </div>
-</div>
-</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Street</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-home"></i></span> <input name="address"
+								placeholder="Address" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
 
-<!-- Text area -->
-  
-<div class="form-group">
-  <label class="col-md-4 control-label">Description</label>
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        	<textarea class="form-control" name="comment" placeholder="Description"></textarea>
-  </div>
-  </div>
-</div>
+				<!-- Text input-->
 
-<!-- Success message -->
-<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for registering</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Zip Code</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-home"></i></span> <input name="zip"
+								placeholder="Zip Code" class="form-control" type="text">
+						</div>
+					</div>
+				</div>
 
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label"></label>
-  <div class="col-md-4">
-    <button type="submit" class="btn btn-warning" >Submit <span class="glyphicon glyphicon-send"></span></button>
-  </div>
-</div>
+				<!-- Text area -->
 
-</fieldset>
-</form>
-</div>
-    </div><!-- /.container -->
-</body></html>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Description</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="glyphicon glyphicon-pencil"></i></span>
+							<textarea class="form-control" name="comment"
+								placeholder="Description"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<!-- Success message -->
+				<div class="alert alert-success" role="alert" id="success_message">
+					Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for
+					registering
+				</div>
+
+				<!-- Button -->
+				<div class="form-group">
+					<label class="col-md-4 control-label"></label>
+					<div class="col-md-4">
+						<button type="submit" class="btn btn-warning">
+							Submit <span class="glyphicon glyphicon-send"></span>
+						</button>
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+	<div>
+	<!-- /.container -->
+	</div>
+</body>
+</html>
