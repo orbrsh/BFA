@@ -92,9 +92,14 @@ public class ManageCustomerDBFromJsonFile implements ServletContextListener {
     														   AppConstants.CUSTOMERS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_CUSTOMER_STMT);
     			for (Customer customer : customers){
-    				pstmt.setString(1,customer.getName());
-    				pstmt.setString(2,customer.getCity());
-    				pstmt.setString(3,customer.getCountry());
+    				pstmt.setString(1,customer.getUsername());
+    				pstmt.setString(2,customer.getPassword());
+    				pstmt.setString(3,customer.getAddress());
+    				pstmt.setString(4,customer.getNickname());
+    				pstmt.setString(5,customer.getDescription());
+    				pstmt.setString(6,customer.getPhoto());
+    				pstmt.setString(7, customer.getMail());
+    				pstmt.setLong(8,customer.getPhone());
     				pstmt.executeUpdate();
     			}
 
