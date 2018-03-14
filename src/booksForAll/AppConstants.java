@@ -17,20 +17,20 @@ import booksForAll.model.Purchase;
  */
 public interface AppConstants {
 
-	public final String CUSTOMERS = "customers";
+	public final String CUSTOMERS = "Customers";
 	public final String CUSTOMERS_FILE = CUSTOMERS + ".json";
 	public final String NAME = "name";
 	public final Type CUSTOMER_COLLECTION = new TypeToken<Collection<Customer>>() {}.getType();
 	
-	public final String BOOKS = "books";
+	public final String BOOKS = "Books";
 	public final String BOOKS_FILE = BOOKS + ".json";
 	public final Type BOOK_COLLECTION = new TypeToken<Collection<Book>>() {}.getType();
 	
-	public final String LIKES = "likes";
+	public final String LIKES = "Likes";
 	public final String LIKES_FILE = LIKES + ".json";
 	public final Type LIKE_COLLECTION = new TypeToken<Collection<Like>>() {}.getType();
 	
-	public final String REVIEWS = "reviews";
+	public final String REVIEWS = "Reviews";
 	public final String REVIEWS_FILE = REVIEWS + ".json";
 	public final Type REVIEW_COLLECTION = new TypeToken<Collection<Review>>() {}.getType();
 	
@@ -69,28 +69,30 @@ public interface AppConstants {
 			+ "Photo varchar(100),"
 			+ "Price REAL,"
 			+ "Description varchar(100),"
-			+ "FullHtml varchar)";
+			+ "FullHtml varchar(300))";
 	public final String INSERT_BOOK_STMT = "INSERT INTO BOOK VALUES(?,?,?,?,?,?)";
 	public final String SELECT_ALL_BOOKS_STMT = "SELECT * FROM BOOK";
 	public final String SELECT_BOOK_BY_NAME_STMT = "SELECT * FROM BOOK "
 			+ "WHERE Name=?";
 	
-	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES( IdBook INT PRIMARY KEY,"
-			+ "Username varchar(10) PRIMARY KEY,"
+	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES( IdBook INT,"
+			+ "Username varchar(10),"
 			+ "isActive INT,"
-			+ "dataSet DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+			+ "dataSet DATE,"
+			+ "PRIMARY KEY (IdBook, Username))";
 	
 	public final String INSERT_LIKE_STMT = "INSERT INTO LIKE VALUES(?,?,?,?)";
 	public final String SELECT_ALL_LIKES_STMT = "SELECT * FROM LIKE";
 	public final String SELECT_LIKE_BY_NAME_STMT = "SELECT * FROM LIKE "
 			+ "WHERE Name=?";
 	
-	public final String CREATE_REVIEWS_TABLE = "CREATE TABLE REVIEWS(IdBook INT PRIMARY KEY,"
-			+ "Username varchar(10) PRIMARY KEY,"
+	public final String CREATE_REVIEWS_TABLE = "CREATE TABLE REVIEWS(IdBook INT,"
+			+ "Username varchar(10),"
 			+ "dataWritten DATE,"
 			+ "dataApproved DATE,"
 			+ "isApproved INT,"
-			+ "reviewText varchar(50))";
+			+ "reviewText varchar(50),"
+			+ "PRIMARY KEY(IdBook, Username))";
 	
 	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEW VALUES(?,?,?,?,?,?)";
 	public final String SELECT_ALL_REVIEWS_STMT = "SELECT * FROM REVIEW";
@@ -106,10 +108,11 @@ public interface AppConstants {
 	public final String SELECT_BOOKSTOUSER_BY_NAME_STMT = "SELECT * FROM BOOKSTOUSER "
 			+ "WHERE Name=?";
 	
-	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES(IdPurchased INT PRIMARY KEY,"
-			+ "IdBook INT PRIMARY KEY,"
-			+ "Username varchar(10) PRIMARY KEY,"
-			+ "DataBought DATE)";
+	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES(IdPurchased INT,"
+			+ "IdBook INT,"
+			+ "Username varchar(10),"
+			+ "DataBought DATE,"
+			+ "PRIMARY KEY(IdPurchased, IdBook, Username))";
 	
 	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASE VALUES(?,?,?,?)";
 	public final String SELECT_ALL_PURCHASES_STMT = "SELECT * FROM PURCHASE";
