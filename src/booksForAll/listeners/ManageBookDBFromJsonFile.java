@@ -61,7 +61,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     	
     	try{
     		
-    		//obtain CustomerDB data source from Tomcat's context
+    		//obtain BookDB data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(
     				cntx.getInitParameter(AppConstants.DB_DATASOURCE) + AppConstants.OPEN);
@@ -69,7 +69,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     		
     		boolean created = false;
     		try{
-    			//create Customers table
+    			//create Book table
     			Statement stmt = conn.createStatement();
     			stmt.executeUpdate(AppConstants.CREATE_BOOKS_TABLE);
     			//commit update
@@ -87,7 +87,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     		
     		//if no database exist in the past - further populate its records in the table
     		if (!created){
-    			//populate customers table with customer data from json file
+    			//populate books table with books data from json file
     			Collection<Book> books = loadBooks(cntx.getResourceAsStream(File.separator +
     														   AppConstants.BOOKS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_BOOK_STMT);
