@@ -1,24 +1,30 @@
 package booksForAll.servlets;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import booksForAll.model.Customer;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class RegistrationServlet
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet(description = "Registration servlet, responds to POST only", urlPatterns = { "/RegistrationServlet" })
+public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public RegistrationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,14 +44,14 @@ public class LogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		HttpSession mySession = request.getSession(false);
-		if (mySession != null){
-			response.getWriter().println("Already signed in");
-			response.sendError(405);
-		}
-			//mySession.invalidate();
+		Gson gson = new Gson();
+		Type custType = new TypeToken<Customer>() {}.getType();
+		
+		Customer cust = gson.fromJson(request.getParameter("input"), custType);
+		
+		response.getWriter().println(cust);
 		response.setStatus(200);
-		return;
+		
 	}
 
 }
