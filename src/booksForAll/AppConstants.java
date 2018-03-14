@@ -68,7 +68,8 @@ public interface AppConstants {
 			+ "Author varchar(100),"
 			+ "Photo varchar(100),"
 			+ "Price REAL,"
-			+ "Description varchar(100))";
+			+ "Description varchar(100),"
+			+ "FullHtml varchar)";
 	public final String INSERT_BOOK_STMT = "INSERT INTO BOOK VALUES(?,?,?,?,?,?)";
 	public final String SELECT_ALL_BOOKS_STMT = "SELECT * FROM BOOK";
 	public final String SELECT_BOOK_BY_NAME_STMT = "SELECT * FROM BOOK "
@@ -77,7 +78,7 @@ public interface AppConstants {
 	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES( IdBook INT PRIMARY KEY,"
 			+ "Username varchar(10) PRIMARY KEY,"
 			+ "isActive INT,"
-			+ "dataSet TimeStamp)";
+			+ "dataSet DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
 	
 	public final String INSERT_LIKE_STMT = "INSERT INTO LIKE VALUES(?,?,?,?)";
 	public final String SELECT_ALL_LIKES_STMT = "SELECT * FROM LIKE";
@@ -86,8 +87,8 @@ public interface AppConstants {
 	
 	public final String CREATE_REVIEWS_TABLE = "CREATE TABLE REVIEWS(IdBook INT PRIMARY KEY,"
 			+ "Username varchar(10) PRIMARY KEY,"
-			+ "dataWritten TimeStamp,"
-			+ "dataApproved TimeStamp,"
+			+ "dataWritten DATE,"
+			+ "dataApproved DATE,"
 			+ "isApproved INT,"
 			+ "reviewText varchar(50))";
 	
@@ -108,7 +109,7 @@ public interface AppConstants {
 	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES(IdPurchased INT PRIMARY KEY,"
 			+ "IdBook INT PRIMARY KEY,"
 			+ "Username varchar(10) PRIMARY KEY,"
-			+ "DataBought TimeStamp)";
+			+ "DataBought DATE)";
 	
 	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASE VALUES(?,?,?,?)";
 	public final String SELECT_ALL_PURCHASES_STMT = "SELECT * FROM PURCHASE";

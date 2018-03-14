@@ -98,6 +98,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     				pstmt.setString(4,book.getPhoto());
     				pstmt.setFloat(5,book.getPrice());
     				pstmt.setString(6,book.getDescription());
+    				pstmt.setString(7,book.getFullHtml());
     				pstmt.executeUpdate();
     			}
 
