@@ -2,7 +2,7 @@ package booksForAll.model;
 
 public class Book {
 	public Book(int idBook, String name, String author, String photo, Float price, String description, String fullHtml) {
-		super();
+		//super();
 		this.IdBook = idBook;
 		Name = name;
 		Author = author;
@@ -12,7 +12,7 @@ public class Book {
 		FullHtml = fullHtml;
 	}
 	
-	public long getIdBook() {
+	public int getIdBook() {
 		return IdBook;
 	}
 	public String getName() {
@@ -34,7 +34,7 @@ public class Book {
 		return FullHtml;
 	}
 	
-	private long IdBook;
+	private int IdBook;
 	private String Name;
 	private String Author;
 	private String Photo;

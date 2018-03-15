@@ -1,12 +1,23 @@
 package booksForAll.model;
 
-import java.sql.Timestamp;
 
 public class Like {
-	public long getIdBook() {
+	private int IdBook;
+	private String Username;
+	private boolean isActive;
+	private long dateSetTimeStamp;
+	
+	public Like(int idBook, String username, boolean isActive, long dateSetTimeStamp) {
+		super();
+		IdBook = idBook;
+		Username = username;
+		this.isActive = isActive;
+		this.dateSetTimeStamp = dateSetTimeStamp;
+	}
+	public int getIdBook() {
 		return IdBook;
 	}
-	public void setIdBook(long idBook) {
+	public void setIdBook(int idBook) {
 		IdBook = idBook;
 	}
 	public String getUsername() {
@@ -21,21 +32,10 @@ public class Like {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public Timestamp getDataSet() {
-		return dataSet;
+	public long getDateSetTimeStamp() {
+		return dateSetTimeStamp;
 	}
-	public void setDataSet(Timestamp dataSet) {
-		this.dataSet = dataSet;
+	public void setDateSetTimeStamp(long dateSetTimeStamp) {
+		this.dateSetTimeStamp = dateSetTimeStamp;
 	}
-	public Like(long idBook, String username, boolean isActive, Timestamp dataSet) {
-		super();
-		IdBook = idBook;
-		Username = username;
-		this.isActive = isActive;
-		this.dataSet = dataSet;
-	}
-	private long IdBook;
-	private String Username;
-	private boolean isActive;
-	private Timestamp dataSet;
 }

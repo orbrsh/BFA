@@ -1,13 +1,12 @@
 package booksForAll.model;
 
-import java.sql.Timestamp;
 
 public class Purchase {
-	public int getIdParchased() {
-		return IdParchased;
+	public int getIdPurchased() {
+		return IdPurchased;
 	}
-	public void setIdParchased(int idParchased) {
-		IdParchased = idParchased;
+	public void setIdPurchased(int idPurchased) {
+		IdPurchased = idPurchased;
 	}
 	public int getIdBook() {
 		return IdBook;
@@ -21,21 +20,21 @@ public class Purchase {
 	public void setUsername(String username) {
 		Username = username;
 	}
-	public Timestamp getDataBought() {
-		return DataBought;
+	public long getDateBought() {
+		return DateBought;
 	}
-	public void setDataBought(Timestamp DataBought) {
-		this.DataBought = DataBought;
+	public void setDateBought(long Databought) {
+		this.DateBought = Databought;
 	}
-	public Purchase(int idParchased, int idBook, String username, Timestamp DataBought) {
+	public Purchase(int idPurchased, int idBook, String username, long datebought) {
 		super();
-		IdParchased = idParchased;
+		IdPurchased = idPurchased;
 		IdBook = idBook;
 		Username = username;
-		this.DataBought = DataBought;
+		this.DateBought = datebought;
 	}
-	private int IdParchased;
+	private int IdPurchased;
 	private int IdBook;
 	private String Username;
-	private Timestamp DataBought;
+	private long DateBought;
 }

@@ -1,22 +1,22 @@
 [
     {
-        "UserName": "FARES",
+        "Username": "FARES",
         "Password": "Berlin",
         "Address": "Germany",
         "Nickname": "fares",
         "Description": "hahaha",
         "Photo": "image",
-        "Mail": "Email",
+        "Email": "Email1",
         "Phone": "050"
     },
     {
-        "UserName": "OR",
+        "Username": "OR",
         "Password": "Berlin",
         "Address": "Germany",
         "Nickname": "Or",
         "Description": "hahaha",
         "Photo": "image",
-        "Mail": "Email",
+        "Email": "Email2",
         "Phone": "050"
     }
 ]
