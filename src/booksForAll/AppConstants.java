@@ -75,8 +75,10 @@ public interface AppConstants {
 			+ "PRIMARY KEY (IdBooks))";
 	public final String INSERT_BOOK_STMT = "INSERT INTO BOOKS VALUES(?,?,?,?,?,?,?)";
 	public final String SELECT_ALL_BOOKS_STMT = "SELECT * FROM BOOKS";
-	public final String SELECT_BOOK_BY_NAME_STMT = "SELECT * FROM BOOKS "
-			+ "WHERE Name=?";
+	public final String SELECT_BOOK_BY_USERNAME_STMT = "SELECT * FROM BOOKS "
+			+ "WHERE username=?";
+	public final String SELECT_BOOK_BY_BOOK_ID_STMT = "SELECT * FROM BOOKS "
+			+ "WHERE bookid=?";
 	
 	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES( IdBook INT,"
 			+ "Username varchar(10),"
@@ -99,8 +101,9 @@ public interface AppConstants {
 	
 	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS VALUES(?,?,?,?,?,?)";
 	public final String SELECT_ALL_REVIEWS_STMT = "SELECT * FROM REVIEWS";
-	public final String SELECT_REVIEW_BY_NAME_STMT = "SELECT * FROM REVIEWS"
-			+ "WHERE Name=?";
+	public final String SELECT_REVIEW_BY_BOOK_ID_STMT = "SELECT * FROM REVIEWS"
+			+ "WHERE IdBook=?";
+	
 	
 	public final String CREATE_BOOKSTOUSERS_TABLE = "CREATE TABLE BOOKSTOUSERS(IdBook INT,"
 			+ "Username varchar(10),"
@@ -120,8 +123,8 @@ public interface AppConstants {
 	
 	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASES VALUES(?,?,?,?)";
 	public final String SELECT_ALL_PURCHASES_STMT = "SELECT * FROM PURCHASES";
-	public final String SELECT_PURCHASE_BY_NAME_STMT = "SELECT * FROM PURCHASES"
-			+ "WHERE Name=?";
+	public final String SELECT_PURCHASE_BY_USER_STMT = "SELECT * FROM PURCHASES"
+			+ "WHERE username=?";
 	
 }
 
