@@ -39,7 +39,7 @@ public interface AppConstants {
 	public final Type BOOKSTOUSER_COLLECTION = new TypeToken<Collection<BooksToUser>>() {}.getType();
 	
 	public final String PURCHASES = "Purchases";
-	public final String PURCHASES_FILE = BOOKSTOUSERS + ".json";
+	public final String PURCHASES_FILE = PURCHASES + ".json";
 	public final Type PURCHASE_COLLECTION = new TypeToken<Collection<Purchase>>() {}.getType();
 	
 	//derby constants

@@ -2,6 +2,18 @@ package booksForAll.model;
 
 
 public class Like {
+	private int IdBook;
+	private String Username;
+	private boolean isActive;
+	private long dateSetTimeStamp;
+	
+	public Like(int idBook, String username, boolean isActive, long dateSetTimeStamp) {
+		super();
+		IdBook = idBook;
+		Username = username;
+		this.isActive = isActive;
+		this.dateSetTimeStamp = dateSetTimeStamp;
+	}
 	public int getIdBook() {
 		return IdBook;
 	}
@@ -20,21 +32,10 @@ public class Like {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public long getDateSet() {
+	public long getDateSetTimeStamp() {
 		return dateSetTimeStamp;
 	}
-	public void setDateSet(long dateSet) {
-		this.dateSetTimeStamp = dateSet;
-	}
-	public Like(int idBook, String username, boolean isActive, long dateSetTimeStamp) {
-		super();
-		IdBook = idBook;
-		Username = username;
-		this.isActive = isActive;
+	public void setDateSetTimeStamp(long dateSetTimeStamp) {
 		this.dateSetTimeStamp = dateSetTimeStamp;
 	}
-	private int IdBook;
-	private String Username;
-	private boolean isActive;
-	private long dateSetTimeStamp;
 }

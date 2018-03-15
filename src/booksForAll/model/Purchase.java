@@ -26,12 +26,12 @@ public class Purchase {
 	public void setDateBought(long Databought) {
 		this.DateBought = Databought;
 	}
-	public Purchase(int idPurchased, int idBook, String username, long Datebought) {
+	public Purchase(int idPurchased, int idBook, String username, long datebought) {
 		super();
 		IdPurchased = idPurchased;
 		IdBook = idBook;
 		Username = username;
-		this.DateBought = Datebought;
+		this.DateBought = datebought;
 	}
 	private int IdPurchased;
 	private int IdBook;
