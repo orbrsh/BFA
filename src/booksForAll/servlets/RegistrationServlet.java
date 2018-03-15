@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -88,18 +89,51 @@ public class RegistrationServlet extends HttpServlet {
 			BasicDataSource ds = (BasicDataSource) context
 					.lookup(getServletContext().getInitParameter(AppConstants.DB_DATASOURCE) + AppConstants.OPEN);
 			Connection conn = ds.getConnection();
+			
+			// check not already registered
+			PreparedStatement stmt;
+			try {
+				stmt = conn.prepareStatement(AppConstants.SELECT_CUSTOMER_BY_NAME_EMAIL_NICK_STMT);
+				//name = name.replaceAll("\\%20", " ");
+				stmt.setString(1, cust.getUsername());
+				stmt.setString(2, cust.getMail());
+				stmt.setString(3, cust.getNickname());
+				ResultSet rs = stmt.executeQuery();
+				
+				boolean found = false;
+				
+				if (rs.next()) {
+					// duplicate found
+					found = true;
+				}
+//				while (rs.next()){
+//					//customersResult.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3)));
+//				}
+				rs.close();
+				stmt.close();
+				if (found) {
+					conn.close();
+					response.getWriter().println("user already registered");
+					response.sendError(405);
+					return;
+				}
+			} catch (SQLException e) {
+				getServletContext().log("Error while querying for customers", e);
+				response.sendError(500);// internal server error
+			}
+			
 
 			// insert row
 			try {
 				PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_CUSTOMER_STMT);
-				pstmt.setString(1, cust.getUsername());
-				pstmt.setString(2, cust.getPassword());
-				pstmt.setString(3, cust.getMail());
-				pstmt.setString(4, cust.getAddress());
-				pstmt.setString(5, cust.getPhoto());
-				pstmt.setString(6, cust.getNickname());
-				pstmt.setString(7, cust.getDescription());
-				pstmt.setInt(8, cust.getPhone());
+				pstmt.setString(1,cust.getUsername());
+				pstmt.setString(2,cust.getPassword());
+				pstmt.setString(3,cust.getAddress());
+				pstmt.setString(4,cust.getNickname());
+				pstmt.setString(5,cust.getDescription());
+				pstmt.setString(6,cust.getPhoto());
+				pstmt.setString(7, cust.getMail());
+				pstmt.setInt(8,cust.getPhone());
 				pstmt.executeUpdate();
 
 				// commit updates
@@ -107,8 +141,6 @@ public class RegistrationServlet extends HttpServlet {
 				// close statements
 				pstmt.close();
 
-				// close connection
-				conn.close();
 				HttpSession mySession = request.getSession(true);
 				mySession.setAttribute("username", cust.getUsername());
 				
@@ -116,6 +148,9 @@ public class RegistrationServlet extends HttpServlet {
 				getServletContext().log("Error while querying for customers", e);
 				response.sendError(500);// internal server error
 			}
+			
+			// close connection
+			conn.close();
 
 		} catch (SQLException | NamingException e) {
 			getServletContext().log("Error while closing connection", e);

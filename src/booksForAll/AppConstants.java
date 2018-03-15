@@ -63,7 +63,10 @@ public interface AppConstants {
 	public final String INSERT_CUSTOMER_STMT = "INSERT INTO CUSTOMER VALUES(?,?,?,?,?,?,?,?)";
 	public final String SELECT_ALL_CUSTOMERS_STMT = "SELECT * FROM CUSTOMER";
 	public final String SELECT_CUSTOMER_BY_NAME_STMT = "SELECT * FROM CUSTOMER "
-			+ "WHERE Name=?";
+			+ "WHERE Username=?";
+	public final String SELECT_CUSTOMER_BY_NAME_EMAIL_NICK_STMT = "SELECT * FROM CUSTOMER "
+			+ "WHERE Username=? OR Email=? OR Nickname=?";
+	
 	
 	public final String CREATE_BOOKS_TABLE = "CREATE TABLE BOOKS (IdBooks INT,"
 			+ "Name varchar(100),"
