@@ -1,6 +1,6 @@
 package booksForAll.model;
 
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 
 public class Review {
 	public int getIdBook() {
@@ -15,17 +15,17 @@ public class Review {
 	public void setUsername(String username) {
 		Username = username;
 	}
-	public Timestamp getDataWritten() {
-		return dataWritten;
+	public long getDateWritten() {
+		return dateWritten;
 	}
-	public void setDataWritten(Timestamp dataWritten) {
-		this.dataWritten = dataWritten;
+	public void setDateWritten(long dataWritten) {
+		this.dateWritten = dataWritten;
 	}
-	public Timestamp getDataApproved() {
-		return dataApproved;
+	public long getDateApproved() {
+		return dateApproved;
 	}
-	public void setDataApproved(Timestamp dataApproved) {
-		this.dataApproved = dataApproved;
+	public void setDateApproved(long dataApproved) {
+		this.dateApproved = dataApproved;
 	}
 	public int getIsApproved() {
 		return isApproved;
@@ -39,20 +39,20 @@ public class Review {
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
-	public Review(int idBook, String username, Timestamp dataWritten, Timestamp dataApproved, int isApproved,
+	public Review(int idBook, String username, long dateWritten, long dateApproved, int isApproved,
 			String reviewText) {
 		super();
 		IdBook = idBook;
 		Username = username;
-		this.dataWritten = dataWritten;
-		this.dataApproved = dataApproved;
+		this.dateWritten = dateWritten;
+		this.dateApproved = dateApproved;
 		this.isApproved = isApproved;
 		this.reviewText = reviewText;
 	}
 	private int IdBook;
 	private String Username;
-	private Timestamp dataWritten;
-	private Timestamp dataApproved;
+	private long dateWritten;
+	private long dateApproved;
 	private int isApproved;
 	private String reviewText;
 	

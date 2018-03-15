@@ -92,11 +92,11 @@ public class ManageReviewDB implements ServletContextListener {
     														   AppConstants.REVIEWS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_REVIEW_STMT);
     			for (Review review : reviews){
-    				pstmt.setLong(1,review.getIdBook());
+    				pstmt.setInt(1,review.getIdBook());
     				pstmt.setString(2,review.getUsername());
-    				pstmt.setTimestamp(3,review.getDataWritten());
-    				pstmt.setTimestamp(4,review.getDataApproved());
-    				pstmt.setLong(5,review.getIsApproved());
+    				pstmt.setLong(3,review.getDateWritten());
+    				pstmt.setLong(4,review.getDateApproved());
+    				pstmt.setInt(5,review.getIsApproved());
     				pstmt.setString(6,review.getReviewText());
     				pstmt.executeUpdate();
     			}

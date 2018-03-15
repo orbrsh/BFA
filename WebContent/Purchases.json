@@ -1,20 +1,20 @@
 [
     {
-        "idParchases": "2",
-        "Name": "THE IRISH CRISIS.",
- 		"Username": "FARES",
-        "DataBought": "2008-11-11 13:23:44"
+        "IdPurchased": "2",
+        "IdBook": "1",
+ 		"Username": "FARES1",
+        "DateBought": "1280296860145"
     },
     {
-    	"idParchases": "3",
-        "Name": "Home Scenes and Heart Studies",
+    	"IdPurchased": "3",
+        "IdBook": "2",
         "Username": "OR",
-        "DataBought": "2010-05-06 14:33:44"
+        "DateBought": "1280296860145"
     },
     {
-    	"idParchases": "4",
-        "Name": "On Mr. Spencer's Data of Ethics",
-        "Username": "FARES",
-        "DataBought": "2001-10-01 22:03:00"
+    	"IdPurchased": "4",
+        "IdBook": "3",
+        "Username": "FARES2",
+        "DateBought": "1280296860145"
     }
 ]

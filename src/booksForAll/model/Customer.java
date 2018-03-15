@@ -41,10 +41,10 @@ public class Customer {
 		this.Photo = photo;
 	}
 	public String getMail() {
-		return Mail;
+		return Email;
 	}
 	public void setMail(String mail) {
-		Mail = mail;
+		Email = mail;
 	}
 	public int getPhone() {
 		return Phone;
@@ -61,12 +61,12 @@ public class Customer {
 		Nickname = nickname;
 		this.Description = description;
 		this.Photo = photo;
-		Mail = mail;
+		Email = mail;
 		Phone = phone;
 		
 	}
 	
-	private String Username, Password, Address, Nickname, Description, Photo, Mail;//customer "schema"
+	private String Username, Password, Address, Nickname, Description, Photo, Email;//customer "schema"
 	private int Phone;
 	
 	

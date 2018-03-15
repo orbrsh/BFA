@@ -94,12 +94,12 @@ public class ManageCustomerDBFromJsonFile implements ServletContextListener {
     			for (Customer customer : customers){
     				pstmt.setString(1,customer.getUsername());
     				pstmt.setString(2,customer.getPassword());
-    				pstmt.setString(3, customer.getMail());
-    				pstmt.setString(4,customer.getAddress());
-    				pstmt.setLong(5,customer.getPhone());
-    				pstmt.setString(6,customer.getNickname());
-    				pstmt.setString(7,customer.getDescription());
-    				pstmt.setString(8,customer.getPhoto());
+    				pstmt.setString(3,customer.getAddress());
+    				pstmt.setString(4,customer.getNickname());
+    				pstmt.setString(5,customer.getDescription());
+    				pstmt.setString(6,customer.getPhoto());
+    				pstmt.setString(7, customer.getMail());
+    				pstmt.setInt(8,customer.getPhone());
     				pstmt.executeUpdate();
     			}
 
