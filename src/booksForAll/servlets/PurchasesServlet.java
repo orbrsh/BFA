@@ -66,7 +66,7 @@ public class PurchasesServlet extends HttpServlet {
     				stmt = conn.createStatement();
     				ResultSet rs = stmt.executeQuery(AppConstants.SELECT_ALL_PURCHASES_STMT);
     				while (rs.next()){
-    					purchasesResult.add(new Purchase(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getLong(4)));
+    					purchasesResult.add(new Purchase(rs.getInt(2),rs.getString(3),rs.getString(4),rs.getLong(5)));
     				}
     				rs.close();
     				stmt.close();

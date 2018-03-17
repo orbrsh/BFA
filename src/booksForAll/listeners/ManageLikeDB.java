@@ -92,7 +92,7 @@ public class ManageLikeDB implements ServletContextListener {
     														   AppConstants.LIKES_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_LIKE_STMT);
     			for (Like like : likes){
-    				pstmt.setInt(1,like.getIdBook());
+    				pstmt.setString(1,like.getBookName());
     				pstmt.setString(2,like.getUsername());
     				pstmt.setBoolean(3,like.isActive());
     				pstmt.setLong(4,like.getDateSetTimeStamp());

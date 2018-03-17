@@ -93,7 +93,7 @@ public class ManagePurchaseDB implements ServletContextListener {
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_PURCHASE_STMT);
     			for (Purchase purchase : purchases){
     				pstmt.setInt(1,purchase.getIdPurchased());
-    				pstmt.setInt(2,purchase.getIdBook());
+    				pstmt.setString(2,purchase.getBookName());
     				pstmt.setString(3,purchase.getUsername());
     				pstmt.setLong(4,purchase.getDateBought());
     				pstmt.executeUpdate();

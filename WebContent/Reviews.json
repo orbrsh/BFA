@@ -1,6 +1,7 @@
 [
     {
         "Username": "Fares1",
+        "BookName": "Change1",
         "IdBook": "1",
         "isApproved": "1",
         "dateWritten": "1280296860145",
@@ -9,6 +10,7 @@
     },
     {
         "Username": "Fares2",
+        "BookName": "Change2",
         "IdBook": "2",
         "isApproved": "1",
         "dateWritten": "1280296860145",
@@ -17,6 +19,7 @@
     },
     {
         "Username": "Fares3",
+        "BookName": "Change3",
         "IdBook": "3",
         "isApproved": "1",
         "dateWritten": "1280296860145",

@@ -64,12 +64,12 @@ public class UserPurchasesServlet extends HttpServlet {
     			String username = uri.substring(uri.indexOf("userPurchases") + "userPurchases".length() + 1);
     			PreparedStatement stmt;
     			try {
-    				stmt = conn.prepareStatement(AppConstants.SELECT_PURCHASE_BY_USER_STMT);
+    				stmt = conn.prepareStatement(AppConstants.SELECT_PURCHASE_BY_CUSTOMER_STMT);
     				username = username.replaceAll("\\%20", " ");
     				stmt.setString(1, username);
     				ResultSet rs = stmt.executeQuery();
     				while (rs.next()){
-    					userPurchasesResult.add(new Purchase(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getLong(4)));
+    					userPurchasesResult.add(new Purchase(rs.getInt(2),rs.getString(3),rs.getString(4),rs.getLong(5)));
     				}
     				rs.close();
     				stmt.close();
@@ -84,7 +84,7 @@ public class UserPurchasesServlet extends HttpServlet {
     				stmt = conn.createStatement();
     				ResultSet rs = stmt.executeQuery(AppConstants.SELECT_ALL_PURCHASES_STMT);
     				while (rs.next()){
-    					userPurchasesResult.add(new Purchase(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getLong(4)));
+    					userPurchasesResult.add(new Purchase(rs.getInt(2),rs.getString(3),rs.getString(4),rs.getLong(5)));
     				}
     				rs.close();
     				stmt.close();
@@ -99,7 +99,7 @@ public class UserPurchasesServlet extends HttpServlet {
     		
     		Gson gson = new Gson();
         	//convert from userPurchases collection to json
-        	String bookJsonResult = gson.toJson(booksResult, AppConstants.REVIEW_COLLECTION);
+        	String bookJsonResult = gson.toJson(userPurchasesResult, AppConstants.REVIEW_COLLECTION);
         	response.addHeader("Content-Type", "application/json");
         	PrintWriter writer = response.getWriter();
         	writer.println(bookJsonResult);

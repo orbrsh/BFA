@@ -1,5 +1,7 @@
 package booksForAll.model;
 
+import java.util.ArrayList;
+
 /**
  * A simple bean to hold data
  */
@@ -52,6 +54,12 @@ public class Customer {
 	public void setPhone(int phone) {
 		Phone = phone;
 	}
+	public ArrayList<Book> getBooks() {
+		return books;
+	}
+	public void setBooks(ArrayList<Book> books) {
+		this.books = books;
+	}
 	public Customer(String username, String password, String address, String nickname, String description, String photo,
 			String mail, int phone) {
 		super();
@@ -64,11 +72,12 @@ public class Customer {
 		Email = mail;
 		Phone = phone;
 		
+		
 	}
 	
 	private String Username, Password, Address, Nickname, Description, Photo, Email;//customer "schema"
 	private int Phone;
-	
+	private ArrayList<Book> books;
 	
 
 	

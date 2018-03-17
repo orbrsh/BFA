@@ -3,11 +3,11 @@ package booksForAll.model;
 //import java.sql.Timestamp;
 
 public class Review {
-	public int getIdBook() {
-		return IdBook;
+	public String getBookName() {
+		return BookName;
 	}
-	public void setIdBook(int idBook) {
-		IdBook = idBook;
+	public void setBookName(String bookName) {
+		BookName = bookName;
 	}
 	public String getUsername() {
 		return Username;
@@ -39,17 +39,17 @@ public class Review {
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
-	public Review(int idBook, String username, long dateWritten, long dateApproved, int isApproved,
+	public Review(String bookName, String username, long dateWritten, long dateApproved, int isApproved,
 			String reviewText) {
 		super();
-		IdBook = idBook;
+		BookName = bookName;
 		Username = username;
 		this.dateWritten = dateWritten;
 		this.dateApproved = dateApproved;
 		this.isApproved = isApproved;
 		this.reviewText = reviewText;
 	}
-	private int IdBook;
+	private String BookName;
 	private String Username;
 	private long dateWritten;
 	private long dateApproved;

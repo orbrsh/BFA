@@ -6,7 +6,10 @@
 		"Photo": "images/book1.jpg",
 		"Price": "40",
 		"Description": "des1",
-		"FullHtml": "book list/The Irish Crisis, by C. E. Trevelyan..html"
+		"FullHtml": "book list/The Irish Crisis, by C. E. Trevelyan..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "2",
@@ -15,7 +18,10 @@
 		"Photo": "images/book2.jpg",
 		"Price": "25",
 		"Description": "des2",
-		"FullHtml": "book list/Home Scenes and Heart Studies, by Grace Aguilar-A Project Gutenberg eBook.html"
+		"FullHtml": "book list/Home Scenes and Heart Studies, by Grace Aguilar-A Project Gutenberg eBook.html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "3",
@@ -24,7 +30,10 @@
 		"Photo": "images/book3.jpg",
 		"Price": "55",
 		"Description": "des3",
-		"FullHtml": "book list/An Everyday Girl—A Project Gutenberg eBook.html"
+		"FullHtml": "book list/An Everyday Girl—A Project Gutenberg eBook.html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "4",
@@ -33,7 +42,10 @@
 		"Photo": "images/book4.jpg",
 		"Price": "145",
 		"Description": "des4",
-		"FullHtml": "book list/On Mr. Spencer's Data Of Ethics, by Malcolm Guthrie..html"
+		"FullHtml": "book list/On Mr. Spencer's Data Of Ethics, by Malcolm Guthrie..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "5",
@@ -42,7 +54,10 @@
 		"Photo": "images/book5.jpg",
 		"Price": "88",
 		"Description": "des5",
-		"FullHtml": "book list/Mimi's Marriage, by Lidia Veselitskaya..html"
+		"FullHtml": "book list/Mimi's Marriage, by Lidia Veselitskaya..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "6",
@@ -51,7 +66,10 @@
 		"Photo": "images/book6.jpg",
 		"Price": "90",
 		"Description": "description6",
-		"FullHtml": "book list/Lanagan, by Edward H. Hurlbut..html"
+		"FullHtml": "book list/Lanagan, by Edward H. Hurlbut..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "7",
@@ -60,7 +78,10 @@
 		"Photo": "images/book7.jpg",
 		"Price": "130",
 		"Description": "description7",
-		"FullHtml": "book list/The Weird Adventures of Professor Delapine of the Sorbonne, by George Lindsay Johnson..html"
+		"FullHtml": "book list/The Weird Adventures of Professor Delapine of the Sorbonne, by George Lindsay Johnson..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "8",
@@ -69,7 +90,10 @@
 		"Photo": "images/book8.jpg",
 		"Price": "47",
 		"Description": "description8",
-		"FullHtml": "book list/Dick Lester of Kurrajong, by Mary Grant Bruce.html"
+		"FullHtml": "book list/Dick Lester of Kurrajong, by Mary Grant Bruce.html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "9",
@@ -78,7 +102,10 @@
 		"Photo": "images/book9.jpg",
 		"Price": "19",
 		"Description": "description9",
-		"FullHtml": "book list/Members of The Family, by Owen Wister..html"
+		"FullHtml": "book list/Members of The Family, by Owen Wister..html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	},
 	{
 		"IdBook": "10",
@@ -87,6 +114,9 @@
 		"Photo": "images/book10.jpg",
 		"Price": "29",
 		"Description": "description10",
-		"FullHtml": "Texas in the Civil War_ a Project Gutenberg eBook.html"
+		"FullHtml": "Texas in the Civil War_ a Project Gutenberg eBook.html",
+		"LikesNum": "0",
+		"Likes": "null",
+		"Reviews": "null"
 	}
 ]

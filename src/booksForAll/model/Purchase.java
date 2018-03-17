@@ -8,11 +8,11 @@ public class Purchase {
 	public void setIdPurchased(int idPurchased) {
 		IdPurchased = idPurchased;
 	}
-	public int getIdBook() {
-		return IdBook;
+	public String getBookName() {
+		return BookName;
 	}
-	public void setIdBook(int idBook) {
-		IdBook = idBook;
+	public void setBookName(String bookname) {
+		BookName = bookname;
 	}
 	public String getUsername() {
 		return Username;
@@ -26,15 +26,15 @@ public class Purchase {
 	public void setDateBought(long Databought) {
 		this.DateBought = Databought;
 	}
-	public Purchase(int idPurchased, int idBook, String username, long datebought) {
+	public Purchase(int idPurchased, String bookName, String username, long datebought) {
 		super();
 		IdPurchased = idPurchased;
-		IdBook = idBook;
+		BookName = bookName;
 		Username = username;
 		this.DateBought = datebought;
 	}
 	private int IdPurchased;
-	private int IdBook;
+	private String BookName;
 	private String Username;
 	private long DateBought;
 }

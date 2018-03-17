@@ -92,13 +92,13 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     														   AppConstants.BOOKS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_BOOK_STMT);
     			for (Book book : books){
-    				pstmt.setInt(1,book.getIdBook());
-    				pstmt.setString(2,book.getName());
-    				pstmt.setString(3,book.getAuthor());
-    				pstmt.setString(4,book.getPhoto());
-    				pstmt.setFloat(5,book.getPrice());
-    				pstmt.setString(6,book.getDescription());
-    				pstmt.setString(7,book.getFullHtml());
+    				pstmt.setString(1,book.getName());
+    				pstmt.setString(2,book.getAuthor());
+    				pstmt.setString(3,book.getPhoto());
+    				pstmt.setDouble(4,book.getPrice());
+    				pstmt.setString(5,book.getDescription());
+    				pstmt.setString(6,book.getFullHtml());
+  
     				pstmt.executeUpdate();
     			}
 

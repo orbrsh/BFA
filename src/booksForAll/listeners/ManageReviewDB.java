@@ -87,13 +87,13 @@ public class ManageReviewDB implements ServletContextListener {
     		
     		//if no database exist in the past - further populate its records in the table
     		if (!created){
-    			//populate customers table with customer data from json file
+    			//populate reviews table with review data from json file
     			Collection<Review> reviews = loadReviews(cntx.getResourceAsStream(File.separator +
     														   AppConstants.REVIEWS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_REVIEW_STMT);
     			for (Review review : reviews){
-    				pstmt.setInt(1,review.getIdBook());
-    				pstmt.setString(2,review.getUsername());
+    				pstmt.setString(1,review.getUsername());
+    				pstmt.setString(2,review.getBookName());
     				pstmt.setLong(3,review.getDateWritten());
     				pstmt.setLong(4,review.getDateApproved());
     				pstmt.setInt(5,review.getIsApproved());
@@ -139,7 +139,7 @@ public class ManageReviewDB implements ServletContextListener {
     
     
     /**
-	 * Loads likes data from json file that is read from the input stream into 
+	 * Loads reviews data from json file that is read from the input stream into 
 	 * a collection of Likes objects
 	 * @param is input stream to json file
 	 * @return collection of reviews

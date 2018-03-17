@@ -70,7 +70,7 @@ public class ReviewsServlet extends HttpServlet {
     				stmt.setString(1, bookid);
     				ResultSet rs = stmt.executeQuery();
     				while (rs.next()){
-    					reviewsResult.add(new Review(rs.getInt(1),rs.getString(2),rs.getLong(3),rs.getLong(4),rs.getInt(5),rs.getString(6)));
+    					reviewsResult.add(new Review(rs.getString(2),rs.getString(3),rs.getLong(4),rs.getLong(5),rs.getInt(6),rs.getString(7)));
     				}
     				rs.close();
     				stmt.close();
@@ -84,7 +84,7 @@ public class ReviewsServlet extends HttpServlet {
     				stmt = conn.createStatement();
     				ResultSet rs = stmt.executeQuery(AppConstants.SELECT_ALL_REVIEWS_STMT);
     				while (rs.next()){
-    					reviewsResult.add(new Review(rs.getInt(1),rs.getString(2),rs.getLong(3),rs.getLong(4),rs.getInt(5),rs.getString(6)));
+    					reviewsResult.add(new Review(rs.getString(2),rs.getString(3),rs.getLong(4),rs.getLong(5),rs.getInt(6),rs.getString(7)));
     				}
     				rs.close();
     				stmt.close();

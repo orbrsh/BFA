@@ -1,22 +1,23 @@
 package booksForAll.model;
-
+ import java.util.List;
+ 
 public class Book {
-	public Book(int idBook, String name, String author, String photo, Float price, String description, String fullHtml) {
+	public Book(String name, String author, String photo, double price, String description, String fullHtml,
+			int LikesNum, List<Like> likes, List<Review> reviews) {
 		//super();
-		this.IdBook = idBook;
-		Name = name;
+		BookName = name;
 		Author = author;
 		this.Photo = photo;
 		this.Price = price;
 		this.Description = description;
 		FullHtml = fullHtml;
+		this.LikesNum = LikesNum;
+		this.Likes = likes;
+		this.Reviews = reviews;
 	}
 	
-	public int getIdBook() {
-		return IdBook;
-	}
 	public String getName() {
-		return Name;
+		return BookName;
 	}
 	public String getAuthor() {
 		return Author;
@@ -24,7 +25,7 @@ public class Book {
 	public String getPhoto() {
 		return Photo;
 	}
-	public Float getPrice() {
+	public double getPrice() {
 		return Price;
 	}
 	public String getDescription() {
@@ -33,13 +34,33 @@ public class Book {
 	public String getFullHtml() {
 		return FullHtml;
 	}
+	public int getLikesNum() {
+		return LikesNum;
+	}
+	public void setLikesNum(int likesNum) {
+		LikesNum = likesNum;
+	}
+	public List<Like> getLikes() {
+		return Likes;
+	}
+	public void setLikes(List<Like> likeUsernames) {
+		this.Likes = likeUsernames;
+	}
+	public List<Review> getReviews() {
+		return Reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.Reviews = reviews;
+	}
 	
-	private int IdBook;
-	private String Name;
+	private String BookName;
 	private String Author;
 	private String Photo;
-	private Float Price;
+	private double Price;
 	private String Description;
 	private String FullHtml;
+	private int LikesNum;
+	private List<Like> Likes;
+	private List<Review> Reviews;
 	
 }
