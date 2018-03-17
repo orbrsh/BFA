@@ -39,12 +39,12 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		HttpSession mySession = request.getSession(false);
-		if (mySession != null){
-			response.getWriter().println("Already signed in");
-			response.sendError(405);
+		if (mySession == null){
+			response.getWriter().println("Not signed in");
+		}else {
+			mySession.invalidate();
 		}
-			//mySession.invalidate();
-		response.setStatus(200);
+		response.setStatus(200);			
 		return;
 	}
 
