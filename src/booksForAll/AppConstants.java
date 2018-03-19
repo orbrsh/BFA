@@ -54,15 +54,16 @@ public interface AppConstants {
 	
 	
 	//sql statements
-	public final String CREATE_CUSTOMERS_TABLE = "CREATE TABLE CUSTOMER (Username varchar(10),"
-			+ "Password varchar(8),"
-			+ "Address varchar(50),"
-			+ "Nickname varchar(20),"
-			+ "Description varchar(50),"
-			+ "Photo varchar(600),"
-			+ "Email varchar(100),"
-			+ "Phone varchar(10),"
-			+ "NOT NULL (Username,Password,Address,Nickname,Description,Photo,Email,Phone)";
+	public final String CREATE_CUSTOMERS_TABLE = "CREATE TABLE CUSTOMER ("
+			+ "Username varchar(10) NOT NULL,"
+			+ "Password varchar(8) NOT NULL,"
+			+ "Address varchar(50) NOT NULL,"
+			+ "Nickname varchar(20) NOT NULL,"
+			+ "Description varchar(50) NOT NULL,"
+			+ "Photo varchar(600) NOT NULL,"
+			+ "Email varchar(100) NOT NULL,"
+			+ "Phone varchar(10) NOT NULL,)";
+		//	+ "NOT NULL (Username,Password,Address,Nickname,Description,Photo,Email,Phone)";
 		//	+ "PRIMARY KEY (Username),"
 		//	+ "UNIQUE (Email,Nickname))";
 	public final String INSERT_CUSTOMER_STMT = "INSERT INTO CUSTOMER VALUES(?,?,?,?,?,?,?,?)";
@@ -71,27 +72,30 @@ public interface AppConstants {
 			+ "WHERE Username=?";
 	public final String DELETE_CUSTOMER_STMT = "DELETE FROM CUSTOMER WHERE USERNAME=?";
 	public final String SELECT_CUSTOMER_BY_NAME_PASS_STMT = "SELECT * FROM CUSTOMER "
-			+ "WHERE Username=? AND PASSWORD=?";
+			+ "WHERE Username=? AND Password=?";
 	
 	
 	
 	
 	
-	public final String CREATE_BOOKS_TABLE = "CREATE TABLE BOOKS (IdBooks INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+	public final String CREATE_BOOKS_TABLE = "CREATE TABLE BOOKS ("
+			+ "BookId INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 			+ "BookName varchar(100) NOT NULL"
 			+ "Author varchar(100) NOT NULL,"
 			+ "Photo varchar(100) NOT NULL,"
-			+ "Price REAL NOT NULL,"
+			+ "Price DOUBLE NOT NULL,"
 			+ "Description varchar(600) NOT NULL,"
-			+ "FullHtml varchar(300) NOT NULL,";
+			+ "FullHtml varchar(300) NOT NULL,)";
 		//	+ "PRIMARY KEY (IdBooks))";
 	public final String INSERT_BOOK_STMT = "INSERT INTO BOOKS (?,?,?,?,?,?)";
 	public final String SELECT_ALL_BOOKS_STMT = "SELECT * FROM BOOKS";
-	public final String SELECT_BOOK_BY_USERNAME_STMT = "SELECT * FROM BOOKS "
-			+ "WHERE username=?";
+	public final String SELECT_BOOK_BY_BOOK_NAME_STMT = "SELECT * FROM BOOKS "
+			+ "WHERE BookName=?";
+//	public final String SELECT_BOOK_BY_USERNAME_STMT = "SELECT * FROM BOOKS "
+//			+ "WHERE username=?";
 	public final String SELECT_BOOK_BY_BOOK_ID_STMT = "SELECT * FROM BOOKS "
-			+ "WHERE bookid=?";
-	public final String DELETE_BOOK_BY_CUSTOMER_STMT = "DELETE FROM BOOKS WHERE Name=?";
+			+ "WHERE BookId=?";
+	public final String DELETE_BOOK_BY_CUSTOMER_STMT = "DELETE FROM BOOKS WHERE BookName=?";
 	public final String SELECT_BOOK_BY_AUTHOR_STMT = "SELECT * FROM BOOKS "
 			+ "WHERE Author=?";
 	
@@ -99,41 +103,45 @@ public interface AppConstants {
 	
 	
 	
-	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES (IdBook INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+	public final String CREATE_LIKES_TABLE = "CREATE TABLE LIKES ("
+			+ "BookId INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 			+ "BookName varchar(100) NOT NULL,"
 			+ "Username varchar(10) NOT NULL,"
 			+ "isActive Boolean NOT NULL,"
-			+ "dateSetTimeStamp BIGINT, NOT NULL";
+			+ "dateSetTimeStamp BIGINT, NOT NULL)";
 		//	+ "PRIMARY KEY (IdBook, Username))";
 	public final String INSERT_LIKE_STMT = "INSERT INTO LIKES (?,?,?,?)";
 	public final String SELECT_ALL_LIKES_STMT = "SELECT * FROM LIKES";
 	public final String SELECT_LIKE_BY_BOOK_ID_STMT = "SELECT * FROM LIKES"
-			+ "WHERE IdBook=?";
-	public final String SELECT_LIKES_BY_USER_STMT = "SELECT * FROM LIKES "
+			+ "WHERE BookId=?";
+	public final String SELECT_LIKE_BY_BOOK_NAME_STMT = "SELECT * FROM LIKES"
+			+ "WHERE BookName=?";
+	public final String SELECT_LIKES_BY_CUSTOMER_STMT = "SELECT * FROM LIKES "
 			+ "WHERE Username=?";
 	public final String DELETE_LIKE_BY_CUSTOMER_STMT = "DELETE FROM LIKES WHERE Username=?";
-	public final String DELETE_LIKE_BY_NAME_STMT = "DELETE FROM LIKES WHERE Name=?";
+	public final String DELETE_LIKE_BY_BOOK_NAME_STMT = "DELETE FROM LIKES WHERE BookName=?";
 	
 	public final String SELECT_LIKES_BY_CUSTOMER_AND_BOOK_NAME_STMT = "SELECT * FROM LIKES "
-			+ "WHERE Username=? AND Name=?";
-	public final String DELETE_LIKE_BY_CUSTOMER_AND_BOOK_NAME_STMT = "DELETE FROM LIKES WHERE Username=? AND Name=?";
+			+ "WHERE Username=? AND BookName=?";
+	public final String DELETE_LIKE_BY_CUSTOMER_AND_BOOK_NAME_STMT = "DELETE FROM LIKES WHERE Username=? AND BookName=?";
 	
 	
 	
 	
 	
-	public final String CREATE_REVIEWS_TABLE = "CREATE TABLE REVIEWS (IdBook INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-			+ "BookName varchar(100) NOT NUL,"
+	public final String CREATE_REVIEWS_TABLE = "CREATE TABLE REVIEWS ("
+			+ "ReviewId INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+			+ "BookName varchar(100) NOT NULL,"
 			+ "Username varchar(10) NOT NULL,"
-			+ "dateWritten BIGINT, NOT NULL" //TODO: do we need it ?
+	//		+ "dateWritten BIGINT, NOT NULL" //TODO: do we need it ?
 			+ "dateApproved BIGINT, NOT NULL"
 			+ "isApproved INT, NOT NULL"
-			+ "reviewText varchar(600), NOT NULL";
+			+ "reviewText varchar(600), NOT NULL)";
 		//	+ "PRIMARY KEY(IdBook, Username))";
-	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (?,?,?,?,?,?)";
+	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (?,?,?,?,?)";
 	public final String SELECT_ALL_REVIEWS_STMT = "SELECT * FROM REVIEWS";
-	public final String SELECT_REVIEW_BY_BOOK_ID_STMT = "SELECT * FROM REVIEWS"
-			+ "WHERE IdBook=?";
+	public final String SELECT_REVIEW_BY_REVIEW_ID_STMT = "SELECT * FROM REVIEWS"
+			+ "WHERE ReviewId=?";
 	//public final String SELECT_REVIEWS_BY_COSTUMER_STMT = "SELECT FROM REVIEWS WHERE Username=?";	
 	public final String SELECT_ALL_APPROVED_REVIEWS_STMT = "SELECT * FROM REVIEWS WHERE isApproved=1";
 	public final String SELECT_ALL_UNAPPROVED_REVIEWS_STMT = "SELECT * FROM REVIEWS WHERE isApproved=0";
@@ -143,40 +151,41 @@ public interface AppConstants {
 	public final String SELECT_REVIEWS_BY_CUSTOMER_STMT = "SELECT * FROM REVIEWS "
 			+ "WHERE (Username=? AND isApproved=1)";
 	
-	public final String DELETE_REVIEWS_BY_USER_STMT = "DELETE FROM REVIEWS WHERE Username=?";
+	public final String DELETE_REVIEWS_BY_CUSTOMER_STMT = "DELETE FROM REVIEWS WHERE Username=?";
 	
-	public final String DELETE_REVIEWS_BY_ID_STMT = "DELETE FROM REVIEWS WHERE IdBook=?";
-	public final String UPDATE_REVIEWS_APPROVE = "UPDATE REVIEWS SET isApproved=1 WHERE IdBook=?";
-	
-	
+	public final String DELETE_REVIEWS_BY_ID_STMT = "DELETE FROM REVIEWS WHERE BookId=?";
+	public final String UPDATE_REVIEWS_APPROVE = "UPDATE REVIEWS SET isApproved=1 WHERE BookId=?";
 	
 	
 	
 	
-	public final String CREATE_BOOKSTOUSERS_TABLE = "CREATE TABLE BOOKSTOUSERS(IdBook INT,"
+	
+	
+	public final String CREATE_BOOKSTOUSERS_TABLE = "CREATE TABLE BOOKSTOUSERS("
+			+ "BookId INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 			+ "Username varchar(10),"
-			+ "Review varchar(50),"
-			+ "PRIMARY KEY (IdBook))";
+			+ "Review varchar(50)),";
 	
-	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS VALUES(?,?,?)";
+	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS VALUES(?,?)";
 	public final String SELECT_ALL_BOOKSTOUSERS_STMT = "SELECT * FROM BOOKSTOUSERS";
 	public final String SELECT_BOOKSTOUSER_BY_NAME_STMT = "SELECT * FROM BOOKSTOUSERS"
-			+ "WHERE Name=?";
+			+ "WHERE Username=?";
 	
 	
 	
 	
-	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES( IdBook INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-			+ "IdPurchased INT, NOT NULL"
+	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES ("
+			+ "BookId INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 			+ "BookName varchar(100) NOT NULL,"
 			+ "Username varchar(10) NOT NULL,"
-			+ "DateBought BIGINT NOT NULL,";
+			+ "TimeBought Timestamp NOT NULL,"
+			+ "Price DOUBLE NOT NULL,)";
 		//	+ "PRIMARY KEY(IdPurchased, BookName, Username))";
 	
 	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASES VALUES(?,?,?,?)";
 	public final String SELECT_ALL_PURCHASES_STMT = "SELECT * FROM PURCHASES";
 	public final String SELECT_PURCHASE_BY_CUSTOMER_STMT = "SELECT * FROM PURCHASES"
-			+ "WHERE username=?";
+			+ "WHERE Username=?";
 	
 	
 	public final String DELETE_PURCHASES_BY_CUSTOMER_STMT = "DELETE FROM PURCHASES WHERE Username=?";

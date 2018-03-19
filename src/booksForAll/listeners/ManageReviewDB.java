@@ -61,7 +61,7 @@ public class ManageReviewDB implements ServletContextListener {
     	
     	try{
     		
-    		//obtain ReviewDB data source from Tomcat's context
+    		//obtain DB data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(
     				cntx.getInitParameter(AppConstants.DB_DATASOURCE) + AppConstants.OPEN);
@@ -92,10 +92,11 @@ public class ManageReviewDB implements ServletContextListener {
     														   AppConstants.REVIEWS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_REVIEW_STMT);
     			for (Review review : reviews){
-    				pstmt.setString(1,review.getUsername());
-    				pstmt.setString(2,review.getBookName());
-    				pstmt.setLong(3,review.getDateWritten());
-    				pstmt.setLong(4,review.getDateApproved());
+    				pstmt.setInt(1,review.getId());
+    				pstmt.setString(2,review.getUsername());
+    				pstmt.setString(3,review.getBookName());
+    			//	pstmt.setLong(3,review.getDateWritten());
+    				pstmt.setTimestamp(4,review.getDateApproved());
     				pstmt.setInt(5,review.getIsApproved());
     				pstmt.setString(6,review.getReviewText());
     				pstmt.executeUpdate();

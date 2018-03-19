@@ -39,11 +39,8 @@ import booksForAll.model.Review;
  */
 @WebServlet(
 		description = "Servlet to provide details about likes", 
-		urlPatterns = "/likes", 
-		initParams = {
-						@WebInitParam(name = "Username", value = ""),
-						@WebInitParam(name = "BookName", value = "")
-				})
+		urlPatterns = "/likes"
+)
 		
 public class LikesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -116,17 +113,17 @@ public class LikesServlet extends HttpServlet {
     						if(rs.next()) {
     							book = new Book(rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),
     									rs.getString(6), rs.getString(7), 0, null, null);
-    							stmt = conn.prepareStatement(AppConstants.SELECT_LIKE_BY_BOOK_ID_STMT);
+    							stmt = conn.prepareStatement(AppConstants.SELECT_LIKE_BY_BOOK_NAME_STMT);
     							stmt.setString(1, bookname);
     							rs = stmt.executeQuery();
     							while (rs.next()){
     								likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getLong(5)));
     							}
-    							stmt = conn.prepareStatement(AppConstants.SELECT_REVIEW_BY_BOOK_ID_STMT);
+    							stmt = conn.prepareStatement(AppConstants.SELECT_REVIEWS_BY_BOOK_NAME_STMT);
     							stmt.setString(1, bookname);
     							rs = stmt.executeQuery();
     							while (rs.next()){
-    								reviews.add(new Review(rs.getString(2),rs.getString(3),rs.getLong(4),rs.getLong(5),rs.getInt(6),rs.getString(7)));
+    								reviews.add(new Review(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getTimestamp(4),rs.getInt(5),rs.getString(6)));
     							}
     							rs.close();
     							book.setLikes(likes);

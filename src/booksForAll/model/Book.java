@@ -6,7 +6,7 @@ public class Book {
 			int LikesNum, List<Like> likes, List<Review> reviews) {
 		//super();
 		BookName = name;
-		Author = author;
+		this.Author = author;
 		this.Photo = photo;
 		this.Price = price;
 		this.Description = description;
@@ -16,8 +16,26 @@ public class Book {
 		this.Reviews = reviews;
 	}
 	
-	public String getName() {
+	public String getBookName() {
 		return BookName;
+	}
+	public void setBookName(String bookName) {
+		BookName = bookName;
+	}
+	public void setAuthor(String author) {
+		Author = author;
+	}
+	public void setPhoto(String photo) {
+		Photo = photo;
+	}
+	public void setPrice(double price) {
+		Price = price;
+	}
+	public void setDescription(String description) {
+		Description = description;
+	}
+	public void setFullHtml(String fullHtml) {
+		FullHtml = fullHtml;
 	}
 	public String getAuthor() {
 		return Author;

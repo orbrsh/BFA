@@ -48,10 +48,10 @@ public class Customer {
 	public void setMail(String mail) {
 		Email = mail;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return Phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		Phone = phone;
 	}
 	public ArrayList<Book> getBooks() {
@@ -61,7 +61,7 @@ public class Customer {
 		this.books = books;
 	}
 	public Customer(String username, String password, String address, String nickname, String description, String photo,
-			String mail, int phone) {
+			String mail, String phone) {
 		super();
 		Username = username;
 		Password = password;
@@ -76,7 +76,7 @@ public class Customer {
 	}
 	
 	private String Username, Password, Address, Nickname, Description, Photo, Email;//customer "schema"
-	private int Phone;
+	private String Phone;
 	private ArrayList<Book> books;
 	
 

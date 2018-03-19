@@ -93,6 +93,50 @@ function clickCounter() {
         document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
     }
 }
+
+$("#logoutButton").click(function(event){
+	
+	var form_data=$("#logoutForm").serializeArray(); 
+	var has_error=false;
+	
+	
+	// if has_error show alert error message
+	if (has_error){
+		$('.alertUserInvalid').show(1000);
+		event.preventDefault(); // prevent form from signout
+	}
+	else{
+		//Make AJAX call with server
+		
+		$('.alertUserInvalid').hide();
+	//	var user = new Object();
+	//    user.Username = $('#username').val();
+	//    user.Password = $('#password').val();
+    
+	    $.ajax({
+	        url: "/BooksForAll/user/LogoutUser",
+	        type: 'POST',
+	        dataType: 'json',
+	        data: JSON.stringify(user),
+	        contentType: "application/json; charset=utf-8"
+	    	})
+			
+	    	.done(function (data) {
+	    		if(data.result == "success"){
+	    			// send user to booksforall after hiding the error message
+	    			$('.alertUserInvalid').hide();
+					//console.log("success");
+					window.location.pathname = "index.html";
+	    		}
+	    		//if result not success show error message
+		        	else{ $('.alertUserInvalid').show(1000); console.log("Invalid"); }
+	    	 })
+	    	 .fail( function (data) {
+	    		 console.log(data);
+	    	 });
+	    	
+	}
+});
 </script>
 
 </head>

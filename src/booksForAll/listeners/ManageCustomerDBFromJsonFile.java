@@ -99,7 +99,7 @@ public class ManageCustomerDBFromJsonFile implements ServletContextListener {
     				pstmt.setString(5,customer.getDescription());
     				pstmt.setString(6,customer.getPhoto());
     				pstmt.setString(7, customer.getMail());
-    				pstmt.setInt(8,customer.getPhone());
+    				pstmt.setString(8,customer.getPhone());
     				pstmt.executeUpdate();
     			}
 

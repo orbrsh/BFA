@@ -1,16 +1,13 @@
 [
     {
-        "IdBook": "1",
         "Username": "FARES1",
         "Review": "add review"
     },
     {
-        "IdBook": "2",
         "Username": "OR",
         "Review": "add review"
     },
     {
-        "IdBook": "3",
         "Username": "FARES2",
         "Review": "add review"
     }

@@ -1,12 +1,6 @@
 package booksForAll.model;
 
 public class BooksToUser {
-	public int getIdBook() {
-		return IdBook;
-	}
-	public void setIdBook(int idBook) {
-		IdBook = idBook;
-	}
 	public String getUsername() {
 		return Username;
 	}
@@ -19,13 +13,11 @@ public class BooksToUser {
 	public void setReview(String review) {
 		Review = review;
 	}
-	public BooksToUser(int idBook, String username, String review) {
+	public BooksToUser(String username, String review) {
 		super();
-		IdBook = idBook;
 		Username = username;
 		Review = review;
 	}
-	private int IdBook;
 	private String Username;
 	private String Review;
 }

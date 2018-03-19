@@ -149,26 +149,26 @@ public class CustomersServlet extends HttpServlet {
 				stmt = conn.prepareStatement(AppConstants.SELECT_ALL_LIKES_STMT);
 				rs = stmt.executeQuery();
 				while (rs.next()){
-					likes.add(new Like(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getLong(5)));
+					likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getLong(5)));
 				}
 				stmt = conn.prepareStatement(AppConstants.SELECT_ALL_APPROVED_REVIEWS_STMT);
 				rs = stmt.executeQuery();
 				while (rs.next()){
-					reviews.add(new Review(rs.getString(2),rs.getString(3),rs.getLong(4),rs.getLong(5),rs.getInt(6),rs.getString(7)));
+					reviews.add(new Review(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getTimestamp(4),rs.getInt(5),rs.getString(6)));
 				}
 				
 				//Match likes and reviews 
 				for(Book book : books) {
 					List<Like> bookLikes = new ArrayList<Like>();
 					for(Like like : likes) {
-						if(book.getName().compareTo((like.getBookName())) > 0) {
+						if(book.getBookName().compareTo((like.getBookName())) > 0) {
 							bookLikes.add(like);
 						}
 					}
 					book.setLikes(bookLikes);
 					List<Review> bookReviews = new ArrayList<Review>();
 					for(Review review : reviews) {
-						if(book.getName().compareTo((review.getBookName())) > 0) {
+						if(book.getBookName().compareTo((review.getBookName())) > 0) {
 							bookReviews.add(review);
 						}
 					}
@@ -183,7 +183,7 @@ public class CustomersServlet extends HttpServlet {
 				stmt = conn.prepareStatement(AppConstants.SELECT_ALL_CUSTOMERS_STMT);
 				rs = stmt.executeQuery();
 				while (rs.next()){
-					customers.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+					customers.add(new Customer(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)));
 				}
 				if(customers.isEmpty()) {
 					result = "No Users";
@@ -236,7 +236,7 @@ public class CustomersServlet extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				for(Book book : books) {
-					if(rs.getString(3).equals(book.getName())) {
+					if(rs.getString(3).equals(book.getBookName())) {
 						userBooks.add(book);
 					}
 				}

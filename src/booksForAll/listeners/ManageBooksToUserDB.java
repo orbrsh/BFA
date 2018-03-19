@@ -92,9 +92,8 @@ public class ManageBooksToUserDB implements ServletContextListener {
     														   AppConstants.BOOKSTOUSERS_FILE));
     			PreparedStatement pstmt = conn.prepareStatement(AppConstants.INSERT_BOOKSTOUSER_STMT);
     			for (BooksToUser book : booksToUsers){
-    				pstmt.setInt(1,book.getIdBook());
-    				pstmt.setString(2,book.getUsername());
-    				pstmt.setString(3,book.getReview());
+    				pstmt.setString(1,book.getUsername());
+    				pstmt.setString(2,book.getReview());
     				pstmt.executeUpdate();
     			}
 

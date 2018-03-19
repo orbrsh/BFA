@@ -1,7 +1,6 @@
 [
 	{
-		"IdBook": "1",
-		"Name": "THE IRISH CRISIS.",
+		"BookName": "THE IRISH CRISIS.",
 		"Author": "C. E. Trevelyan",
 		"Photo": "images/book1.jpg",
 		"Price": "40",
@@ -12,8 +11,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "2",
-		"Name": "Home Scenes and Heart Studies",
+		"BookName": "Home Scenes and Heart Studies",
 		"Author": "Grace Aguilar",
 		"Photo": "images/book2.jpg",
 		"Price": "25",
@@ -24,8 +22,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "3",
-		"Name": "An Everyday Girl A Story",
+		"BookName": "An Everyday Girl A Story",
 		"Author": "Amy E. Blanchard",
 		"Photo": "images/book3.jpg",
 		"Price": "55",
@@ -36,8 +33,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "4",
-		"Name": "On Mr. Spencer's Data of Ethics",
+		"BookName": "On Mr. Spencer's Data of Ethics",
 		"Author": "Malcolm Guthrie",
 		"Photo": "images/book4.jpg",
 		"Price": "145",
@@ -48,8 +44,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "5",
-		"Name": "Mimi's Marriage",
+		"BookName": "Mimi's Marriage",
 		"Author": "Lidia Ivanovna Veselitskaya",
 		"Photo": "images/book5.jpg",
 		"Price": "88",
@@ -60,8 +55,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "6",
-		"Name": "Lanagan Amateur Detective",
+		"BookName": "Lanagan Amateur Detective",
 		"Author": "Edward H. Hurlbut",
 		"Photo": "images/book6.jpg",
 		"Price": "90",
@@ -72,8 +66,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "7",
-		"Name": "The Weird Adventures of Professor Delapine of the Sorbonne",
+		"BookName": "The Weird Adventures of Professor Delapine of the Sorbonne",
 		"Author": "George Lindsay Johnson",
 		"Photo": "images/book7.jpg",
 		"Price": "130",
@@ -84,8 +77,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "8",
-		"Name": "Dick Lester of Kurrajong",
+		"BookName": "Dick Lester of Kurrajong",
 		"Author": "Mary Grant Bruce",
 		"Photo": "images/book8.jpg",
 		"Price": "47",
@@ -96,8 +88,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "9",
-		"Name": "Members of the Family",
+		"BookName": "Members of the Family",
 		"Author": "Owen Wister",
 		"Photo": "images/book9.jpg",
 		"Price": "19",
@@ -108,8 +99,7 @@
 		"Reviews": "null"
 	},
 	{
-		"IdBook": "10",
-		"Name": "Texas in the Civil War A Resume History",
+		"BookName": "Texas in the Civil War A Resume History",
 		"Author": "Allan C. Ashcroft",
 		"Photo": "images/book10.jpg",
 		"Price": "29",

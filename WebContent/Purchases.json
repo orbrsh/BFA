@@ -1,20 +1,20 @@
 [
     {
-        "IdPurchased": "2",
-        "IdBook": "1",
+        "Bookname": "book1",
  		"Username": "FARES1",
-        "DateBought": "1280296860145"
+        "TimeBought": "1280296860145",
+        "Price": "1.0"
     },
     {
-    	"IdPurchased": "3",
-        "IdBook": "2",
+        "Bookname": "book2",
         "Username": "OR",
-        "DateBought": "1280296860145"
+        "TimeBought": "1280296860145",
+        "Price": "2.0"
     },
     {
-    	"IdPurchased": "4",
-        "IdBook": "3",
+        "Bookname": "book3",
         "Username": "FARES2",
-        "DateBought": "1280296860145"
+        "TimeBought": "1280296860145",
+        "Price": "3.0"
     }
 ]

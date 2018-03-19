@@ -1,19 +1,19 @@
 [
     {
+        "Bookname": "1",
         "Username": "Fares1",
-        "IdBook": "1",
         "isActive": "true",
         "dateSetTimeStamp": "1280296860145"
     },
     {
+		"Bookname": "1",
         "Username": "Fares2",
-        "IdBook": "2",
         "isActive": "true",
         "dateSetTimeStamp": "1280296860145"
     },
     {
+        "Bookname": "1",
         "Username": "Fares3",
-        "IdBook": "3",
         "isActive": "true",
         "dateSetTimeStamp": "1280296860145"
     }
