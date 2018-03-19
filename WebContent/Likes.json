@@ -1,20 +1,17 @@
 [
     {
-        "Username": "Fares1",
         "IdBook": "1",
-        "isActive": "true",
+        "Username": "Fares",
         "dateSetTimeStamp": "1280296860145"
     },
     {
-        "Username": "Fares2",
         "IdBook": "2",
-        "isActive": "true",
+        "Username": "Fares",
         "dateSetTimeStamp": "1280296860145"
     },
     {
-        "Username": "Fares3",
         "IdBook": "3",
-        "isActive": "true",
+        "Username": "OR",
         "dateSetTimeStamp": "1280296860145"
     }
 ]

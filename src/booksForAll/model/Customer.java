@@ -66,7 +66,13 @@ public class Customer {
 		
 	}
 	
-	private String Username, Password, Address, Nickname, Description, Photo, Email;//customer "schema"
+	private String Username;
+	private String Password;
+	private String Address;
+	private String Nickname;
+	private String Description;
+	private String Photo;
+	private String Email;
 	private int Phone;
 	
 	
