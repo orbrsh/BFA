@@ -2,10 +2,10 @@
 	{
 		"BookName": "THE IRISH CRISIS.",
 		"Author": "C. E. Trevelyan",
-		"Photo": "images/book1.jpg",
+		"Photo": "image1",
 		"Price": "40",
 		"Description": "des1",
-		"FullHtml": "book list/The Irish Crisis, by C. E. Trevelyan..html",
+		"FullHtml": "The Irish Crisis, by C. E. Trevelyan..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -13,10 +13,10 @@
 	{
 		"BookName": "Home Scenes and Heart Studies",
 		"Author": "Grace Aguilar",
-		"Photo": "images/book2.jpg",
+		"Photo": "images2",
 		"Price": "25",
 		"Description": "des2",
-		"FullHtml": "book list/Home Scenes and Heart Studies, by Grace Aguilar-A Project Gutenberg eBook.html",
+		"FullHtml": "Home Scenes and Heart Studies, by Grace Aguilar-A Project Gutenberg eBook.html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -24,10 +24,10 @@
 	{
 		"BookName": "An Everyday Girl A Story",
 		"Author": "Amy E. Blanchard",
-		"Photo": "images/book3.jpg",
+		"Photo": "image3",
 		"Price": "55",
 		"Description": "des3",
-		"FullHtml": "book list/An Everyday Girl—A Project Gutenberg eBook.html",
+		"FullHtml": "An Everyday Girl—A Project Gutenberg eBook.html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -35,10 +35,10 @@
 	{
 		"BookName": "On Mr. Spencer's Data of Ethics",
 		"Author": "Malcolm Guthrie",
-		"Photo": "images/book4.jpg",
+		"Photo": "image4",
 		"Price": "145",
 		"Description": "des4",
-		"FullHtml": "book list/On Mr. Spencer's Data Of Ethics, by Malcolm Guthrie..html",
+		"FullHtml": "On Mr. Spencer's Data Of Ethics, by Malcolm Guthrie..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -46,10 +46,10 @@
 	{
 		"BookName": "Mimi's Marriage",
 		"Author": "Lidia Ivanovna Veselitskaya",
-		"Photo": "images/book5.jpg",
+		"Photo": "image5",
 		"Price": "88",
 		"Description": "des5",
-		"FullHtml": "book list/Mimi's Marriage, by Lidia Veselitskaya..html",
+		"FullHtml": "Mimi's Marriage, by Lidia Veselitskaya..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -57,10 +57,10 @@
 	{
 		"BookName": "Lanagan Amateur Detective",
 		"Author": "Edward H. Hurlbut",
-		"Photo": "images/book6.jpg",
+		"Photo": "image6",
 		"Price": "90",
 		"Description": "description6",
-		"FullHtml": "book list/Lanagan, by Edward H. Hurlbut..html",
+		"FullHtml": "Lanagan, by Edward H. Hurlbut..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -68,10 +68,10 @@
 	{
 		"BookName": "The Weird Adventures of Professor Delapine of the Sorbonne",
 		"Author": "George Lindsay Johnson",
-		"Photo": "images/book7.jpg",
+		"Photo": "image7",
 		"Price": "130",
 		"Description": "description7",
-		"FullHtml": "book list/The Weird Adventures of Professor Delapine of the Sorbonne, by George Lindsay Johnson..html",
+		"FullHtml": "The Weird Adventures of Professor Delapine of the Sorbonne, by George Lindsay Johnson..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -79,10 +79,10 @@
 	{
 		"BookName": "Dick Lester of Kurrajong",
 		"Author": "Mary Grant Bruce",
-		"Photo": "images/book8.jpg",
+		"Photo": "image8",
 		"Price": "47",
 		"Description": "description8",
-		"FullHtml": "book list/Dick Lester of Kurrajong, by Mary Grant Bruce.html",
+		"FullHtml": "Dick Lester of Kurrajong, by Mary Grant Bruce.html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -90,10 +90,10 @@
 	{
 		"BookName": "Members of the Family",
 		"Author": "Owen Wister",
-		"Photo": "images/book9.jpg",
+		"Photo": "image9",
 		"Price": "19",
 		"Description": "description9",
-		"FullHtml": "book list/Members of The Family, by Owen Wister..html",
+		"FullHtml": "Members of The Family, by Owen Wister..html",
 		"LikesNum": "0",
 		"Likes": "null",
 		"Reviews": "null"
@@ -101,7 +101,7 @@
 	{
 		"BookName": "Texas in the Civil War A Resume History",
 		"Author": "Allan C. Ashcroft",
-		"Photo": "images/book10.jpg",
+		"Photo": "image10",
 		"Price": "29",
 		"Description": "description10",
 		"FullHtml": "Texas in the Civil War_ a Project Gutenberg eBook.html",

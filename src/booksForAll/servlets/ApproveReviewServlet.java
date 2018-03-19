@@ -32,7 +32,7 @@ import booksForAll.AppConstants;
 		urlPatterns = "/ApproveReviewServlet"
 )
 	
-	//This class is user to approved a certain review by its ID.
+	//This class is user to approved a certain review by ReviewId.
 	public class ApproveReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

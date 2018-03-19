@@ -73,7 +73,7 @@ public class AllUnapprovedReviewsServlet extends HttpServlet {
 					reviews.add(new Review(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getTimestamp(4),rs.getInt(5),rs.getString(6)));
 				}
 				if(reviews.isEmpty()) {
-					result = "No New Comments";
+					result = "No New Reviews";
 		    		JsonObject json = new JsonObject();
 		    		json.addProperty("Result", result);
 					response.getWriter().println(json.toString());

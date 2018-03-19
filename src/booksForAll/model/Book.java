@@ -10,7 +10,7 @@ public class Book {
 		this.Photo = photo;
 		this.Price = price;
 		this.Description = description;
-		FullHtml = fullHtml;
+		this.FullHtml = fullHtml;
 		this.LikesNum = LikesNum;
 		this.Likes = likes;
 		this.Reviews = reviews;

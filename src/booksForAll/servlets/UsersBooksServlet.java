@@ -159,7 +159,7 @@ public class UsersBooksServlet extends HttpServlet {
 				result = "Success";
 				while (rs.next()){
 					stmt = conn.prepareStatement(AppConstants.SELECT_BOOK_BY_BOOK_NAME_STMT);
-					stmt.setString(1, rs.getString(3));
+					stmt.setString(1, rs.getString(1));
 					ResultSet resSet = stmt.executeQuery(); 
 					if(resSet.next()) {
 						books.add(new Book(rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),

@@ -30,7 +30,7 @@ import booksForAll.model.Book;
 
 
 /**
- * An booksForAll listener that reads the customer json file and populates the data into a Derby database
+ * An booksForAll listener that reads the book json file and populates the data into a Derby database
  */
 @WebListener
 public class ManageBookDBFromJsonFile implements ServletContextListener {
@@ -42,7 +42,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
         // TODO Auto-generated constructor stub
     }
     
-    //utility that checks whether the customer tables already exists
+    //utility that checks whether the tables already exists
     private boolean tableAlreadyExists(SQLException e) {
         boolean exists;
         if(e.getSQLState().equals("X0Y32")) {
@@ -61,7 +61,7 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     	
     	try{
     		
-    		//obtain BookDB data source from Tomcat's context
+    		//obtain DB data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(
     				cntx.getInitParameter(AppConstants.DB_DATASOURCE) + AppConstants.OPEN);

@@ -35,7 +35,7 @@ import booksForAll.model.Like;
  * Servlet implementation class BooksServlet1
  */
 @WebServlet(
-		description = "Servlet to provide details about all books", 
+		description = "Servlet to browse all available ebooks", 
 		urlPatterns = { 
 				"/allbooks", 
 		

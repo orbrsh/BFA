@@ -35,7 +35,7 @@ import booksForAll.model.Review;
  * Servlet implementation class ReviewsServlet1
  */
 @WebServlet(
-		description = "Servlet to provide details about reviews", 
+		description = "Servlet to write a review", 
 		urlPatterns = { 
 				"/WriteReviewServlet"
 		})
