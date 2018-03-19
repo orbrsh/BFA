@@ -38,7 +38,15 @@ public class Review {
 	}
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
+	}	
+	public int getIdReviews() {
+		return IdReviews;
 	}
+	public void setIdReviews(int idReviews) {
+		IdReviews = idReviews;
+	}
+	
+	// From json to DB
 	public Review(int idBook, String username, long dateWritten, long dateApproved, int isApproved,
 			String reviewText) {
 		super();
@@ -49,6 +57,21 @@ public class Review {
 		this.isApproved = isApproved;
 		this.reviewText = reviewText;
 	}
+	
+	//from DB  (only approved)
+	public Review(int idReviews, int idBook, String username, long dateWritten, long dateApproved, int isApproved,
+			String reviewText) {
+		super();
+		IdReviews = idReviews;
+		IdBook = idBook;
+		Username = username;
+		this.dateWritten = dateWritten;
+		this.dateApproved = dateApproved;
+		this.isApproved = isApproved;
+		this.reviewText = reviewText;
+	}
+
+	private int IdReviews;
 	private int IdBook;
 	private String Username;
 	private long dateWritten;

@@ -1,25 +1,25 @@
 [
     {
-        "Username": "Fares1",
+        "Username": "Fares",
         "IdBook": "1",
-        "isApproved": "1",
         "dateWritten": "1280296860145",
+        "isApproved": "1",
         "dateApproved": "1280296860145",
         "reviewText": "review1"
     },
     {
-        "Username": "Fares2",
+        "Username": "Fares",
         "IdBook": "2",
-        "isApproved": "1",
         "dateWritten": "1280296860145",
+        "isApproved": "1",
         "dateApproved": "1280296860145",
         "reviewText": "review2"
     },
     {
-        "Username": "Fares3",
+        "Username": "Or",
         "IdBook": "3",
-        "isApproved": "1",
         "dateWritten": "1280296860145",
+        "isApproved": "1",
         "dateApproved": "1280296860145",
         "reviewText": "review3"
     }
