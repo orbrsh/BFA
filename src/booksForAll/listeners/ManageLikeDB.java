@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import booksForAll.AppConstants;
@@ -95,7 +96,7 @@ public class ManageLikeDB implements ServletContextListener {
     				pstmt.setString(1,like.getBookName());
     				pstmt.setString(2,like.getUsername());
     				pstmt.setBoolean(3,like.isActive());
-    				pstmt.setLong(4,like.getDateSetTimeStamp());
+    				pstmt.setTimestamp(4,like.getDateSetTimeStamp());
     				pstmt.executeUpdate();
     			}
 
@@ -154,7 +155,11 @@ public class ManageLikeDB implements ServletContextListener {
 			jsonFileContent.append(nextLine);
 		}
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss.S")
+				.create();
+		
+		//Gson gson = new Gson();
 		//this is a require type definition by the Gson utility so Gson will 
 		//understand what kind of object representation should the json file match
 		Type type = new TypeToken<Collection<Like>>(){}.getType();

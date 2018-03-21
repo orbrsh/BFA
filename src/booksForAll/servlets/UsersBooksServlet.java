@@ -172,7 +172,7 @@ public class UsersBooksServlet extends HttpServlet {
 				stmt = conn.prepareStatement(AppConstants.SELECT_ALL_LIKES_STMT);
 				rs = stmt.executeQuery();
 				while (rs.next()){
-					likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getLong(5)));
+					likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getTimestamp(5)));
 				}
 				stmt = conn.prepareStatement(AppConstants.SELECT_ALL_APPROVED_REVIEWS_STMT);
 				rs = stmt.executeQuery();

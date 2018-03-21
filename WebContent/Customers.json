@@ -7,8 +7,7 @@
         "Description": "hahaha",
         "Photo": "image",
         "Email": "Email1",
-        "Phone": "050",
-        "books": "null"
+        "Phone": "050"
     },
     {
         "Username": "OR",
@@ -18,7 +17,6 @@
         "Description": "hahaha",
         "Photo": "image",
         "Email": "Email2",
-        "Phone": "050",
-        "books": "null"
+        "Phone": "050"
     }
 ]

@@ -1,18 +1,18 @@
 [
     {
-        "Bookname": "book1",
+        "BookName": "book1",
  		"Username": "FARES1",
         "TimeBought": "2018-16-08 05:39:14.0",
         "Price": "1.0"
     },
     {
-        "Bookname": "book2",
+        "BookName": "book2",
         "Username": "OR",
         "TimeBought": "2018-16-08 05:39:14.0",
         "Price": "2.0"
     },
     {
-        "Bookname": "book3",
+        "BookName": "book3",
         "Username": "FARES2",
         "TimeBought": "2018-16-08 05:39:14.0",
         "Price": "3.0"

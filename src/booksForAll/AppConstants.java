@@ -64,7 +64,7 @@ public interface AppConstants {
 			+ "Description varchar(600) NOT NULL,"
 			+ "FullHtml varchar(300) NOT NULL)";
 	//	+ "PRIMARY KEY (IdBooks))";
-	public final String INSERT_BOOK_STMT = "INSERT INTO BOOKS (?,?,?,?,?,?)";
+	public final String INSERT_BOOK_STMT = "INSERT INTO BOOKS (BookName,Author,Photo,Price,Description,FullHtml) VALUES(?,?,?,?,?,?)";
 	public final String SELECT_ALL_BOOKS_STMT = "SELECT * FROM BOOKS";
 	public final String SELECT_BOOK_BY_BOOK_NAME_STMT = "SELECT * FROM BOOKS "
 			+ "WHERE BookName=?";
@@ -93,7 +93,7 @@ public interface AppConstants {
 	//	+ "NOT NULL (Username,Password,Address,Nickname,Description,Photo,Email,Phone)";
 	//	+ "PRIMARY KEY (Username),"
 	//	+ "UNIQUE (Email,Nickname))";
-	public final String INSERT_CUSTOMER_STMT = "INSERT INTO CUSTOMER VALUES(?,?,?,?,?,?,?,?)";
+	public final String INSERT_CUSTOMER_STMT = "INSERT INTO CUSTOMER (Username, Password, Address, Nickname, Description, Photo, Email, Phone) VALUES(?,?,?,?,?,?,?,?)";
 	public final String SELECT_ALL_CUSTOMERS_STMT = "SELECT * FROM CUSTOMER";
 	public final String SELECT_CUSTOMER_BY_NAME_STMT = "SELECT * FROM CUSTOMER "
 			+ "WHERE Username=?";
@@ -111,9 +111,9 @@ public interface AppConstants {
 			+ "BookName varchar(100) NOT NULL,"
 			+ "Username varchar(10) NOT NULL,"
 			+ "isActive Boolean NOT NULL,"
-			+ "dateSet TimeStamp NOT NULL)";
+			+ "DateSetTimeStamp TimeStamp NOT NULL)";
 		//	+ "PRIMARY KEY (IdBook, Username))";
-	public final String INSERT_LIKE_STMT = "INSERT INTO LIKES (?,?,?,?)";
+	public final String INSERT_LIKE_STMT = "INSERT INTO LIKES (BookName, Username, isActive, DateSetTimeStamp) VALUES(?,?,?,?)";
 	public final String SELECT_ALL_LIKES_STMT = "SELECT * FROM LIKES";
 	public final String SELECT_LIKE_BY_BOOK_ID_STMT = "SELECT * FROM LIKES"
 			+ "WHERE BookId=?";
@@ -140,7 +140,7 @@ public interface AppConstants {
 			+ "isApproved INT NOT NULL,"
 			+ "reviewText varchar(600) NOT NULL)";
 
-	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (?,?,?,?,?,?)";
+	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (BookName, Username, dateApproved, isApproved, reviewText) VALUES(?,?,?,?,?)";
 	public final String SELECT_ALL_REVIEWS_STMT = "SELECT * FROM REVIEWS";
 	public final String SELECT_REVIEW_BY_REVIEW_ID_STMT = "SELECT * FROM REVIEWS"
 			+ "WHERE ReviewId=?";
@@ -170,7 +170,7 @@ public interface AppConstants {
 			+ "Price DOUBLE NOT NULL)";
 	//	+ "PRIMARY KEY(IdPurchased, BookName, Username))";
 	
-	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASES VALUES(?,?,?,?)";
+	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASES (BookName, Username, TimeBought, Price) VALUES(?,?,?,?)";
 	public final String SELECT_ALL_PURCHASES_STMT = "SELECT * FROM PURCHASES";
 	public final String SELECT_PURCHASE_BY_CUSTOMER_STMT = "SELECT * FROM PURCHASES"
 			+ "WHERE Username=?";
@@ -197,7 +197,7 @@ public interface AppConstants {
 			+ "Username varchar(10) NOT NULL,"
 			+ "Review varchar(50) NOT NULL)";
 	
-	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS VALUES(?,?)";
+	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS (Username, Review) VALUES(?,?)";
 	public final String SELECT_ALL_BOOKSTOUSERS_STMT = "SELECT * FROM BOOKSTOUSERS";
 	public final String SELECT_BOOKSTOUSER_BY_NAME_STMT = "SELECT * FROM BOOKSTOUSERS"
 			+ "WHERE Username=?";

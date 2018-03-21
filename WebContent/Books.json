@@ -1,25 +1,23 @@
 [
 	{
+		"BookId": "1",
 		"BookName": "THE IRISH CRISIS.",
 		"Author": "C. E. Trevelyan",
 		"Photo": "image1",
 		"Price": "40",
 		"Description": "des1",
 		"FullHtml": "The Irish Crisis, by C. E. Trevelyan..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
+		"BookId": "1",
 		"BookName": "Home Scenes and Heart Studies",
 		"Author": "Grace Aguilar",
 		"Photo": "images2",
 		"Price": "25",
 		"Description": "des2",
 		"FullHtml": "Home Scenes and Heart Studies, by Grace Aguilar-A Project Gutenberg eBook.html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "An Everyday Girl A Story",
@@ -28,9 +26,7 @@
 		"Price": "55",
 		"Description": "des3",
 		"FullHtml": "An Everyday Girl—A Project Gutenberg eBook.html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "On Mr. Spencer's Data of Ethics",
@@ -39,9 +35,7 @@
 		"Price": "145",
 		"Description": "des4",
 		"FullHtml": "On Mr. Spencer's Data Of Ethics, by Malcolm Guthrie..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "Mimi's Marriage",
@@ -50,9 +44,7 @@
 		"Price": "88",
 		"Description": "des5",
 		"FullHtml": "Mimi's Marriage, by Lidia Veselitskaya..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "Lanagan Amateur Detective",
@@ -61,9 +53,7 @@
 		"Price": "90",
 		"Description": "description6",
 		"FullHtml": "Lanagan, by Edward H. Hurlbut..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "The Weird Adventures of Professor Delapine of the Sorbonne",
@@ -72,9 +62,7 @@
 		"Price": "130",
 		"Description": "description7",
 		"FullHtml": "The Weird Adventures of Professor Delapine of the Sorbonne, by George Lindsay Johnson..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "Dick Lester of Kurrajong",
@@ -83,9 +71,7 @@
 		"Price": "47",
 		"Description": "description8",
 		"FullHtml": "Dick Lester of Kurrajong, by Mary Grant Bruce.html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "Members of the Family",
@@ -94,9 +80,7 @@
 		"Price": "19",
 		"Description": "description9",
 		"FullHtml": "Members of The Family, by Owen Wister..html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	},
 	{
 		"BookName": "Texas in the Civil War A Resume History",
@@ -105,8 +89,6 @@
 		"Price": "29",
 		"Description": "description10",
 		"FullHtml": "Texas in the Civil War_ a Project Gutenberg eBook.html",
-		"LikesNum": "0",
-		"Likes": "null",
-		"Reviews": "null"
+		"LikesNum": "0"
 	}
 ]

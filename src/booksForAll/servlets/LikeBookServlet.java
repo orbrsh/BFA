@@ -13,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,23 +25,26 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import booksForAll.AppConstants;
 import booksForAll.filters.Data;
+import booksForAll.AppConstants;
 import booksForAll.model.Book;
-import booksForAll.model.Like;
 import booksForAll.model.Review;
+import booksForAll.model.Like;
 
 /**
- * Servlet implementation class UnlikeServlet
+ * Servlet implementation class LikeBookServlet
  */
-@WebServlet("/UnlikeServlet")
-public class UnlikeServlet extends HttpServlet {
+@WebServlet(
+		urlPatterns = "/LikeBookServlet"
+)
+	//This class is used by the user to like a book.
+	public class LikeBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UnlikeServlet() {
+    public LikeBookServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,9 +53,7 @@ public class UnlikeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* // TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	*/
+
 	}
 
 	/**
@@ -59,42 +61,43 @@ public class UnlikeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		StringBuffer strBuf = new StringBuffer();
 		BufferedReader reader = request.getReader();
-		String line = null;        
+		String line = null;  
 		while ((line = reader.readLine()) != null)
-		{
 			strBuf.append(line);
-		}
 		Gson gson = new GsonBuilder()
 				.setDateFormat("yyyy-MM-dd HH:mm:ss.S")
 				.create();
-		Data Data = gson.fromJson(strBuf.toString(), Data.class);
-		String username = Data.Username;
-		String bookname = Data.BookName;
+		Data postData = gson.fromJson(strBuf.toString(), Data.class);
+
+		String username = postData.Username;
+		String nickname = postData.Nickname;
+		String bookname = postData.BookName;
+		Book book = null;
 		String result = "";
 		try {
     		
-        	//obtain CustomerDB data source from Tomcat's context
+        	//obtain DB data source from Tomcat's context
     		Context context = new InitialContext();
     		BasicDataSource ds = (BasicDataSource)context.lookup(
     				getServletContext().getInitParameter(AppConstants.DB_DATASOURCE) + AppConstants.OPEN);
     		Connection conn = ds.getConnection();
-    		Book book = null;
+
     		PreparedStatement stmt;
 			try {
 				stmt = conn.prepareStatement(AppConstants.SELECT_LIKES_BY_CUSTOMER_AND_BOOK_NAME_STMT);
 				stmt.setString(1, username);
 				stmt.setString(2, bookname);
 				ResultSet rs = stmt.executeQuery(); 
-				if (!rs.next()){
-					result = "Book Not Liked";
+				if (rs.next()){
+					result = "Book Already Liked";
 				}
 				else {
-					stmt = conn.prepareStatement(AppConstants.DELETE_LIKE_BY_CUSTOMER_AND_BOOK_NAME_STMT);
+					stmt = conn.prepareStatement(AppConstants.INSERT_LIKE_STMT);
 					stmt.setString(1, username);
-					stmt.setString(2, bookname);
+					stmt.setString(2, nickname);
+					stmt.setString(3, bookname);
 					int res = stmt.executeUpdate(); 
 					if (res != 0){
 						result = "Success";
@@ -106,7 +109,7 @@ public class UnlikeServlet extends HttpServlet {
 						if(rs.next()) {
 							book = new Book(rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),
 									rs.getString(6), rs.getString(7), 0, null, null);
-							stmt = conn.prepareStatement(AppConstants.DELETE_LIKE_BY_BOOK_NAME_STMT);
+							stmt = conn.prepareStatement(AppConstants.SELECT_LIKE_BY_BOOK_NAME_STMT);
 							stmt.setString(1, bookname);
 							rs = stmt.executeQuery();
 							while (rs.next()){
@@ -146,6 +149,6 @@ public class UnlikeServlet extends HttpServlet {
     		getServletContext().log("Error while closing connection", e);
     		response.sendError(500);//internal server error
     	}
-		}
+	}
 
 }

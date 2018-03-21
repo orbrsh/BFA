@@ -117,7 +117,7 @@ public class LikesServlet extends HttpServlet {
     							stmt.setString(1, bookname);
     							rs = stmt.executeQuery();
     							while (rs.next()){
-    								likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getLong(5)));
+    								likes.add(new Like(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getTimestamp(5)));
     							}
     							stmt = conn.prepareStatement(AppConstants.SELECT_REVIEWS_BY_BOOK_NAME_STMT);
     							stmt.setString(1, bookname);

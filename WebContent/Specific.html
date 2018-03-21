@@ -43,6 +43,12 @@ function clickCounter() {
 }
 </script>
 
+<script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Hello World";
+}
+</script>
+
 </head>
 
 <body>
@@ -176,7 +182,7 @@ She’s wrong.
 <div class="vertical-menu">
   <a href="#">Read eBook</a>
   <a href="#">Buy eBook</a>
-  <a href="#">Like eBook &#9786;</a>
+ <a href="#" onclick="myFunction()" >Like eBook &#9786;</a>
   <a href="#">Unlike eBook &#9785;</a>
   <a href="#" style="background-color: red; border: 3px solid red;">Write your review </a>
 </div>
