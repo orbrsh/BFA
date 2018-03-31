@@ -1,6 +1,7 @@
 package booksForAll.servlets;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +19,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import booksForAll.AppConstants;
 //import booksForAll.model.Customer;
+import booksForAll.model.Customer;
 
 /**
  * Servlet implementation class LoginServlet
@@ -42,9 +47,26 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession mySession = request.getSession(false);
+		if (mySession != null ) {
+			// session available
+			String object = "{ \"username\": \"" +mySession.getAttribute("username")+ "\"";
+			//boolean isAdmin = (boolean) mySession.getAttribute("isAdmin");
+			if (mySession.getAttribute("isAdmin") != null) {
+				object += ", \"isAdmin\": true ";
+			}
+			object += "}";
+			response.getWriter().println(object);
+			response.setContentType("application/json");
+			response.setStatus(200);
+			return;
+		}else {
+			response.getWriter().println("not logged in");
+			response.setStatus(404);
+		}
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.sendError(405);
+		//response.sendError(405);
 		// response.set
 	}
 
@@ -63,8 +85,21 @@ public class LoginServlet extends HttpServlet {
 			response.sendError(405);
 			return;
 		}
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		Gson gson = new Gson();
+		Type custType = new TypeToken<Customer>() {
+		}.getType();
+		Customer cust;
+		try {
+			cust = gson.fromJson(request.getReader(), custType);
+			response.getWriter().println(cust.toString());
+		} catch (Exception e) {
+			/* failed to parse gson */
+			response.getWriter().println("failed to parse json " + e);
+			response.sendError(405);
+			return;
+		}
+		String username = cust.getUsername(); //request.getParameter("username");
+		String password = cust.getPassword(); //request.getParameter("password");
 		String dbPassword;
 		
 		if ((username == null) || (password == null) ) {
@@ -106,6 +141,8 @@ public class LoginServlet extends HttpServlet {
 				ResultSet rs = stmt.executeQuery();
 				if (!rs.next()) {
 					//user not found
+					response.getWriter().println("wrong username or password");
+					response.sendError(405);
 					return;
 				}
 				dbPassword = rs.getString("password");

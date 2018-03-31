@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,253 @@
     <title>BooksForAll</title>
     <script src="lib/angular.min.js"></script>
     <script src="js/bookApp.js"></script>
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bookApp.css">
 </head>
+
 <body>
     <div data-ng-app="bookApp">
-        <div data-ng-controller="myController">
-            <p>expression: {{1+2}}</p>
-            <input data-ng-model="hey" type="text">
+        <div data-ng-controller="loginController">
+            <div name="WelcomeUser">
+                <input type="button" value="login" data-ng-show="!isLogged" data-ng-click="openLogin()">
+                <input type="button" value="register" data-ng-show="!isLogged" data-ng-click="openRegister()">
+                <div data-ng-show="isLogged">
+                    <!--<span data-ng-show="isLogged"> Hello, {{ loggedUser }}</span>
+                    <a href="#userBoard" data-ng-show="isLogged">User board</a>-->
+                    <span> Hello, {{ loggedUser }}</span>
+                    <a href="#userBoard">User board</a>
+                    <span data-ng-show="adminLogged">
+                        &nbsp;|&nbsp;
+                        <a href="#admin">Admin board</a>
+                    </span>
+                </div>
+            </div>
+            <div data-ng-show="loginMode">
+                <form data-ng-submit="loginFunc()" name="loginForm">
+                    <div class="form-group">
+                        <label for="loginUser">User Name</label>
+                        <input type="text" class="form-control" placeholder="username" name="loginUser" ng-model="login.User" required ng-maxlength="10">
+                        <div role="alert">
+                            <span class="error" ng-show="loginForm.loginUser.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" ng-show="loginForm.loginUser.$touched && loginForm.loginUser.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" placeholder="123456" name="loginPassword" ng-model="login.Password" required
+                            ng-maxlength="9">
+                        <div role="alert">
+                            <span class="error" ng-show="loginForm.loginPassword.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" ng-show="loginForm.loginPassword.$touched && loginForm.loginPassword.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div role="alert">
+                        <span ng-show="loginForm.$submitted && loginForm.$invalid">
+                            Form is not filled correctly.
+                        </span>
+                        <span ng-show="loginFormErrorToggle">
+                            {{ loginFormError }}
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login!</button>
+                    <button type="reset" class="btn btn-danger">reset</button>
+                </form>
+            </div>
+            <div data-ng-show="registerMode">
+                <form data-ng-submit="registerFunc()" name="registerForm">
+                    <div class="form-group">
+                        <label for="registerUser">User Name</label>
+                        <input type="text" class="form-control" placeholder="username" name="registerUser" ng-model="register.User" required ng-maxlength="10">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerUser.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" ng-show="registerForm.registerUser.$touched && registerForm.registerUser.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" class="form-control" placeholder="123456" name="registerPassword" ng-model="register.Password" required
+                            ng-maxlength="8">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerPassword.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" ng-show="registerForm.registerPassword.$touched && registerForm.registerPassword.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerNickName">Nickname</label>
+                        <input type="text" class="form-control" placeholder="nickname" name="registerNickName" ng-model="register.NickName" required
+                            ng-maxlength="20">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerNickName.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" ng-show="registerForm.registerNickName.$touched && registerForm.registerNickName.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" class="form-control" placeholder="email@domain.com" name="registerEmail" ng-model="register.Email" required>
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerEmail.$dirty && registerForm.registerEmail.$invalid">
+                                Not a valid mail!
+                            </span>
+                            <span class="error" ng-show="registerForm.registerEmail.$touched && registerForm.registerEmail.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerTelephoneArea">Telephone</label>
+                        <select class="form-control" name="registerTelephoneArea" ng-model="register.Telephone.Area" required>
+                            <option value="">Select..</option>
+                            <option value="050">050</option>
+                            <option value="052">052</option>
+                            <option value="053">053</option>
+                            <option value="054">054</option>
+                            <option value="055">055</option>
+                            <option value="056">056</option>
+                            <option value="057">057</option>
+                            <option value="058">058</option>
+                            <option value="059">059</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="1234567" name="registerTelephoneFull" ng-model="register.Telephone.Full"
+                            required ng-minlength="7" ng-maxlength="7">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerTelephoneFull.$dirty && registerForm.registerTelephoneFull.$invalid">
+                                Telephone without Area code is 7 digit long
+                            </span>
+                            <span class="error" ng-show="registerForm.registerTelephoneFull.$touched && registerForm.registerTelephoneFull.$error.required">
+                                required!
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="registerAddressStreet">Address:
+                            <br>Street and house number</label>
+                        <input type="text" class="form-control" placeholder="11 Moshe St" name="registerAddressStreet" ng-model="register.Address.Street"
+                            required>
+
+                        <label for="registerAddressCity">City</label>
+                        <input type="text" class="form-control" placeholder="Haifa" name="registerAddressCity" ng-model="register.Address.City" required
+                            ng-minlength="2">
+
+                        <label for="registerAddressZip">Zip</label>
+                        <input type="text" class="form-control" placeholder="1234567" name="registerAddressZip" ng-model="register.Address.zip" required
+                            ng-minlength="7" ng-maxlength="7" ng>
+
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.registerAddressCity.$dirty && registerForm.registerAddressCity.$invalid">
+                                City has at least 2 characters.
+                            </span>
+                            <span class="error" ng-show="registerForm.registerAddressZip.$dirty && registerForm.registerAddressZip.$invalid">
+                                zip is 7 digit long
+                            </span>
+                            <span class="error" ng-show="((registerForm.registerAddressStreet.$touched && registerForm.registerAddressStreet.$error.required) || (registerForm.registerAddressCity.$touched && registerForm.registerAddressCity.$error.required) || (registerForm.registerAddressZip.$touched && registerForm.registerAddressZip.$error.required))">
+                                All address fields are required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerAbout">Short Description</label>
+                        <textarea class="form-control" rows=3 placeholder="Short description about you. max 50 chars." name="registerAbout" ng-model="register.About"
+                            ng-maxlength="50"></textarea>
+                        <div role="alert">
+                            <span class="error" ng-show="registerAbout.$error.maxlength">
+                                too long (50 chars max)
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhoto">Photo (url)</label>
+                        <input type="url" class="form-control" placeholder="link to your photo." name="registerPhoto" ng-model="register.photo">
+                    </div>
+                    <div role="alert">
+                        <span ng-show="registerForm.$submitted && registerForm.$invalid">
+                            Form is not filled correctly.
+                        </span>
+                        <span ng-show="RegisterFormErrorToggle">
+                            {{ registerFormError }}
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register!</button>
+                    <button type="reset" class="btn btn-danger">reset</button>
+                </form>
+            </div>
+            <!-- register mode -->
         </div>
+        <!-- login controller -->
+        <div ng-controller="bookController">
+            <div>
+                <button ng-click="allbooks()">All books</button>
+                <button ng-click="purchasedbooks()">Purchased books</button>
+                <button ng-click="singlebook(1)">Single book</button>
+            </div>
+
+            <div data-ng-show="booklistView.All">
+                Books available: {{ booklist.length }}
+                <ul>
+                    <li ng-repeat="book in booklist">
+                        {{book.Name}}
+                        <ul>
+                            <il>
+                                <div class="tooltip">
+                                    likes: {{ book.likes.length }}
+                                    <span class="tooltiptext">
+                                        <div ng-repeat="myLike in book.likes">
+                                            <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" ng-show="adminLogged">{{ myLike.Username }}</a>
+                                            <a href="#" ng-show="!adminLogged">{{ myLike.Username }}</a>
+                                        </div>
+                                    </span>
+                                </div>
+                            </il>
+                            <li>
+                                Reviews : {{ book.reviews.length }}
+                                <ul>
+                                    <li ng-repeat="review in book.reviews">
+                                        {{ review.IdReviews + ", by: " + review.Username + ", text: " + review.reviewText }}
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- booklistView.All -->
+            <div data-ng-show="booklistView.Purchased">
+
+            </div>
+            <!-- booklistView.Purchased -->
+            <div data-ng-show="booklistView.singleBook">
+
+            </div>
+            <!-- booklistView.singleBook -->
+        </div>
+        <!-- bookController -->
     </div>
+    <!-- book app -->
 
 </body>
+
 </html>
