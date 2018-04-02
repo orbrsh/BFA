@@ -18,17 +18,19 @@
     <div data-ng-app="bookApp">
         <div data-ng-controller="loginController">
             <div name="WelcomeUser">
-                <input type="button" value="login" data-ng-show="!isLogged" data-ng-click="openLogin()">
-                <input type="button" value="register" data-ng-show="!isLogged" data-ng-click="openRegister()">
-                <div data-ng-show="isLogged">
+                <input type="button" value="login" data-ng-show="!loginUserData.isLogged" data-ng-click="openLogin()">
+                <input type="button" value="register" data-ng-show="!loginUserData.isLogged" data-ng-click="openRegister()">
+                <div data-ng-show="loginUserData.isLogged">
                     <!--<span data-ng-show="isLogged"> Hello, {{ loggedUser }}</span>
                     <a href="#userBoard" data-ng-show="isLogged">User board</a>-->
-                    <span> Hello, {{ loggedUser }}</span>
+                    <span> Hello, {{ loginUserData.loggedUser }}</span>
                     <a href="#userBoard">User board</a>
-                    <span data-ng-show="adminLogged">
+                    <span data-ng-show="loginUserData.adminLogged">
                         &nbsp;|&nbsp;
                         <a href="#admin">Admin board</a>
                     </span>
+                    &nbsp;|&nbsp;
+                    <a href="" ng-click="logoutFunc()">Logout</a>
                 </div>
             </div>
             <div data-ng-show="loginMode">
@@ -208,23 +210,29 @@
         <div ng-controller="bookController">
             <div>
                 <button ng-click="allbooks()">All books</button>
-                <button ng-click="purchasedbooks()">Purchased books</button>
-                <button ng-click="singlebook(1)">Single book</button>
+                <button ng-click="purchasedbooks()" data-ng-show="bookUserData.isLogged">Purchased books</button>
+                <form ng-submit="singlebook()">
+                    <select name="chosenBook" id="chosenBook" ng-model="chosenSingleBook" required ng-change="singlebook()">
+                        <option value="">Choose one...</option>
+                        <option value="{{bookname}}" ng-repeat="bookname in booklistnames">{{bookname}}</option>
+                    </select>
+                    <input type="submit">Single book</button>
+                </form>
             </div>
 
             <div data-ng-show="booklistView.All">
                 Books available: {{ booklist.length }}
                 <ul>
-                    <li ng-repeat="book in booklist">
-                        {{book.Name}}
+                    <li ng-repeat="book in booklist" ng-include="'bookDetail.html'">
+                        <!-- {{book.Name}}
                         <ul>
                             <il>
                                 <div class="tooltip">
                                     likes: {{ book.likes.length }}
                                     <span class="tooltiptext">
                                         <div ng-repeat="myLike in book.likes">
-                                            <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" ng-show="adminLogged">{{ myLike.Username }}</a>
-                                            <a href="#" ng-show="!adminLogged">{{ myLike.Username }}</a>
+                                            <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a>
+                                            <span ng-show="!bookUserData.adminLogged">{{ myLike.Username }}</span>
                                         </div>
                                     </span>
                                 </div>
@@ -237,19 +245,80 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                 </ul>
             </div>
             <!-- booklistView.All -->
             <div data-ng-show="booklistView.Purchased">
-
+                <!-- Purchased books: {{purchasedBooklist.length}} -->
+                Purchased books: {{bookUserData.purchasedBooks.length}}
+                <ul>
+                    <!-- <li ng-repeat="book in purchasedBooklist" ng-include="'bookDetail.html'"> -->
+                    <li data-ng-repeat="book in bookUserData.purchasedBooks" data-ng-include="'bookDetail.html'">
+                        <!-- {{book.Name}}
+                            <ul>
+                                <il>
+                                    <div class="tooltip">
+                                        likes: {{ book.likes.length }}
+                                        <span class="tooltiptext">
+                                            <div ng-repeat="myLike in book.likes">
+                                                <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a>
+                                                <span ng-show="!bookUserData.adminLogged">{{ myLike.Username }}</span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </il>
+                                <li>
+                                    Reviews : {{ book.reviews.length }}
+                                    <ul>
+                                        <li ng-repeat="review in book.reviews">
+                                            {{ review.IdReviews + ", by: " + review.Username + ", text: " + review.reviewText }}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul> -->
+                    </li>
+                </ul>
             </div>
             <!-- booklistView.Purchased -->
             <div data-ng-show="booklistView.singleBook">
-
+                Single book view:
+                <div ng-repeat="book in [singleBook]" ng-include="'bookDetail.html'">
+                    <!-- {{singleBook.Name}}
+                        <ul>
+                            <il>
+                                <div class="tooltip">
+                                    likes: {{ singleBook.likes.length }}
+                                    <span class="tooltiptext">
+                                        <div ng-repeat="myLike in singleBook.likes">
+                                            <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a>
+                                            <span ng-show="!bookUserData.adminLogged">{{ myLike.Username }}</span>
+                                        </div>
+                                    </span>
+                                </div>
+                            </il>
+                            <li>
+                                Reviews : {{ singleBook.reviews.length }}
+                                <ul>
+                                    <li ng-repeat="review in singleBook.reviews">
+                                        {{ review.IdReviews + ", by: " + review.Username + ", text: " + review.reviewText }}
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul> -->
+                </div>
             </div>
             <!-- booklistView.singleBook -->
+            <div ng-show="readMode">
+                <div class="stickyMenu">
+                    <button class="btn" ng-click="readModeFuncs.savePosition()">Save position</button>
+                    <button class="btn" ng-click="readModeFuncs.goBack()">Go to saved location</button>
+                    <button class="btn" ng-click="readModeFuncs.saveAndStop()">Save position and stop reading</button>
+                    <button class="btn" ng-click="readModeFuncs.stopReading()">Stop reading</button>
+                </div>
+                <div ng-include="bookReadOn"></div>
+            </div>
         </div>
         <!-- bookController -->
     </div>

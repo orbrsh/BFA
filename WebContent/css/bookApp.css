@@ -37,3 +37,8 @@
     visibility: visible;
     opacity: 1;
 }
+
+.stickyMenu{
+    position: fixed;
+    top: 0;
+}

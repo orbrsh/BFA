@@ -3,52 +3,194 @@ bookApp.controller('myController', ['$scope', function ($scope) {
     $scope.hey = "hi";
 }]);
 
-bookApp.controller('bookController', ['$scope', '$http', function ($scope, $http) {
-    $scope.booklistView ={
+bookApp.value('userData', {
+    isLogged: false,
+    loggedUser: "",
+    adminLogged: false,
+    purchasedBooks: []
+});
+
+bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
+function ($scope, $http, $filter, userData) {
+    $scope.booklistView = {
         All: false,
         Purchased: false,
         singleBook: false
     };
+    $scope.bookUserData = userData; //isLogged, loggedUser, adminLogged
 
-    $scope.allbooks = function(){
-        $scope.booklistView.All = true;
-        $http.get("BooksServlet/getAllBooks").then(function (response) {
-            $scope.booklist = response.data;
+        var bookListInit = getAllBooks();
+        $scope.booklistnames =[];
+
+        function getAllBooks() {
+            $http.get("BooksServlet/getAllBooks").then(function (response) {
+                    var booklistAll = response.data;
+                    //$scope.booklistView.All = true;
+                    angular.forEach(booklistAll, function (item) {
+                        this.push(item.Name);
+                    }, $scope.booklistnames);
+                    $scope.booklist = response.data;
+                    return response.data;
+                },
+                function (response) {});
+        }
+
+        $scope.allbooks = function () {
             $scope.booklistView.All = true;
-        },
-        function (response) {});
-    };
-    $scope.purchasedbooks = function(){
-        //only logged
+            $scope.booklistView.Purchased = false;
+            $scope.booklistView.singleBook = false;
+            //$scope.booklist = bookListInit;
+            // $http.get("BooksServlet/getAllBooks").then(function (response) {
+            //         $scope.booklist = response.data;
+            //         $scope.booklistView.All = true;
+            //     },
+            //     function (response) {});
+        };
+        $scope.purchasedbooks = function () {
+            //only logged
+            if (!$scope.bookUserData.isLogged) {
+                console.log("purchased books - only for logged user");
+                return;
+            }
+            $http.get("BooksServlet/myBooks").then(function (response) {
+                    //$scope.purchasedBooklist = response.data;
+                    $scope.bookUserData.purchasedBooks = response.data;
+                    $scope.userBoughtThisBook = function (bookname){
+                        if (($scope.bookUserData.isLogged === false) || angular.isUndefined(bookname))
+                            return false;
+                        var bookFound = $filter('filter')($scope.bookUserData.purchasedBooks, {
+                            Name: bookname
+                        }, true)[0];
+                        if (bookFound){ // user bought it
+                            return true;
+                        } else
+                            return false;
+                       // $filter('filter')(myArray, {'id':73})
+                       // if $scope.book.Name
+                    };
+                },
+                function (response) {
+                    // no books / not logged.
+                    console.log("Not logged in");
+                });
+            $scope.booklistView.Purchased = true;
+            $scope.booklistView.All = false;
+            $scope.booklistView.singleBook = false;
+        };
+        $scope.userLikedThisBook = function (likesList){
+            if (($scope.bookUserData.isLogged === false) || angular.isUndefined(likesList))
+                return false;
+            var likeFound = $filter('filter')(likesList, {
+                Username: $scope.bookUserData.loggedUser
+            }, true)[0];
+            if (likeFound){ // user bought it
+                return true;
+            } else
+                return false;
+           // $filter('filter')(myArray, {'id':73})
+           // if $scope.book.Name
+        };
+        $scope.singlebook = function () {
+            var chosenBook = $scope.chosenSingleBook;
+            if (angular.isUndefined(chosenBook)){
+                $scope.singlebook = null;
+                return;
+            }
+            //$scope.singleBook = $scope.booklist.get({Name: chosenBook});
+            $scope.singleBook = $filter('filter')($scope.booklist, {
+                Name: chosenBook
+            }, true)[0];
+            // change view
+            $scope.booklistView.All = false;
+            $scope.booklistView.singleBook = true;
+            $scope.booklistView.Purchased = false;
+        };
 
-    };
-    $scope.singlebook = function(chosenBook){
+        $scope.readBook = function(bookname){
+            $scope.booklistView.All = false;
+            $scope.booklistView.singleBook = false;
+            $scope.booklistView.Purchased = false;
+            var testBook ="An Everyday Girl—A Project Gutenberg eBook.html";
+            $scope.readMode = true;
+            $scope.bookReadOn =  "book list/"+testBook;
 
-    };
-}]);
+            //get location from db to:
+            $scope.readModeFuncs.locationOnPage = 0;
+        };
 
-bookApp.controller('loginController', ['$scope', '$http', function ($scope, $http) {
+        $scope.readModeFuncs = {
+            savePosition: function(){
+                $scope.readModeFuncs.locationOnPage = window.scrollY;
+                //servlet to db.
+            },
+            goBack: function(){
+                window.scrollTo(0, $scope.readModeFuncs.locationOnPage);
+            },
+            stopReading: function(){
+                $scope.readMode = false;
+                $scope.bookReadOn = null;
+                return;
+            },
+            saveAndStop: function(){
+                $scope.readModeFuncs.savePosition();
+                $scope.readModeFuncs.stopReading();
+            }
+        };
+        // $scope.userBoughtThisBook = function (bookname){
+        //     if ($scope.bookUserData.isLogged === false)
+        //         return false;
+        //     if (bookname in $scope.purchasedBooklist){ // user bought it
+        //         return true;
+        //     } else
+        //         return false;
+        //    // $filter('filter')(myArray, {'id':73})
+        //    // if $scope.book.Name
+        // };
+    }
+]);
+
+bookApp.controller('loginController', ['$scope', '$http', 'userData', function ($scope, $http, userData) {
+
+    $scope.loginUserData = userData; //isLogged, loggedUser, adminLogged
+
     $scope.loginMode = false;
     $scope.registerMode = false;
     $scope.loginFormErrorToggle = false;
-    $scope.loggedUser = "";
-    $scope.adminLogged = false;
+    //userData.loggedUser = "";
+    $scope.loginUserData.loggedUser = "";
+    //$scope.loggedUser = userData.loggedUser;
+    //$scope.adminLogged = false;
+    //$scope.adminLogged = userData.adminLogged;
+    $scope.loginUserData.adminLogged = false;
 
-    $scope.isLogged = isLoggedFunc();
+
+    $scope.loginUserData.isLogged = isLoggedFunc();
 
     function isLoggedFunc() {
         $http.get("LoginServlet").then(function (response) {
-                $scope.isLogged = true;
-                $scope.loggedUser = response.data.username;
+                $scope.loginUserData.isLogged = true;
+                $scope.loginUserData.loggedUser = response.data.username;
                 if ("isAdmin" in response.data) {
-                    $scope.adminLogged = true;
+                    $scope.loginUserData.adminLogged = true;
                 }
             },
             function (response) {});
     }
 
+    $scope.logoutFunc = function () {
+        $http.post("LogoutServlet").then(function () {
+            $scope.loginUserData.isLogged = false;
+            $scope.loginUserData.loggedUser = "";
+            $scope.loginUserData.adminLogged = false;
+            $scope.loginUserData.purchasedBooks = [];
+            console.log("logout successful");
+        }, function () {
+            console.log("logout failed");
+        });
+    };
+
     $scope.loginFunc = function () {
-        if ($scope.loginForm.$invalid){
+        if ($scope.loginForm.$invalid) {
             return;
         }
         var obj = {
@@ -62,26 +204,26 @@ bookApp.controller('loginController', ['$scope', '$http', function ($scope, $htt
             // $scope.loginUsernameError = "";
             // $scope.loginPasswordErrorToggle = false;
             // $scope.loginPasswordError = "";
-            $scope.loggedUser = $scope.login.User;
-            $scope.isLogged = true;
+            $scope.loginUserData.loggedUser = $scope.login.User;
+            $scope.loginUserData.isLogged = true;
             if (angular.equals(obj.Username, "admin")) {
                 // admin login successful
-                $scope.adminLogged = true;
+                $scope.loginUserData.adminLogged = true;
             }
             // upon succsess
             $scope.loginMode = false;
         }, function (reposnse) {
             $scope.loginFormErrorToggle = true;
             $scope.loginFormError = "Wrong username or password";
-            $scope.loggedUser = "";
-            $scope.isLogged = false;
+            $scope.loginUserData.loggedUser = "";
+            $scope.loginUserData.isLogged = false;
             return;
         });
     };
 
     $scope.registerFunc = function () {
         console.log("do register");
-        if ($scope.registerForm.$invalid){
+        if ($scope.registerForm.$invalid) {
             return;
         }
         var obj = {
@@ -100,8 +242,8 @@ bookApp.controller('loginController', ['$scope', '$http', function ($scope, $htt
         $http.post("RegistrationServlet", obj).then(function (response) {
             $scope.RegisterFormErrorToggle = false;
 
-            $scope.loggedUser = $scope.register.User;
-            $scope.isLogged = true;
+            $scope.loginUserData.loggedUser = $scope.register.User;
+            $scope.loginUserData.isLogged = true;
             $scope.registerMode = false;
 
             // upon succsess
@@ -109,8 +251,8 @@ bookApp.controller('loginController', ['$scope', '$http', function ($scope, $htt
         }, function (reposnse) {
             $scope.RegisterFormErrorToggle = true;
             $scope.registerFormError = "Error filling form";
-            $scope.loggedUser = "";
-            $scope.isLogged = false;
+            $scope.loginUserData.loggedUser = "";
+            $scope.loginUserData.isLogged = false;
             return;
         });
         //upon success
