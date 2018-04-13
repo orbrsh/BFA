@@ -81,7 +81,7 @@ public interface AppConstants {
 			+ "Author varchar(100),"
 			+ "Photo varchar(100),"
 			+ "Price REAL,"
-			+ "Description varchar(300),"
+			+ "Description varchar(650),"
 			+ "FullHtml varchar(300),"
 			+ "PRIMARY KEY (IdBooks))";
 	public final String INSERT_BOOK_STMT = "INSERT INTO BOOKS (IdBooks, Name, Author, Photo, Price, Description, FullHtml) "
@@ -118,7 +118,7 @@ public interface AppConstants {
 			+ "dateWritten BIGINT,"
 			+ "dateApproved BIGINT DEFAULT 0,"
 			+ "isApproved INT DEFAULT 0,"
-			+ "reviewText varchar(300),"
+			+ "reviewText varchar(650),"
 			+ "PRIMARY KEY(IdBook, Username))";
 	
 	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (IdBook, Username, dateWritten,"
