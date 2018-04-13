@@ -114,7 +114,7 @@ public class RegistrationServlet extends HttpServlet {
 				if (found) {
 					conn.close();
 					response.getWriter().println("user already registered");
-					response.sendError(405);
+					response.setStatus(405);
 					return;
 				}
 			} catch (SQLException e) {

@@ -343,6 +343,8 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             transactionsView: false,
             whatToShow: "",
             show: function (whatToShow) {
+                if (userData.adminLogged !== true)
+                    return;
                 $scope.AdminViews.whatToShow = whatToShow;
                 switch (whatToShow) {
                     case "reviews":
@@ -381,10 +383,15 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             show: false,
             users: {},
             deleteUser: function (userToDelete) {
+                if (userData.adminLogged !== true)
+                    return;
                 var obj = {
                     username: userToDelete
                 };
-                $http.delete("CustomerServlet", obj).then(function (response) {
+                // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
+                $http.delete("customers/name/" + userToDelete, obj).then(function (response) {
+                    console.log("deleted user "+ userToDelete);
+                    getUsers();
                     // deleted
                 }, function (reposnse) {
                     // failed to delete
@@ -396,11 +403,15 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             show: false,
             Reviews: {},
             approveReview: function (reviewIdtoApprove) {
+                if (userData.adminLogged !== true)
+                    return;
                 var obj = {
-                    username: userToDelete
+                    reviewID: reviewIdtoApprove
                 };
                 // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
-                $http.delete("customers/name/" + userToDelete, obj).then(function (response) {
+                $http.delete("reviews/id/" + reviewIdtoApprove, obj).then(function (response) {
+                    console.log("approved review "+ reviewIdtoApprove);
+                    getReviews();
                     // deleted
                 }, function (reposnse) {
                     // failed to delete

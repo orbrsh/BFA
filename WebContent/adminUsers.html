@@ -7,7 +7,7 @@
                 #{{$index}}
             </li>
             <li>
-                <img data-ng-src="{{(user.Photo == '') ? 'images/img_nogravatar.png' : user.Photo}}" alt="{{'user'+$index+' photo'}}">
+                <img data-ng-src="{{((user.Photo == '') || angular.isUndefined(user.Photo) ) ? 'images/img_nogravatar.png' : user.Photo}}" alt="{{'user'+$index+' photo'}}">
             </li>
             <li>
                 <b>Username:</b>
@@ -19,7 +19,7 @@
             </li>
             <li>
                 <b>Telephone:</b>
-                {{user.Phone}
+                {{user.Phone}}
             </li>
             <li>
                 <b>Email:</b>
