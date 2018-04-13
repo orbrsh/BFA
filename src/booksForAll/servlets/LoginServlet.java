@@ -142,7 +142,13 @@ public class LoginServlet extends HttpServlet {
 				if (!rs.next()) {
 					//user not found
 					response.getWriter().println("wrong username or password");
-					response.sendError(405);
+					response.setStatus(405);
+					return;
+				}
+				if (rs.getInt("isActive") == 0) { //TODO: test
+					//user deleted
+					response.getWriter().println("user deleted");
+					response.setStatus(405);
 					return;
 				}
 				dbPassword = rs.getString("password");

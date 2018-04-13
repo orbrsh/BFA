@@ -1,0 +1,27 @@
+<!-- admin transactions -->
+<ul>
+    transactions:
+    <li ng-repeat="trans in adminTransactions.Transactions">
+        <ul>
+            <li>
+                #{{$index}}
+            </li>
+            <li>
+                <b>Username:</b>
+                {{trans.username}}
+            </li>
+            <li>
+                <b>Book name:</b>
+                {{trans.bookname}}
+            </li>
+            <li>
+                <b>Paid:</b>
+                {{trans.price}}
+            </li>
+            <li>
+                <b>Date:</b>
+                {{trans.date}}
+            </li>
+        </ul>
+    </li>
+</ul>

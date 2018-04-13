@@ -1,0 +1,42 @@
+<!-- admin users -->
+<ul>
+    users:
+    <li ng-repeat="user in adminUser.users">
+        <ul>
+            <li>
+                #{{$index}}
+            </li>
+            <li>
+                <img data-ng-src="{{(user.Photo == '') ? 'images/img_nogravatar.png' : user.Photo}}" alt="{{'user'+$index+' photo'}}">
+            </li>
+            <li>
+                <b>Username:</b>
+                {{user.Username}}
+            </li>
+            <li>
+                <b>Nickname:</b>
+                {{user.Nickname}}
+            </li>
+            <li>
+                <b>Telephone:</b>
+                {{user.Phone}
+            </li>
+            <li>
+                <b>Email:</b>
+                {{user.Email}}
+            </li>
+            <li>
+                <b>Address:</b>
+                {{user.Address}}
+            </li>
+            <li>
+                <b>Description:</b>
+                {{user.Description}}
+            </li>
+            <li>
+                <button ng-click="adminUser.deleteUser(user.Username)">Remove user</button>
+            </li>
+
+        </ul>
+    </li>
+</ul>

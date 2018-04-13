@@ -66,6 +66,21 @@ public class Customer {
 		
 	}
 	
+	// ctor from db to client side
+	public Customer(String username, String address, String nickname, String description, String photo,
+			String mail, int phone) {
+		super();
+		Username = username;
+		Password = "";
+		Address = address;
+		Nickname = nickname;
+		this.Description = description;
+		this.Photo = photo;
+		Email = mail;
+		Phone = phone;
+		
+	}
+	
 	private String Username;
 	private String Password;
 	private String Address;

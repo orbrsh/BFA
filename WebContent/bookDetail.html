@@ -12,7 +12,7 @@ a book by
         </div>
     </span>
 </div>
-<p id="{{book.Name +_description}}">
+<p id="{{book.Name +' _description'}}">
     {{book.Description}}
 </p>
 <br> Price: {{book.Price}} $
@@ -26,9 +26,63 @@ a book by
     </li>
 </ul>
 <div data-ng-show="(bookUserData.isLogged && userBoughtThisBook(book.Name))">
-    <button class="btn" ng-class="{ 'btn-success': (bookUserData.isLogged && userLikedThisBook(book.likes)) }">like</button>
-    <button class="btn">add review</button>
-    <button class="btn-info" ng-click="readBook(book.Name)">read book</button>
+     <!-- data-ng-include="'reviewForm.html'"> -->
+    <button class="btn" data-ng-click="likeBook()" data-ng-class="{ 'btn-success': (bookUserData.isLogged && userLikedThisBook(book.likes)) }">like</button>
+    <button class="btn" data-ng-click="addReviewOpen()">add review</button>
+    <button class="btn-info" data-ng-click="readBook(book.Name)">read book</button>
+    <div data-ng-show="addReviewShow">
+        <form data-ng-submit="addReview(book.Name, newReview)" name="reviewBookForm">
+            <label for="newReview">Add new review (will be shown after admin approval</label>
+            <textarea name="newReview" cols="30" rows="10" data-ng-model="newReview"></textarea>
+            <input type="submit" value="Add review">
+        </form>
+    </div>
+</div>
+<div data-ng-show="(bookUserData.isLogged && !userBoughtThisBook(book.Name))" >
+    <!-- data-ng-include="'buyForm.html'"> -->
+    <button class="btn" data-ng-click="buyBookForm()">Buy this book Now!</button> only {{book.Price}} $
+    <div data-ng-show="buyBookFormOpen">
+        <form data-ng-submit="buyBook()" name="buyForm{{$index}}">
+            <label for="buyBookVisaType">Credit Type</label>
+            <select name="buyBookVisaType"  data-ng-model="buyBook.type" required>
+                <option value="">Type..</option>
+                <option value="VISA">VISA</option>
+                <option value="AMEX">AMEX</option>
+                <option value="Diners">Diners</option>
+                <option value="Mastercard">Mastercard</option>
+            </select>
+            <label for="buyBookVisa">visa number [16 digits]</label>
+            <input type="number" data-ng-model="buyBook.visa" required data-ng-minlength="16" data-ng-maxlength="16">
+            <label for="buyBookCSV">csv [3-4 digits]</label>
+            <input type="number" data-ng-model="buyBook.csv" required data-ng-minlength="3" data-ng-maxlength="4">
+            <label for="buyBookExpiryMonth">Expiry date Month/Year</label>
+            <select name="buyBookExpiryMonth" data-ng-model="buyBook.expiry.month" required>
+                <option value="">MM</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            /
+            <select name="buyBookExpiryYear" data-ng-model="buyBook.expiry.year" required>
+                <option value="">YYYY</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+            </select>
+            <input type="submit" value="Complete the purchase">
+        </form>
+    </div>
 </div>
 
 <!-- <ul>

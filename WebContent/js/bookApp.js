@@ -7,20 +7,22 @@ bookApp.value('userData', {
     isLogged: false,
     loggedUser: "",
     adminLogged: false,
-    purchasedBooks: []
+    getPurchasedBooksFunc: null, //? // TODO: check
+    adminMode: null,
+    purchasedBooks: [] // update at login
 });
 
 bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
-function ($scope, $http, $filter, userData) {
-    $scope.booklistView = {
-        All: false,
-        Purchased: false,
-        singleBook: false
-    };
-    $scope.bookUserData = userData; //isLogged, loggedUser, adminLogged
+    function ($scope, $http, $filter, userData) {
+        $scope.booklistView = {
+            All: false,
+            Purchased: false,
+            singleBook: false
+        };
+        $scope.bookUserData = userData; //isLogged, loggedUser, adminLogged
 
         var bookListInit = getAllBooks();
-        $scope.booklistnames =[];
+        $scope.booklistnames = [];
 
         function getAllBooks() {
             $http.get("BooksServlet/getAllBooks").then(function (response) {
@@ -55,18 +57,18 @@ function ($scope, $http, $filter, userData) {
             $http.get("BooksServlet/myBooks").then(function (response) {
                     //$scope.purchasedBooklist = response.data;
                     $scope.bookUserData.purchasedBooks = response.data;
-                    $scope.userBoughtThisBook = function (bookname){
+                    $scope.userBoughtThisBook = function (bookname) {
                         if (($scope.bookUserData.isLogged === false) || angular.isUndefined(bookname))
                             return false;
                         var bookFound = $filter('filter')($scope.bookUserData.purchasedBooks, {
                             Name: bookname
                         }, true)[0];
-                        if (bookFound){ // user bought it
+                        if (bookFound) { // user bought it
                             return true;
                         } else
                             return false;
-                       // $filter('filter')(myArray, {'id':73})
-                       // if $scope.book.Name
+                        // $filter('filter')(myArray, {'id':73})
+                        // if $scope.book.Name
                     };
                 },
                 function (response) {
@@ -77,22 +79,25 @@ function ($scope, $http, $filter, userData) {
             $scope.booklistView.All = false;
             $scope.booklistView.singleBook = false;
         };
-        $scope.userLikedThisBook = function (likesList){
+
+        userData.getPurchasedBooksFunc = $scope.purchasedbooks; // TODO: check
+
+        $scope.userLikedThisBook = function (likesList) {
             if (($scope.bookUserData.isLogged === false) || angular.isUndefined(likesList))
                 return false;
             var likeFound = $filter('filter')(likesList, {
                 Username: $scope.bookUserData.loggedUser
             }, true)[0];
-            if (likeFound){ // user bought it
+            if (likeFound) { // user bought it
                 return true;
             } else
                 return false;
-           // $filter('filter')(myArray, {'id':73})
-           // if $scope.book.Name
+            // $filter('filter')(myArray, {'id':73})
+            // if $scope.book.Name
         };
         $scope.singlebook = function () {
             var chosenBook = $scope.chosenSingleBook;
-            if (angular.isUndefined(chosenBook)){
+            if (angular.isUndefined(chosenBook)) {
                 $scope.singlebook = null;
                 return;
             }
@@ -106,36 +111,97 @@ function ($scope, $http, $filter, userData) {
             $scope.booklistView.Purchased = false;
         };
 
-        $scope.readBook = function(bookname){
+        $scope.readBook = function (bookname) {
             $scope.booklistView.All = false;
             $scope.booklistView.singleBook = false;
             $scope.booklistView.Purchased = false;
-            var testBook ="An Everyday Girl—A Project Gutenberg eBook.html";
+            var testBook = "An Everyday Girl—A Project Gutenberg eBook.html";
             $scope.readMode = true;
-            $scope.bookReadOn =  "book list/"+testBook;
+            $scope.bookReadOn = "book list/" + testBook;
 
             //get location from db to:
             $scope.readModeFuncs.locationOnPage = 0;
         };
 
         $scope.readModeFuncs = {
-            savePosition: function(){
+            savePosition: function () {
                 $scope.readModeFuncs.locationOnPage = window.scrollY;
                 //servlet to db.
             },
-            goBack: function(){
+            goBack: function () {
                 window.scrollTo(0, $scope.readModeFuncs.locationOnPage);
             },
-            stopReading: function(){
+            stopReading: function () {
                 $scope.readMode = false;
                 $scope.bookReadOn = null;
                 return;
             },
-            saveAndStop: function(){
+            saveAndStop: function () {
                 $scope.readModeFuncs.savePosition();
                 $scope.readModeFuncs.stopReading();
             }
         };
+
+        // review
+        $scope.addReviewShow = [];
+        $scope.addReviewShow.push(false); // should handle list per book
+
+        $scope.addReviewOpen = function () {
+            $scope.addReviewShow = !$scope.addReviewShow;
+        };
+        $scope.addReview = function (bookName, reviewText) {
+            //var reviewText = $scope.newReview;
+            //var bookName = $scope.book.Name;
+            var obj = {
+                reviewText: reviewText,
+                bookName: bookName
+            };
+
+            $http.post("ReviewServlet", obj).then(function (response) {
+                    // response.data
+                    // should response updated reviews list for this book!
+                }, function () {
+
+                }
+
+            );
+        };
+
+
+        //like
+        $scope.likeBook = function () {
+            var obj = {
+                bookName: $scope.book.Name
+            };
+            if (userLikedThisBook($scope.book.likes)) {
+                $http.delete("LikeServlet", obj).then(function (response) {
+                        // response.data
+                        // should response updated likes list for this book!
+                    }, function () {
+
+                    }
+
+                );
+                var sLike = $scope.singleBook = $filter('filter')($scope.book.likes, {
+                    Username: $scope.bookUserData.Username
+                }, true)[0];
+                var idx = $scope.book.likes.indexOf(sLike);
+                $scope.book.likes.splice(idx, 1); // remove this like
+            } else {
+                $http.post("LikeServlet", obj).then(function (response) {
+                        // response.data
+                        // should response updated likes list for this book!
+                    }, function () {
+
+                    }
+
+                );
+            }
+        };
+
+        // buy book
+
+
         // $scope.userBoughtThisBook = function (bookname){
         //     if ($scope.bookUserData.isLogged === false)
         //         return false;
@@ -173,6 +239,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
                 if ("isAdmin" in response.data) {
                     $scope.loginUserData.adminLogged = true;
                 }
+                $scope.loginUserData.getPurchasedBooksFunc(); // TODO: check
             },
             function (response) {});
     }
@@ -211,6 +278,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
                 $scope.loginUserData.adminLogged = true;
             }
             // upon succsess
+            $scope.loginUserData.getPurchasedBooksFunc(); // TODO: check
             $scope.loginMode = false;
         }, function (reposnse) {
             $scope.loginFormErrorToggle = true;
@@ -246,7 +314,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
             $scope.loginUserData.isLogged = true;
             $scope.registerMode = false;
 
-            // upon succsess
+            // upon success
             $scope.loginMode = false;
         }, function (reposnse) {
             $scope.RegisterFormErrorToggle = true;
@@ -265,6 +333,112 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
         console.log("register mode active");
     };
 }]);
+
+bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
+    function ($scope, $http, $filter, userData) {
+        $scope.AdminViews = {
+            adminMenuView: false,
+            usersView: false,
+            reviewsView: false,
+            transactionsView: false,
+            whatToShow: "",
+            show: function (whatToShow) {
+                $scope.AdminViews.whatToShow = whatToShow;
+                switch (whatToShow) {
+                    case "reviews":
+                        getReviews();
+                        break;
+                    case "users":
+                        getUsers();
+                        break;
+                    case "transactions":
+                        getTransactions();
+                        break;
+                    case "books":
+                        //show regular books
+                        break;
+                    default:
+                        console.log("wrong AdminView");
+                }
+            }
+        };
+        // userData; //isLogged, loggedUser, adminLogged
+        userData.adminMode = function adminModeFunc() {
+            if (userData.adminLogged !== true)
+                return;
+            $scope.adminMode = true;
+            $scope.AdminViews.adminMenuView = true;
+            // getTransactions();
+            // getUsers();
+            // getReviews();
+        };
+
+        $scope.adminTransactions = {
+            show: false,
+            TransActions: []
+        };
+        $scope.adminUser = {
+            show: false,
+            users: {},
+            deleteUser: function (userToDelete) {
+                var obj = {
+                    username: userToDelete
+                };
+                $http.delete("CustomerServlet", obj).then(function (response) {
+                    // deleted
+                }, function (reposnse) {
+                    // failed to delete
+                    return;
+                });
+            }
+        };
+        $scope.adminReview = {
+            show: false,
+            Reviews: {},
+            approveReview: function (reviewIdtoApprove) {
+                var obj = {
+                    username: userToDelete
+                };
+                // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
+                $http.delete("customers/name/" + userToDelete, obj).then(function (response) {
+                    // deleted
+                }, function (reposnse) {
+                    // failed to delete
+                    return;
+                });
+            }
+        };
+
+        function getTransactions() {
+            $http.get("TransactionsServlet").then(function (response) {
+                $scope.adminTransactions.TransActions = response.data;
+            }, function (reposnse) {
+                // failed getting transactions
+                return;
+            });
+        }
+
+        function getUsers() {
+            $http.get("customers").then(function (response) {
+                $scope.adminUser.users = response.data;
+            }, function (reposnse) {
+                // failed gettin transactions
+                return;
+            });
+        }
+
+        function getReviews() {
+            $http.get("ReviewsServlet").then(function (response) {
+                $scope.adminReview.Reviews = response.data;
+            }, function (reposnse) {
+                // failed gettin transactions
+                return;
+            });
+        }
+
+        //admin controller
+    }
+]);
 
 
 // jQuery stuff

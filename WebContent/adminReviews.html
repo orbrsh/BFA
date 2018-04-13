@@ -1,0 +1,23 @@
+<!-- admin reviews -->
+<ul>
+    reviews:
+    <li ng-repeat="review in adminReview.Reviews">
+        <ul>
+            <li>
+                {{review.author}}
+            </li>
+            <li>
+                {{review.book}}
+            </li>
+            <li>
+                {{review.date}}
+            </li>
+            <li>
+                {{review.content}}
+            </li>
+            <li>
+                <button ng-click="adminReview.approveReview(review.id)">Approve Review</button>
+            </li>
+        </ul>
+    </li>
+</ul>

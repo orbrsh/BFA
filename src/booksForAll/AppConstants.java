@@ -64,12 +64,14 @@ public interface AppConstants {
 			+ "UNIQUE (Email,Nickname))";
 	public final String INSERT_CUSTOMER_STMT = "INSERT INTO CUSTOMER (Username, Password, Address, Nickname, "
 			+ "Description, Photo, Email, Phone) VALUES(?,?,?,?,?,?,?,?)";
-	public final String SELECT_ALL_CUSTOMERS_STMT = "SELECT * FROM CUSTOMER";
+	public final String SELECT_ALL_ACTIVE_CUSTOMERS_STMT = "SELECT * FROM CUSTOMER "
+			+ "WHERE isActive = 1";
+	
 	public final String SELECT_CUSTOMER_BY_NAME_STMT = "SELECT * FROM CUSTOMER "
 			+ "WHERE Username=?";
 	public final String SELECT_CUSTOMER_BY_NAME_EMAIL_NICK_STMT = "SELECT * FROM CUSTOMER "
-			+ "WHERE Username=? OR Email=? OR Nickname=?";
-	public final String REMOVE_CUSTOMER_BY_NAME_STMT = "UPDATE CUSTOMERS SET (isActive=0)"
+			+ "WHERE Username=? OR Email=? OR Nickname=?"; // for registration
+	public final String REMOVE_CUSTOMER_BY_NAME_STMT = "UPDATE CUSTOMER SET isActive=0 "
 			+ "WHERE Username=?";
 	
 	
