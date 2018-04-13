@@ -133,7 +133,7 @@ public class RegistrationServlet extends HttpServlet {
 				pstmt.setString(5,cust.getDescription());
 				pstmt.setString(6,cust.getPhoto());
 				pstmt.setString(7, cust.getMail());
-				pstmt.setInt(8,cust.getPhone());
+				pstmt.setString(8,cust.getPhone());
 				pstmt.executeUpdate();
 
 				// commit updates

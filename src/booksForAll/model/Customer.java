@@ -46,14 +46,14 @@ public class Customer {
 	public void setMail(String mail) {
 		Email = mail;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return Phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		Phone = phone;
 	}
 	public Customer(String username, String password, String address, String nickname, String description, String photo,
-			String mail, int phone) {
+			String mail, String phone) {
 		super();
 		Username = username;
 		Password = password;
@@ -68,7 +68,7 @@ public class Customer {
 	
 	// ctor from db to client side
 	public Customer(String username, String address, String nickname, String description, String photo,
-			String mail, int phone) {
+			String mail, String phone) {
 		super();
 		Username = username;
 		Password = "";
@@ -88,7 +88,7 @@ public class Customer {
 	private String Description;
 	private String Photo;
 	private String Email;
-	private int Phone;
+	private String Phone;
 	
 	
 

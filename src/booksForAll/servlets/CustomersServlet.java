@@ -123,7 +123,7 @@ public class CustomersServlet extends HttpServlet {
 					while (rs.next()) {
 						customersResult.add(new Customer(rs.getString("Username"), rs.getString("Address"),
 								rs.getString("Nickname"), rs.getString("Description"), rs.getString("Photo"),
-								rs.getString("Email"), rs.getInt("Phone")));
+								rs.getString("Email"), rs.getString("Phone")));
 					}
 					rs.close();
 					stmt.close();
@@ -140,7 +140,7 @@ public class CustomersServlet extends HttpServlet {
 					while (rs.next()) {
 						customersResult.add(new Customer(rs.getString("Username"), rs.getString("Address"),
 								rs.getString("Nickname"), rs.getString("Description"), rs.getString("Photo"),
-								rs.getString("Email"), rs.getInt("Phone")));
+								rs.getString("Email"), rs.getString("Phone")));
 					}
 					rs.close();
 					stmt.close();

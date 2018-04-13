@@ -58,7 +58,7 @@ public interface AppConstants {
 			+ "Description varchar(50),"
 			+ "Photo varchar(50),"
 			+ "Email varchar(100),"
-			+ "Phone INT,"
+			+ "Phone varchar(10),"
 			+ "isActive INT DEFAULT 1,"
 			+ "PRIMARY KEY (Username),"
 			+ "UNIQUE (Email,Nickname))";
