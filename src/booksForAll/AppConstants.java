@@ -104,6 +104,8 @@ public interface AppConstants {
 	public final String SELECT_ALL_LIKES_STMT = "SELECT * FROM LIKES"; // TODO: is needed?
 	public final String SELECT_LIKE_BY_USERNNAME_STMT = "SELECT * FROM LIKES "
 			+ "WHERE Username=?"; // TODO: is needed?
+	public final String SELECT_LIKE_BY_USERNNAME_BOOKID_STMT = "SELECT * FROM LIKES "
+			+ "WHERE Username=? AND IdBook=?";
 	public final String SELECT_ALL_LIKES_BY_BOOKID_STMT = "SELECT * FROM LIKES "
 			+ "WHERE IdBook=?";
 	public final String REMOVE_LIKE_STMT = "DELETE FROM LIKES "

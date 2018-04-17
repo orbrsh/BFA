@@ -42,3 +42,31 @@
     position: fixed;
     top: 0;
 }
+
+.modalForm{
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    background: #fff;
+    border: #555;
+    border-width: thick;
+    border-style: double;
+}
+.modalFinish{
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    background: #2196f3a3;
+    border: #555;
+    border-width: thick;
+    border-style: dotted;
+}
+
+.form-group{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.registerForm{
+    top: 8%;
+}

@@ -75,7 +75,7 @@ public class BooksServlet extends HttpServlet {
 					while (rs.next()) {
 						Book thisBook = new Book(rs.getInt("IdBooks"), rs.getString("Name"), 
 										rs.getString("Author"), rs.getString("Photo"), 
-										rs.getFloat("Price"), rs.getString("Description"));
+										rs.getFloat("Price"), rs.getString("Description"), rs.getString("FullHtml"));
 						int bookId = rs.getInt("IdBooks");
 						PreparedStatement stmt2 = conn.prepareStatement(AppConstants.SELECT_ALL_LIKES_BY_BOOKID_STMT);
 						stmt2.setInt(1, bookId);
@@ -146,7 +146,7 @@ public class BooksServlet extends HttpServlet {
 						while (rs.next()) {
 							Book thisBook = new Book(rs.getInt("IdBooks"), rs.getString("Name"), 
 											rs.getString("Author"), rs.getString("Photo"), 
-											rs.getFloat("Price"), rs.getString("Description"));
+											rs.getFloat("Price"), rs.getString("Description"), rs.getString("FullHtml"));
 							int bookId = rs.getInt("IdBooks");
 							PreparedStatement stmt3 = conn.prepareStatement(AppConstants.SELECT_ALL_LIKES_BY_BOOKID_STMT);
 							stmt3.setInt(1, bookId);
@@ -193,7 +193,7 @@ public class BooksServlet extends HttpServlet {
 					while (rs.next()) {
 						Book thisBook = new Book(rs.getInt("IdBooks"), rs.getString("Name"), 
 										rs.getString("Author"), rs.getString("Photo"), 
-										rs.getFloat("Price"), rs.getString("Description"));
+										rs.getFloat("Price"), rs.getString("Description"), rs.getString("FullHtml"));
 						int bookId = rs.getInt("IdBooks");
 						PreparedStatement stmt3 = conn.prepareStatement(AppConstants.SELECT_ALL_LIKES_BY_BOOKID_STMT);
 						stmt3.setInt(1, bookId);

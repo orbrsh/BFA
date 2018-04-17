@@ -111,13 +111,14 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             $scope.booklistView.Purchased = false;
         };
 
-        $scope.readBook = function (bookname) {
+        $scope.readBook = function (bookHtml) {
             $scope.booklistView.All = false;
             $scope.booklistView.singleBook = false;
             $scope.booklistView.Purchased = false;
-            var testBook = "An Everyday Girl—A Project Gutenberg eBook.html";
+
+            //var testBook = "An Everyday Girl—A Project Gutenberg eBook.html";
             $scope.readMode = true;
-            $scope.bookReadOn = "book list/" + testBook;
+            $scope.bookReadOn = "book list/" + bookHtml;
 
             //get location from db to:
             $scope.readModeFuncs.locationOnPage = 0;
@@ -142,61 +143,117 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             }
         };
 
-        // review
-        $scope.addReviewShow = [];
-        $scope.addReviewShow.push(false); // should handle list per book
+        $scope.bookToReview = "";
+        $scope.addReviewShow = false;
+        $scope.addReviewFinish = false;
 
-        $scope.addReviewOpen = function () {
+        // review
+        $scope.addReviewOpen = function (bookName) {
+            $scope.bookToReview = bookName;
             $scope.addReviewShow = !$scope.addReviewShow;
         };
-        $scope.addReview = function (bookName, reviewText) {
-            //var reviewText = $scope.newReview;
-            //var bookName = $scope.book.Name;
+        $scope.addReviewClose = function () {
+            if ($scope.addReviewShow === true) {
+                $scope.bookToReview = "";
+                $scope.newReview = "";
+                $scope.addReviewShow = !$scope.addReviewShow;
+                $scope.addReviewFinish = false;
+            }
+        };
+        // $scope.addReview = function (bookName, reviewText) {
+        $scope.addReview = function () {
+            var reviewText = $scope.newReview;
+            var bookName = $scope.bookToReview;
             var obj = {
                 reviewText: reviewText,
                 bookName: bookName
             };
+            $scope.addReviewFinish = true;
 
             $http.post("ReviewServlet", obj).then(function (response) {
                     // response.data
                     // should response updated reviews list for this book!
+                    $scope.reviewFinishText = "Review sent, waiting for admin approval";
                 }, function () {
-
+                    $scope.reviewFinishText = "Review sending failed";
                 }
 
             );
         };
 
+        $scope.bookToBuy = "";
+        $scope.buyBookFormShow = false;
+        $scope.buyBookFinish = false;
 
-        //like
-        $scope.likeBook = function () {
-            var obj = {
-                bookName: $scope.book.Name
-            };
-            if (userLikedThisBook($scope.book.likes)) {
-                $http.delete("LikeServlet", obj).then(function (response) {
-                        // response.data
-                        // should response updated likes list for this book!
-                    }, function () {
-
-                    }
-
-                );
-                var sLike = $scope.singleBook = $filter('filter')($scope.book.likes, {
-                    Username: $scope.bookUserData.Username
-                }, true)[0];
-                var idx = $scope.book.likes.indexOf(sLike);
-                $scope.book.likes.splice(idx, 1); // remove this like
-            } else {
-                $http.post("LikeServlet", obj).then(function (response) {
-                        // response.data
-                        // should response updated likes list for this book!
-                    }, function () {
-
-                    }
-
-                );
+        var initialBuyBook = {
+            type: undefined,
+            visa: undefined,
+            csv: undefined,
+            expiry: {
+                month: undefined,
+                year: undefined
             }
+        };
+        //$scope.buyBook = angular.copy(initialBuyBook);
+
+        $scope.buyBookOpen = function (bookname) {
+            $scope.bookToBuy = bookname;
+            ////$scope.buyBook.bookname = bookname;
+            $scope.buyBookFormShow = true;
+        };
+        $scope.buyBookClose = function () {
+            if ($scope.buyBookFormShow === true) {
+                $scope.bookToBuy = "";
+                $scope.buyForm.$setPristine();
+                $scope.buyForm.$setUntouched();
+                $scope.buyBook = angular.copy(initialBuyBook);
+                $scope.buyBookFormShow = !$scope.buyBookFormShow;
+                $scope.buyBookFinish = false;
+            }
+        };
+
+        $scope.buyBookFunc = function () {
+            if ($scope.buyForm.$invalid) {
+                return;
+            }
+            // var obj = {
+            //     bookName:  $scope.buyBook.bookName,
+            //     visaType:  $scope.buyBook.type,
+            //     visaNumber:  $scope.buyBook.visa,
+            //     visaCsv:  $scope.buyBook.csv,
+            //     expiry:  $scope.buyBook.expiry, // month and year obj
+
+            // };
+            //$scope.buyBook.bookName = bookname;
+            $scope.buyBookFinish = true;
+
+            $http.post("BuyingServlet/book/" + $scope.bookToBuy, $scope.buyBook).then(function (response) {
+                    // response.data
+                    // should response updated reviews list for this book!
+                    $scope.purchasedbooks(); // update purchased books list
+                    $scope.buyBookFinishText = "Book purchase completed";
+                }, function () {
+                    $scope.buyBookFinishText = "Book purchase failed";
+                }
+
+            );
+        };
+
+        function getLikesForBook(book){
+            $http.get("LikeServlet/book/"+book.IdBook).then(function(response){
+                book.likes = response.data;
+            },function(response){
+
+            });
+        }
+        //like
+        $scope.likeBook = function (book) {
+            $http.post("LikeServlet/book/"+book.IdBook).then(function(response){
+                getLikesForBook(book);
+            },function(response){
+
+            });
+
         };
 
         // buy book
@@ -390,7 +447,7 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
                 };
                 // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
                 $http.delete("customers/name/" + userToDelete, obj).then(function (response) {
-                    console.log("deleted user "+ userToDelete);
+                    console.log("deleted user " + userToDelete);
                     getUsers();
                     // deleted
                 }, function (reposnse) {
@@ -410,7 +467,7 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
                 };
                 // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
                 $http.delete("reviews/id/" + reviewIdtoApprove, obj).then(function (response) {
-                    console.log("approved review "+ reviewIdtoApprove);
+                    console.log("approved review " + reviewIdtoApprove);
                     getReviews();
                     // deleted
                 }, function (reposnse) {
