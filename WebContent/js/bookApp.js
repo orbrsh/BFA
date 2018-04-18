@@ -349,7 +349,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
         $http.post("LogoutServlet").then(function () {
             $scope.loginUserData.isLogged = false;
             $scope.loginUserData.loggedUser = "";
-            $scope.loginUserData.adminMode(0);
+            $scope.loginUserData.adminMode(-1);
             $scope.loginUserData.adminLogged = false;
             $scope.loginUserData.purchasedBooks = [];
             console.log("logout successful");
@@ -483,6 +483,10 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
         };
         // userData; //isLogged, loggedUser, adminLogged
         userData.adminMode = function adminModeFunc(reviewsMode) {
+            if (reviewsMode == -1) {
+                $scope.adminMode = false;
+                return;
+            }
             if (userData.adminLogged !== true)
                 return;
             if ($scope.adminMode === true) {
