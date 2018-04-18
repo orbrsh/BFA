@@ -28,9 +28,11 @@
                     <!--<span data-ng-show="isLogged"> Hello, {{ loggedUser }}</span>
                     <a href="#userBoard" data-ng-show="isLogged">User board</a>-->
                     <span> Hello, {{ loginUserData.loggedUser }}</span>
-                    <a href="#userBoard">User profile</a>
                     &nbsp;|&nbsp;
                     <a href="" data-ng-click="logoutFunc()">Logout</a>
+                    <br>
+                    <a href="#userBoard">User profile</a>
+
                     <span data-ng-show="loginUserData.adminLogged">
                         <br>
                         <a href="" data-ng-click="loginUserData.adminMode()">Admin board</a>
