@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
@@ -47,8 +48,21 @@ public class CustomersServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// super.doDelete(req, resp);
+		//admin only -- test
+				HttpSession mySession = request.getSession(false);
+				if (mySession == null ) {
+					// session available
+					response.getWriter().println("not logged in");
+					response.setStatus(405);
+					return;
+				}
+				if (mySession.getAttribute("isAdmin") == null) {
+					response.getWriter().println("admin only");
+					response.setStatus(405);
+					return;
+				}
+				
+				// is admin
 		try {
 
 			// obtain CustomerDB data source from Tomcat's context

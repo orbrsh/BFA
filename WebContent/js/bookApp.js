@@ -9,7 +9,9 @@ bookApp.value('userData', {
     adminLogged: false,
     getPurchasedBooksFunc: null, //? // TODO: check
     adminMode: null,
-    purchasedBooks: [] // update at login
+    purchasedBooks: [], // update at login
+    booklistnames: []
+
 });
 
 bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
@@ -32,6 +34,7 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
                         this.push(item.Name);
                     }, $scope.booklistnames);
                     $scope.booklist = response.data;
+                    userData.booklistnames = $scope.booklistnames;
                     return response.data;
                 },
                 function (response) {});
@@ -248,7 +251,16 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
         }
         //like
         $scope.likeBook = function (book) {
+            /**
+             * sending like request as "post"
+             * handled on the servlet:
+             *  if like is sent - it's removed from this books likes
+             *  else, if user has purchased this book, a like is set and added to book likes
+             */
+
+            // sending like request as post.
             $http.post("LikeServlet/book/"+book.IdBook).then(function(response){
+                // upon success, update this book's likes list
                 getLikesForBook(book);
             },function(response){
 
@@ -434,7 +446,7 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
 
         $scope.adminTransactions = {
             show: false,
-            TransActions: []
+            Transactions: null
         };
         $scope.adminUser = {
             show: false,
@@ -445,6 +457,9 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
                 var obj = {
                     username: userToDelete
                 };
+                if (!confirm("Are you sure?")){
+                    return;
+                }
                 // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
                 $http.delete("customers/name/" + userToDelete, obj).then(function (response) {
                     console.log("deleted user " + userToDelete);
@@ -478,8 +493,8 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
         };
 
         function getTransactions() {
-            $http.get("TransactionsServlet").then(function (response) {
-                $scope.adminTransactions.TransActions = response.data;
+            $http.get("Purchase").then(function (response) {
+                $scope.adminTransactions.Transactions = response.data;
             }, function (reposnse) {
                 // failed getting transactions
                 return;
@@ -503,6 +518,10 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
                 return;
             });
         }
+
+        $scope.getBooknameById = function (bookId){
+            return userData.booklistnames[bookId-1];
+        };
 
         //admin controller
     }
