@@ -47,6 +47,7 @@
                 <form data-ng-submit="loginFunc()" name="loginForm">
                     <div class="form-group">
                         <label for="loginUser">User Name</label>
+                        <span class="glyphicon glyphicon-user"></span>
                         <input type="text" class="form-control" placeholder="username" name="loginUser" data-ng-model="login.User" required data-ng-maxlength="10">
                         <div role="alert">
                             <span class="error" data-ng-show="loginForm.loginUser.$error.maxlength">
@@ -60,6 +61,7 @@
 
                     <div class="form-group">
                         <label for="loginPassword">Password</label>
+                        <span class="glyphicon glyphicon-lock"></span>
                         <input type="password" class="form-control" placeholder="123456" name="loginPassword" data-ng-model="login.Password" required
                             data-ng-maxlength="9">
                         <div role="alert">
@@ -88,6 +90,7 @@
                 <form data-ng-submit="registerFunc()" name="registerForm">
                     <div class="form-group">
                         <label for="registerUser">User Name</label>
+                        <span class="glyphicon glyphicon-user"></span>
                         <input type="text" class="form-control" placeholder="username" name="registerUser" data-ng-model="register.User" required
                             data-ng-maxlength="10">
                         <div role="alert">
@@ -102,6 +105,7 @@
 
                     <div class="form-group">
                         <label for="registerPassword">Password</label>
+                        <span class="glyphicon glyphicon-lock"></span>
                         <input type="password" class="form-control" placeholder="123456" name="registerPassword" data-ng-model="register.Password"
                             required data-ng-maxlength="8">
                         <div role="alert">
@@ -115,6 +119,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerNickName">Nickname</label>
+                        <i class="glyphicon glyphicon-heart"></i>
                         <input type="text" class="form-control" placeholder="nickname" name="registerNickName" data-ng-model="register.NickName"
                             required data-ng-maxlength="20">
                         <div role="alert">
@@ -128,6 +133,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerEmail">Email</label>
+                        <i class="glyphicon glyphicon-envelope"></i>
                         <input type="email" class="form-control" placeholder="email@domain.com" name="registerEmail" data-ng-model="register.Email"
                             required>
                         <div role="alert">
@@ -141,6 +147,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerTelephoneArea">Telephone</label>
+                        <i class="glyphicon glyphicon-phone-alt"></i>
                         <select class="form-control" name="registerTelephoneArea" data-ng-model="register.Telephone.Area" required>
                             <option value="">Select..</option>
                             <option value="050">050</option>
@@ -167,6 +174,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerAddressStreet">Address:
+                            <i class="glyphicon glyphicon-home"></i>
                             <br>Street and house number</label>
                         <input type="text" class="form-control" placeholder="11 Moshe St" name="registerAddressStreet" data-ng-model="register.Address.Street"
                             required>
@@ -196,6 +204,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerAbout">Short Description</label>
+                        <i class="glyphicon glyphicon-pencil"></i>
                         <textarea class="form-control" rows=3 placeholder="Short description about you. max 50 chars." name="registerAbout" data-ng-model="register.About"
                             data-ng-maxlength="50"></textarea>
                         <div role="alert">
@@ -206,6 +215,7 @@
                     </div>
                     <div class="form-group">
                         <label for="registerPhoto">Photo (url)</label>
+                        <i class="glyphicon glyphicon-camera"></i>
                         <input type="url" class="form-control" placeholder="link to your photo." name="registerPhoto" data-ng-model="register.photo">
                     </div>
                     <div role="alert">
@@ -222,10 +232,10 @@
             </div>
             <!-- register mode -->
             <div name="userProfileShow" data-ng-show="userProfileShow" class="modalForm registerForm">
-                    <div class="modal-header">
-                            <button type="button" class="close" data-ng-click="userProfileShow=false">&times;</button>
-                            <h4 class="modal-title">UserProfile</h4>
-                        </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-ng-click="userProfileShow=false">&times;</button>
+                    <h4 class="modal-title">UserProfile</h4>
+                </div>
 
                 <ul data-ng-repeat="userProfile in userProfiles">
                     <li>
@@ -320,12 +330,14 @@
                     </div>
                     <div class="form-group">
                         <label for="bookToReview">Book name</label>
+                        <i class="glyphicon glyphicon-bookmark"></i>
                         <p class="form-control-static" name="bookToReview" id="bookToReview">{{bookToReview}}</p>
                         <small>[bookid:{{bookToReviewId}}]</small>
                     </div>
                     <fieldset data-ng-disabled="addReviewFinish">
                         <div class="form-group">
                             <label for="newReview">Add new review</label>
+                            <i class="glyphicon glyphicon-pencil"></i>
                             <textarea name="newReview" class="form-control" cols="30" rows="10" data-ng-model="newReview" required></textarea>
                             <small class="form-text text-muted">(will be shown after admin approval)</small>
                         </div>
@@ -346,12 +358,14 @@
                     </div>
                     <div class="form-group">
                         <label for="bookToBuy">Book name</label>
+                        <i class="glyphicon glyphicon-book"></i>
                         <p class="form-control-static" name="bookToBuy" id="bookToBuy">{{ bookToBuy }}</p>
                         <small>[bookid:{{bookToBuyId}}]</small>
                     </div>
                     <fieldset data-ng-disabled="buyBookFinish">
                         <div class="form-group">
                             <label for="buyBookVisaType">Credit Type</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
                             <select name="buyBookVisaType" data-ng-model="buyBook.type" required>
                                 <option value="">Type..</option>
                                 <option value="VISA">VISA</option>
@@ -362,6 +376,7 @@
                         </div>
                         <div class="form-group">
                             <label for="buyBookVisa">visa number [16 digits]</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
                             <input type="text" name="buyBookVisa" data-ng-model="buyBook.visa" required data-ng-pattern="/^\d+$/" required data-ng-minlength="16"
                                 data-ng-maxlength="16" placeholder="1234567812345678" required>
                             <div role="alert">
@@ -381,6 +396,7 @@
                         </div>
                         <div class="form-group">
                             <label for="buyBookCSV">csv [3-4 digits]</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
                             <input type="text" name="buyBookCSV" data-ng-model="buyBook.csv" required data-ng-pattern="/^\d+$/" data-ng-minlength="3"
                                 data-ng-maxlength="4" placeholder="123" required>
                             <span class="error" data-ng-show="buyForm.buyBookCSV.$dirty && buyForm.buyBookCSV.$error.pattern">
@@ -398,6 +414,7 @@
                         </div>
                         <div class="form-group">
                             <label for="buyBookExpiryMonth">Expiry date Month/Year</label>
+                            <i class="glyphicon glyphicon-calendar"></i>
                             <select name="buyBookExpiryMonth" data-ng-model="buyBook.expiry.month" required>
                                 <option value="">MM</option>
                                 <option value="1">01</option>
