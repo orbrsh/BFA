@@ -1,0 +1,84 @@
+body{
+    padding-left: 10px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    opacity: 100;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.stickyMenu{
+    position: fixed;
+    top: 0;
+}
+
+.modalForm{
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    background: #fff;
+    border: #555;
+    border-width: thick;
+    border-style: double;
+}
+.modalFinish{
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    background: #2196f3a3;
+    border: #555;
+    border-width: thick;
+    border-style: dotted;
+}
+
+.form-group{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.registerForm{
+    top: 8%;
+}
+
+.loggedUserLine{
+    float: right;
+    border: #607d8b;
+    border-style: dashed;
+    border-width: 1px;
+    padding: 5px;
+}

@@ -1,6 +1,5 @@
 package booksForAll.servlets;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.Connection;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +21,6 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
 import booksForAll.AppConstants;
 import booksForAll.model.Customer;
@@ -114,7 +111,7 @@ public class RegistrationServlet extends HttpServlet {
 				if (found) {
 					conn.close();
 					response.getWriter().println("user already registered");
-					response.sendError(405);
+					response.setStatus(405);
 					return;
 				}
 			} catch (SQLException e) {
@@ -133,7 +130,7 @@ public class RegistrationServlet extends HttpServlet {
 				pstmt.setString(5,cust.getDescription());
 				pstmt.setString(6,cust.getPhoto());
 				pstmt.setString(7, cust.getMail());
-				pstmt.setInt(8,cust.getPhone());
+				pstmt.setString(8,cust.getPhone());
 				pstmt.executeUpdate();
 
 				// commit updates

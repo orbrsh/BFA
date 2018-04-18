@@ -46,7 +46,15 @@ public class Review {
 		IdReviews = idReviews;
 	}
 	
-	// From json to DB
+	/**
+	 * From json to DB
+	 * @param idBook
+	 * @param username
+	 * @param dateWritten
+	 * @param dateApproved
+	 * @param isApproved
+	 * @param reviewText
+	 */
 	public Review(int idBook, String username, long dateWritten, long dateApproved, int isApproved,
 			String reviewText) {
 		super();
@@ -57,8 +65,16 @@ public class Review {
 		this.isApproved = isApproved;
 		this.reviewText = reviewText;
 	}
-	
-	//from DB  (only approved)
+	/**
+	 * from DB  (only approved)
+	 * @param idReviews
+	 * @param idBook
+	 * @param username
+	 * @param dateWritten
+	 * @param dateApproved
+	 * @param isApproved
+	 * @param reviewText
+	 */
 	public Review(int idReviews, int idBook, String username, long dateWritten, long dateApproved, int isApproved,
 			String reviewText) {
 		super();

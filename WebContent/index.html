@@ -1,208 +1,501 @@
-<html lang="en-US"><head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>Books For All - Web Project</title>
-		
-		<!-- Google font for SEO purposes as well -->
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gafata">
-		
- 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="css/bootstrap.css"> 
-		
-		<!-- CSS style -->
-		<link rel="stylesheet" href="css/style.css"> 
-		
-		<!-- jQuery -->
-		<script src="js/jquery-2.1.1.min.js"></script>
-		
-		<!-- Bootstrap JS -->
-		<script src="js/bootstrap.min.js"></script>
-		
-		<script>
-		
-		
-		$(document).ready(function() {
-			
-		    $(window).load(function () {
-		        setTimeout(function(){
-		        	//Authenticate Session before showing the page and after 2000ms show page or redirect.
-	        		$.ajax({
-	        	        url: "/BooksForAll/user/SessionAuth",
-	        	        type: 'GET',
-	        	        contentType: "application/json; charset=utf-8"
-	        	    	})
-	        			
-	        	    	.done(function (data) {
-	        	    		if(data.result == "success"){
-	        					//console.log("success");
-	        					
-	        					window.location.pathname = "main.html";
-	        	    		}
-	        	    	 })
-	        	    	 .fail( function (data) {
-	        	    		 console.log(data);
-	        	    	 });
-		        	//fadeOut preloader
-		            $('#preloader').fadeOut('slow', function () {  
-		            });
-		        },2000);
-		    }); 
-			
-			
-			<!--Name can't be blank function called on user input-->
-			$('#validationTooltip01').on('input', function() {
-				var input=$(this);
-				var is_username=input.val();
-				// if username is empty add invalid class
-				if(!is_username){
-					input.addClass("invalid");
-				}
-				else{
-					input.removeClass("invalid");
-				}
-			});
-			<!-- function called on user input -->
-			$('#validationTooltip05').on('input', function() {
-				var input=$(this);
-				var is_pass=input.val();
-				//if password is empty add invalid class
-				if(!is_pass){
-					input.addClass("invalid");
-				}
-				else{
-					input.removeClass("invalid");
-				}
-			});
-			
-			
-			<!-- after form submission validate inputs -->
-			$("#loginButton").click(function(event){
-				
-				var form_data=$("#loginForm").serializeArray(); // Get All HTML objects inside the form
-				var has_error=false;
-				
-				for (var input in form_data){ // loop over the objects
-					var element=$("#"+form_data[input]['name']); // concatinate # to the form input name to get the object
-					var invalid=element.hasClass("invalid");
-					if (invalid || !element.val() ){
-						element.addClass("invalid"); has_error=true;
-						}					
-				}
-				// if has_error true prevent from from submiting and show alert error message
-				if (has_error){
-					$('.alertUserInvalid').show(1000);
-					event.preventDefault(); // prevent form from sumbmitting
-				}
-				else{
-					//Make AJAX call with server
-					
-					$('.alertUserInvalid').hide();
-					var user = new Object();
-				    user.Username = $('#username').val();
-				    user.Password = $('#password').val();
-				    
-				    $.ajax({
-				        url: "/BooksForAll/user/LoginUser",
-				        type: 'POST',
-				        dataType: 'json',
-				        data: JSON.stringify(user),
-				        contentType: "application/json; charset=utf-8"
-				    	})
-						
-				    	.done(function (data) {
-				    		if(data.result == "success"){
-				    			// send user to booksforall after hiding the error message
-				    			$('.alertUserInvalid').hide();
-								//console.log("success");
-								window.location.pathname = "main.html";
-				    		}
-				    		//if result not success show error message
-					        	else{ $('.alertUserInvalid').show(1000); console.log("Invalid user or password"); }
-				    	 })
-				    	 .fail( function (data) {
-				    		 console.log(data);
-				    	 });
-				    	
-				}
-			});
-			
-			
-			
-		});
-		
-		
-		</script>
-		
-		
-	</head>
-	
-	<body>
-	<div id="preloader"></div>
-		<div class="container">
-			<header class="header">
-				<h1>Books For All Login</h1>
-			</header>
-			
-			<div class="content">
-				
-				
-				<article class="col-md-12">
-				
-					<!-- START Login form -->
-					
-					<div class="row">
-						<div class="col-md-3">
-						</div>
-					
-						<!-- Login form -->
-						<div class="col-md-6">
-							<div class="panel panel-form">
-								<!-- Form header -->
-								<div class="panel-heading">
-									<h2 class="title">Login</h2>
-									<p>Don't have an account? <a href="register.html">Sign up</a>.</p>
-								</div>
-								
-								<div class="panel-body">
-								<div class="alert alert-danger alert-dismissible alertUserInvalid" role="alert">INVALID USERNAME OR PASSWORD</div>
-									<form id="loginForm" role="form" action="/BooksForAll/user/LoginUser" method="POST">
-										<!-- Username -->
-										<div class="form-group">
-											<label for="username" class="control-label">Username</label>
-											<div>
-												<input type="text" name="username" class="form-control" id="username">
-											</div>
-										</div>
-										
-										<!-- Password -->
-										<div class="form-group">
-											<label for="password" class="control-label">Password</label>
-											<div>
-												<input type="password" name="password" class="form-control" id="password">
-											</div>
-										</div>
-										
-										<!-- Login button -->
-										<div class="form-group">
-											<button id="loginButton" type="button" class="btn btn-primary">Login</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						
-						
-						<div class="col-md-3">
-						</div>
-						
-					</div>
-					
-					<!-- END Login form -->
-					
-				</article>
-				
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BooksForAll</title>
+    <script src="lib/angular.min.js"></script>
+    <script src="js/bookApp.js"></script>
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bookApp.css">
+</head>
+
+<body>
+    <h1><img src="images/logo.png" alt="logo"> Books For All</h1>
+    <small>Web programming project - 2018</small>
+    <br>
+    <br>
+    <div data-ng-app="bookApp">
+        <div data-ng-controller="loginController">
+            <div name="WelcomeUser">
+                <input class="btn" type="button" value="login" data-ng-show="!loginUserData.isLogged" data-ng-click="openLogin()">
+                <input class="btn" type="button" value="register" data-ng-show="!loginUserData.isLogged" data-ng-click="openRegister()">
+                <div class="loggedUserLine" data-ng-show="loginUserData.isLogged">
+                    <!--<span data-ng-show="isLogged"> Hello, {{ loggedUser }}</span>
+                    <a href="#userBoard" data-ng-show="isLogged">User board</a>-->
+                    <span> Hello, {{ loginUserData.loggedUser }}</span>
+                    &nbsp;|&nbsp;
+                    <a href="" data-ng-click="logoutFunc()">Logout</a>
+                    <br>
+                    <a href="" ng-click="loginUserData.profile(null)">User profile</a>
+                    <span data-ng-show="loginUserData.adminLogged">
+                        <br>
+                        <a href="" data-ng-click="loginUserData.adminMode(0)">Admin board</a>
+                        <span data-ng-show="loginUserData.newReviews>0">
+                            &nbsp;|&nbsp;
+                            <a href="" data-ng-click="loginUserData.adminMode(1)">New reviews:{{loginUserData.newReviews}}</a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div data-ng-show="loginMode" class="modalForm">
+                <h3>login</h3>
+                <form data-ng-submit="loginFunc()" name="loginForm">
+                    <div class="form-group">
+                        <label for="loginUser">User Name</label>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <input type="text" class="form-control" placeholder="username" name="loginUser" data-ng-model="login.User" required data-ng-maxlength="10">
+                        <div role="alert">
+                            <span class="error" data-ng-show="loginForm.loginUser.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="loginForm.loginUser.$touched && loginForm.loginUser.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <span class="glyphicon glyphicon-lock"></span>
+                        <input type="password" class="form-control" placeholder="123456" name="loginPassword" data-ng-model="login.Password" required
+                            data-ng-maxlength="9">
+                        <div role="alert">
+                            <span class="error" data-ng-show="loginForm.loginPassword.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="loginForm.loginPassword.$touched && loginForm.loginPassword.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div role="alert">
+                        <span data-ng-show="loginForm.$submitted && loginForm.$invalid">
+                            Form is not filled correctly.
+                        </span>
+                        <span data-ng-show="loginFormErrorToggle">
+                            {{ loginFormError }}
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login!</button>
+                    <button type="reset" class="btn btn-danger">reset</button>
+                </form>
+            </div>
+            <div data-ng-show="registerMode" class="modalForm registerForm">
+                <h3>Registeration</h3>
+                <form data-ng-submit="registerFunc()" name="registerForm">
+                    <div class="form-group">
+                        <label for="registerUser">User Name</label>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <input type="text" class="form-control" placeholder="username" name="registerUser" data-ng-model="register.User" required
+                            data-ng-maxlength="10">
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerForm.registerUser.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerUser.$touched && registerForm.registerUser.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <span class="glyphicon glyphicon-lock"></span>
+                        <input type="password" class="form-control" placeholder="123456" name="registerPassword" data-ng-model="register.Password"
+                            required data-ng-maxlength="8">
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerForm.registerPassword.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerPassword.$touched && registerForm.registerPassword.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerNickName">Nickname</label>
+                        <i class="glyphicon glyphicon-heart"></i>
+                        <input type="text" class="form-control" placeholder="nickname" name="registerNickName" data-ng-model="register.NickName"
+                            required data-ng-maxlength="20">
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerForm.registerNickName.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerNickName.$touched && registerForm.registerNickName.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <input type="email" class="form-control" placeholder="email@domain.com" name="registerEmail" data-ng-model="register.Email"
+                            required>
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerForm.registerEmail.$dirty && registerForm.registerEmail.$invalid">
+                                Not a valid mail!
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerEmail.$touched && registerForm.registerEmail.$error.required">
+                                required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerTelephoneArea">Telephone</label>
+                        <i class="glyphicon glyphicon-phone-alt"></i>
+                        <select class="form-control" name="registerTelephoneArea" data-ng-model="register.Telephone.Area" required>
+                            <option value="">Select..</option>
+                            <option value="050">050</option>
+                            <option value="052">052</option>
+                            <option value="053">053</option>
+                            <option value="054">054</option>
+                            <option value="055">055</option>
+                            <option value="056">056</option>
+                            <option value="057">057</option>
+                            <option value="058">058</option>
+                            <option value="059">059</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="1234567" name="registerTelephoneFull" data-ng-pattern="/^\d+$/" data-ng-model="register.Telephone.Full"
+                            required data-ng-minlength="7" data-ng-maxlength="7">
+                        <div role="alert">
+                            <span class="error" data-ng-show="(registerForm.registerTelephoneFull.$dirty && registerForm.registerTelephoneFull.$error.pattern) || (registerForm.registerTelephoneFull.$touched && registerForm.registerTelephoneFull.$invalid)">
+                                Telephone without Area code is 7 digit long
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerTelephoneFull.$touched && registerForm.registerTelephoneFull.$error.required">
+                                required!
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="registerAddressStreet">Address:
+                            <i class="glyphicon glyphicon-home"></i>
+                            <br>Street and house number</label>
+                        <input type="text" class="form-control" placeholder="11 Moshe St" name="registerAddressStreet" data-ng-model="register.Address.Street"
+                            required>
+
+                        <label for="registerAddressCity">City</label>
+                        <input type="text" class="form-control" placeholder="Haifa" name="registerAddressCity" data-ng-model="register.Address.City"
+                            required data-ng-minlength="2">
+
+                        <label for="registerAddressZip">Zip</label>
+                        <input type="text" class="form-control" placeholder="1234567" name="registerAddressZip" data-ng-model="register.Address.zip"
+                            required data-ng-minlength="7" data-ng-maxlength="7" data-ng-pattern="/^\d+$/">
+
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerForm.registerAddressCity.$touched && registerForm.registerAddressCity.$invalid">
+                                City has at least 2 characters.
+                            </span>
+                            <span class="error" data-ng-show="registerForm.registerAddressZip.$dirty && registerForm.registerAddressZip.$error.pattern">
+                                zip is digits only (7 digit long)
+                            </span>
+                            <span class="error" data-ng-show="(registerForm.registerAddressZip.$touched && registerForm.registerAddressZip.$invalid && !registerForm.registerAddressZip.$error.pattern) || (registerForm.registerAddressZip.$error.maxlength && !registerForm.registerAddressZip.$error.pattern)">
+                                zip is 7 digit long
+                            </span>
+                            <span class="error" data-ng-show="((registerForm.registerAddressStreet.$touched && registerForm.registerAddressStreet.$error.required) || (registerForm.registerAddressCity.$touched && registerForm.registerAddressCity.$error.required) || (registerForm.registerAddressZip.$touched && registerForm.registerAddressZip.$error.required))">
+                                All address fields are required!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerAbout">Short Description</label>
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        <textarea class="form-control" rows=3 placeholder="Short description about you. max 50 chars." name="registerAbout" data-ng-model="register.About"
+                            data-ng-maxlength="50"></textarea>
+                        <div role="alert">
+                            <span class="error" data-ng-show="registerAbout.$error.maxlength">
+                                too long (50 chars max)
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhoto">Photo (url)</label>
+                        <i class="glyphicon glyphicon-camera"></i>
+                        <input type="url" class="form-control" placeholder="link to your photo." name="registerPhoto" data-ng-model="register.photo">
+                    </div>
+                    <div role="alert">
+                        <span data-ng-show="registerForm.$submitted && registerForm.$invalid">
+                            Form is not filled correctly.
+                        </span>
+                        <span data-ng-show="RegisterFormErrorToggle">
+                            {{ registerFormError }}
+                        </span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register!</button>
+                    <button type="reset" class="btn btn-danger">reset</button>
+                </form>
+            </div>
+            <!-- register mode -->
+            <div name="userProfileShow" data-ng-show="userProfileShow" class="modalForm registerForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-ng-click="userProfileShow=false">&times;</button>
+                    <h4 class="modal-title">UserProfile</h4>
+                </div>
+
+                <ul data-ng-repeat="userProfile in userProfiles">
+                    <li>
+                        <img data-ng-src="{{((userProfile.Photo == '') || angular.isUndefined(userProfile.Photo) ) ? 'images/img_nogravatar.png' : userProfile.Photo}}"
+                            alt="{{'user'+' photo'}}">
+                    </li>
+                    <li>
+                        <b>Username:</b>
+                        {{userProfile.Username}}
+                    </li>
+                    <li>
+                        <b>Nickname:</b>
+                        {{userProfile.Nickname}}
+                    </li>
+                    <li>
+                        <b>Telephone:</b>
+                        {{userProfile.Phone}}
+                    </li>
+                    <li>
+                        <b>Email:</b>
+                        {{userProfile.Email}}
+                    </li>
+                    <li>
+                        <b>Address:</b>
+                        {{userProfile.Address}}
+                    </li>
+                    <li>
+                        <b>Description:</b>
+                        {{userProfile.Description}}
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <!-- login controller -->
+        <div data-ng-controller="bookController">
+            <div>
+                <div class="form-group form-inline">
+                    <button class="btn" data-ng-click="allbooks()">All books</button>
+                    <button class="btn" data-ng-click="purchasedbooks()" data-ng-show="bookUserData.isLogged">Purchased books</button>
+                </div>
+                <form data-ng-submit="singlebook()">
+                    <div class="form-group form-inline">
+                        <select class="form-control" name="chosenBook" id="chosenBook" data-ng-model="chosenSingleBook" required data-ng-change="singlebook()">
+                            <option value="">Choose one...</option>
+                            <option value="{{bookname}}" data-ng-repeat="bookname in booklistnames">{{bookname}}</option>
+                        </select>
+                        <input class="btn" type="submit" value="Single book">
+                    </div>
+                </form>
+            </div>
+
+            <div data-ng-show="booklistView.All">
+                Books available: {{ booklist.length }}
+                <ul>
+                    <li data-ng-repeat="book in booklist" data-ng-include="'bookDetail.html'">
+                    </li>
+                </ul>
+            </div>
+            <!-- booklistView.All -->
+            <div data-ng-show="booklistView.Purchased">
+                <!-- Purchased books: {{purchasedBooklist.length}} -->
+                Purchased books: {{bookUserData.purchasedBooks.length}}
+                <ul>
+                    <li data-ng-repeat="book in bookUserData.purchasedBooks" data-ng-include="'bookDetail.html'">
+                    </li>
+                </ul>
+            </div>
+            <!-- booklistView.Purchased -->
+            <div data-ng-show="booklistView.singleBook">
+                Single book view:
+                <div data-ng-repeat="book in [singleBook]" data-ng-include="'bookDetail.html'">
+                </div>
+            </div>
+            <!-- booklistView.singleBook -->
+            <div data-ng-show="readMode">
+                <div class="stickyMenu">
+                    <button class="btn" data-ng-click="readModeFuncs.savePosition()">Save position</button>
+                    <button class="btn" data-ng-click="readModeFuncs.goBack()">Go to saved location</button>
+                    <button class="btn" data-ng-click="readModeFuncs.saveAndStop()">Save position and stop reading</button>
+                    <button class="btn" data-ng-click="readModeFuncs.stopReading()">Stop reading</button>
+                </div>
+                <div data-ng-include="bookReadOn"></div>
+            </div>
+            <div data-ng-show="addReviewShow" class="modalForm">
+                <!-- <form data-ng-submit="addReview(bookToReview)" name="reviewBookForm"> -->
+                <form data-ng-submit="addReview(bookToReview)" name="reviewBookForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-ng-click="addReviewClose()">&times;</button>
+                        <h4 class="modal-title">Add Review</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookToReview">Book name</label>
+                        <i class="glyphicon glyphicon-bookmark"></i>
+                        <p class="form-control-static" name="bookToReview" id="bookToReview">{{bookToReview}}</p>
+                        <small>[bookid:{{bookToReviewId}}]</small>
+                    </div>
+                    <fieldset data-ng-disabled="addReviewFinish">
+                        <div class="form-group">
+                            <label for="newReview">Add new review</label>
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            <textarea name="newReview" class="form-control" cols="30" rows="10" data-ng-model="newReview" required></textarea>
+                            <small class="form-text text-muted">(will be shown after admin approval)</small>
+                        </div>
+                        <input type="submit" class="bt btn-primary" value="Add review">
+                    </fieldset>
+                    <div data-ng-show="addReviewFinish" class="modalFinish modal-header">
+                        <h4 class="modal-title">{{reviewFinishText}}</h4>
+                        <button type="button" class="btn" data-ng-click="addReviewClose()">Close Form</button>
+                    </div>
+                </form>
+            </div>
+            <!-- add review -->
+            <div data-ng-show="buyBookFormShow" class="modalForm">
+                <form data-ng-submit="buyBookFunc()" name="buyForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-ng-click="buyBookClose()">&times;</button>
+                        <h4 class="modal-title">Buy Book</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookToBuy">Book name</label>
+                        <i class="glyphicon glyphicon-book"></i>
+                        <p class="form-control-static" name="bookToBuy" id="bookToBuy">{{ bookToBuy }}</p>
+                        <small>[bookid:{{bookToBuyId}}]</small>
+                    </div>
+                    <fieldset data-ng-disabled="buyBookFinish">
+                        <div class="form-group">
+                            <label for="buyBookVisaType">Credit Type</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                            <select name="buyBookVisaType" data-ng-model="buyBook.type" required>
+                                <option value="">Type..</option>
+                                <option value="VISA">VISA</option>
+                                <option value="AMEX">AMEX</option>
+                                <option value="Diners">Diners</option>
+                                <option value="Mastercard">Mastercard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyBookVisa">visa number [16 digits]</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                            <input type="text" name="buyBookVisa" data-ng-model="buyBook.visa" required data-ng-pattern="/^\d+$/" required data-ng-minlength="16"
+                                data-ng-maxlength="16" placeholder="1234567812345678" required>
+                            <div role="alert">
+                                <span class="error" data-ng-show="buyForm.buyBookVisa.$dirty && buyForm.buyBookVisa.$error.pattern">
+                                    only numbers!
+                                </span>
+                                <span class="error" data-ng-show="buyForm.buyBookVisa.$error.maxlength">
+                                    too long
+                                </span>
+                                <span class="error" data-ng-show="buyForm.buyBookVisa.$touched && buyForm.buyBookVisa.$error.minlength">
+                                    too short
+                                </span>
+                                <span class="error" data-ng-show="buyForm.buyBookVisa.$touched && buyForm.buyBookVisa.$error.required">
+                                    required!
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyBookCSV">csv [3-4 digits]</label>
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                            <input type="text" name="buyBookCSV" data-ng-model="buyBook.csv" required data-ng-pattern="/^\d+$/" data-ng-minlength="3"
+                                data-ng-maxlength="4" placeholder="123" required>
+                            <span class="error" data-ng-show="buyForm.buyBookCSV.$dirty && buyForm.buyBookCSV.$error.pattern">
+                                only numbers!
+                            </span>
+                            <span class="error" data-ng-show="buyForm.buyBookCSV.$error.maxlength">
+                                too long
+                            </span>
+                            <span class="error" data-ng-show="buyForm.buyBookCSV.$touched && buyForm.buyBookCSV.$error.minlength">
+                                too short
+                            </span>
+                            <span class="error" data-ng-show="buyForm.buyBookCSV.$touched && buyForm.buyBookCSV.$error.required">
+                                required!
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyBookExpiryMonth">Expiry date Month/Year</label>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <select name="buyBookExpiryMonth" data-ng-model="buyBook.expiry.month" required>
+                                <option value="">MM</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            /
+                            <select name="buyBookExpiryYear" data-ng-model="buyBook.expiry.year" required>
+                                <option value="">YYYY</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                            </select>
+                        </div>
+                        <div role="alert">
+                            <span data-ng-show="buyForm.$submitted && buyForm.$invalid">
+                                Form is not filled correctly.
+                            </span>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Complete the purchase">
+                        <button type="reset" class="btn btn-danger">reset</button>
+                    </fieldset>
+                    <div data-ng-show="buyBookFinish" class="modalFinish modal-header">
+                        <h4 class="modal-title">{{buyBookFinishText}}</h4>
+                        <button type="button" class="btn" data-ng-click="buyBookClose()">Close Form</button>
+                    </div>
+                </form>
+            </div>
+            <!-- buy book -->
+        </div>
+        <!-- bookController -->
+        <div data-ng-controller="adminController">
+            <div data-ng-show="adminMode">
+                <div data-ng-show="AdminViews.adminMenuView">
+                    <button class="btn" data-ng-click="AdminViews.show('reviews')">Reviews</button>
+                    <button class="btn" data-ng-click="AdminViews.show('users')">Users</button>
+                    <button class="btn" data-ng-click="AdminViews.show('transactions')">Transactions</button>
+                    <!-- <button class="btn" data-ng-click="AdminViews.show('books')">Books</button> -->
+                </div>
+                <div data-ng-switch="AdminViews.whatToShow">
+
+                    <div data-ng-switch-when="reviews">
+                        <div data-ng-include="'adminReviews.html'">
+                        </div>
+                    </div>
+                    <div data-ng-switch-when="users">
+                        <div data-ng-include="'adminUsers.html'">
+                        </div>
+                    </div>
+                    <div data-ng-switch-when="transactions">
+                        <div data-ng-include="'adminTransactions.html'">
+                        </div>
+                    </div>
+                    <!-- <div data-ng-switch-when="books">
+                        regular booklist....
+                    </div> -->
+                    <div data-ng-switch-default>
+
+                    </div>
+                </div>
+
+
+                // review notification.
+            </div>
+
+        </div>
+        <!-- adminController -->
+    </div>
+    <!-- book app -->
+
+</body>
+
+</html>

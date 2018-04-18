@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Book {
 	public Book(int idBook, String name, String author, String photo, Float price, String description, String fullHtml) {
-		//super();
+		super();
 		this.IdBook = idBook;
 		Name = name;
 		Author = author;
