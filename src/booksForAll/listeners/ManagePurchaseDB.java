@@ -137,11 +137,11 @@ public class ManagePurchaseDB implements ServletContextListener {
     
     
     /**
-	 * Loads likes data from json file that is read from the input stream into 
+	 * Loads Purchase data from json file that is read from the input stream into 
 	 * a collection of Likes objects
 	 * @param is input stream to json file
-	 * @return collection of likes
-	 * @throws IOException
+	 * @return collection of purchase object
+	 * @throws IOException can't open file
 	 */
 	private Collection<Purchase> loadPurchases(InputStream is) throws IOException{
 		

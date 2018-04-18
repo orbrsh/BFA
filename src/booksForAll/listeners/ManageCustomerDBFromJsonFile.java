@@ -145,7 +145,7 @@ public class ManageCustomerDBFromJsonFile implements ServletContextListener {
 	 * a collection of Customer objects
 	 * @param is input stream to json file
 	 * @return collection of customers
-	 * @throws IOException
+	 * @throws IOException can't open file
 	 */
 	private Collection<Customer> loadCustomers(InputStream is) throws IOException{
 		

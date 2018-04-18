@@ -140,11 +140,11 @@ public class ManageBookDBFromJsonFile implements ServletContextListener {
     
     
     /**
-	 * Loads customers data from json file that is read from the input stream into 
+	 * Loads Books data from json file that is read from the input stream into 
 	 * a collection of Customer objects
 	 * @param is input stream to json file
 	 * @return collection of customers
-	 * @throws IOException
+	 * @throws IOException when can't open file 
 	 */
 	private Collection<Book> loadBooks(InputStream is) throws IOException{
 		

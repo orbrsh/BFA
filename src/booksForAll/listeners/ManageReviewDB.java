@@ -139,11 +139,11 @@ public class ManageReviewDB implements ServletContextListener {
     
     
     /**
-	 * Loads likes data from json file that is read from the input stream into 
+	 * Loads Reviews data from json file that is read from the input stream into 
 	 * a collection of Likes objects
 	 * @param is input stream to json file
 	 * @return collection of reviews
-	 * @throws IOException
+	 * @throws IOException can't open file
 	 */
 	private Collection<Review> loadReviews(InputStream is) throws IOException{
 		

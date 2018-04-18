@@ -52,9 +52,9 @@ public class BookLocation {
 	
 	/**
 	 * ctor
-	 * @param idbook
-	 * @param username
-	 * @param bookLocation
+	 * @param idbook book id
+	 * @param username user name
+	 * @param bookLocation location on page
 	 */
 	public BookLocation(int idbook, String username, long bookLocation) {
 		super();
