@@ -9,9 +9,11 @@ bookApp.value('userData', {
     adminLogged: false,
     getPurchasedBooksFunc: null, //? // TODO: check
     adminMode: null,
+    getAllBooksFunc: null,
+    getNewReviewsFunc: null,
+    newRevies: 0,
     purchasedBooks: [], // update at login
     booklistnames: []
-
 });
 
 bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
@@ -23,22 +25,25 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
         };
         $scope.bookUserData = userData; //isLogged, loggedUser, adminLogged
 
-        var bookListInit = getAllBooks();
-        $scope.booklistnames = [];
 
-        function getAllBooks() {
+        var getAllBooks = function getAllBooksInnerFunc() {
             $http.get("BooksServlet/getAllBooks").then(function (response) {
-                    var booklistAll = response.data;
-                    //$scope.booklistView.All = true;
-                    angular.forEach(booklistAll, function (item) {
-                        this.push(item.Name);
-                    }, $scope.booklistnames);
-                    $scope.booklist = response.data;
-                    userData.booklistnames = $scope.booklistnames;
-                    return response.data;
-                },
-                function (response) {});
-        }
+                var booklistAll = response.data;
+                $scope.booklistnames = [];
+                //$scope.booklistView.All = true;
+                angular.forEach(booklistAll, function (item) {
+                    this.push(item.Name);
+                }, $scope.booklistnames);
+                $scope.booklist = response.data;
+                userData.booklistnames = $scope.booklistnames;
+                //return response.data;
+            },
+            function (response) {});
+        };
+
+        $scope.booklistnames = [];
+        getAllBooks();
+        userData.getAllBooksFunc = getAllBooks;
 
         $scope.allbooks = function () {
             $scope.booklistView.All = true;
@@ -147,17 +152,20 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
         };
 
         $scope.bookToReview = "";
+        $scope.bookToReviewId = 0;
         $scope.addReviewShow = false;
         $scope.addReviewFinish = false;
 
         // review
-        $scope.addReviewOpen = function (bookName) {
+        $scope.addReviewOpen = function (bookName, id) {
             $scope.bookToReview = bookName;
+            $scope.bookToReviewId = id;
             $scope.addReviewShow = !$scope.addReviewShow;
         };
         $scope.addReviewClose = function () {
             if ($scope.addReviewShow === true) {
                 $scope.bookToReview = "";
+                $scope.bookToReviewId = 0;
                 $scope.newReview = "";
                 $scope.addReviewShow = !$scope.addReviewShow;
                 $scope.addReviewFinish = false;
@@ -166,14 +174,16 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
         // $scope.addReview = function (bookName, reviewText) {
         $scope.addReview = function () {
             var reviewText = $scope.newReview;
-            var bookName = $scope.bookToReview;
+            var bookid = $scope.bookToReviewId;
+            //"Username": "user01","IdBook": "1", "dateWritten": "1280016860145","isApproved": "1","dateApproved": "1280296010145","reviewText":
             var obj = {
+                Username: userData.loggedUser,
+                IdBook: bookid,
                 reviewText: reviewText,
-                bookName: bookName
             };
             $scope.addReviewFinish = true;
 
-            $http.post("ReviewServlet", obj).then(function (response) {
+            $http.post("ReviewServlet/book/"+bookid, obj).then(function (response) {
                     // response.data
                     // should response updated reviews list for this book!
                     $scope.reviewFinishText = "Review sent, waiting for admin approval";
@@ -202,14 +212,14 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
 
         $scope.buyBookOpen = function (bookname, id) {
             $scope.bookToBuy = bookname;
-            $scope.bookToBuyId  = id;
+            $scope.bookToBuyId = id;
             ////$scope.buyBook.bookname = bookname;
             $scope.buyBookFormShow = true;
         };
         $scope.buyBookClose = function () {
             if ($scope.buyBookFormShow === true) {
                 $scope.bookToBuy = "";
-                $scope.bookToBuyId= null;
+                $scope.bookToBuyId = null;
                 $scope.buyForm.$setPristine();
                 $scope.buyForm.$setUntouched();
                 $scope.buyBook = angular.copy(initialBuyBook);
@@ -234,7 +244,7 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             //TOOD: support actual "$scop.buyBook" object with all details
 
             // $http.post("BuyingServlet/book/" + $scope.bookToBuy, $scope.buyBook).then(function (response) {
-            $http.post("Purchase/book/"+bookId).then(function (response) {
+            $http.post("Purchase/book/" + bookId).then(function (response) {
                     $scope.purchasedbooks(); // update purchased books list
                     $scope.buyBookFinishText = "Book purchase completed";
                 }, function () {
@@ -309,6 +319,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
                 $scope.loginUserData.loggedUser = response.data.username;
                 if ("isAdmin" in response.data) {
                     $scope.loginUserData.adminLogged = true;
+                    $scope.loginUserData.getNewReviewsFunc();
                 }
                 $scope.loginUserData.getPurchasedBooksFunc(); // TODO: check
             },
@@ -319,6 +330,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
         $http.post("LogoutServlet").then(function () {
             $scope.loginUserData.isLogged = false;
             $scope.loginUserData.loggedUser = "";
+            $scope.loginUserData.adminMode(0);
             $scope.loginUserData.adminLogged = false;
             $scope.loginUserData.purchasedBooks = [];
             console.log("logout successful");
@@ -347,6 +359,7 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
             if (angular.equals(obj.Username, "admin")) {
                 // admin login successful
                 $scope.loginUserData.adminLogged = true;
+                $scope.loginUserData.getNewReviewsFunc();
             }
             // upon succsess
             $scope.loginUserData.getPurchasedBooksFunc(); // TODO: check
@@ -436,13 +449,16 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             }
         };
         // userData; //isLogged, loggedUser, adminLogged
-        userData.adminMode = function adminModeFunc() {
+        userData.adminMode = function adminModeFunc(reviewsMode) {
             if (userData.adminLogged !== true)
                 return;
-            if ($scope.adminMode === true){
-                $scope.adminMode =!$scope.adminMode;
-            }else{
+            if ($scope.adminMode === true) {
+                $scope.adminMode = !$scope.adminMode;
+            } else {
                 $scope.adminMode = true;
+                if (reviewsMode == 1) {
+                    $scope.AdminViews.show('reviews');
+                }
             }
             $scope.AdminViews.adminMenuView = true;
             // getTransactions();
@@ -483,16 +499,17 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             approveReview: function (reviewIdtoApprove) {
                 if (userData.adminLogged !== true)
                     return;
-                var obj = {
-                    reviewID: reviewIdtoApprove
-                };
+                // var obj = {
+                //     reviewID: reviewIdtoApprove
+                // };
                 // $http.delete("CustomersServlet/name/"+userToDelete, obj).then(function (response) {
-                $http.delete("reviews/id/" + reviewIdtoApprove, obj).then(function (response) {
+                $http.put("ReviewServlet/review/" + reviewIdtoApprove).then(function (response) {
                     console.log("approved review " + reviewIdtoApprove);
                     getReviews();
-                    // deleted
+                    userData.getAllBooksFunc();
+                    // Approved
                 }, function (reposnse) {
-                    // failed to delete
+                    // failed to Approved
                     return;
                 });
             }
@@ -516,14 +533,16 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
             });
         }
 
-        function getReviews() {
-            $http.get("ReviewsServlet").then(function (response) {
+        var getReviews = function getReviews() {
+            $http.get("ReviewServlet/new").then(function (response) {
                 $scope.adminReview.Reviews = response.data;
+                userData.newReviews = response.data.length;
             }, function (reposnse) {
                 // failed gettin transactions
                 return;
             });
-        }
+        };
+        userData.getNewReviewsFunc = getReviews;
 
         $scope.getBooknameById = function (bookId) {
             return userData.booklistnames[bookId - 1];

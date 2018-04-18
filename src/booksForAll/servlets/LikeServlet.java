@@ -222,6 +222,8 @@ public class LikeServlet extends HttpServlet {
 						}
 						likeStmt.close();
 					}
+					purRs.close();
+					purStmt.close();
 				}
 				
 				rs.close();

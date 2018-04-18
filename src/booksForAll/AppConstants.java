@@ -121,18 +121,22 @@ public interface AppConstants {
 			+ "dateApproved BIGINT DEFAULT 0,"
 			+ "isApproved INT DEFAULT 0,"
 			+ "reviewText varchar(650),"
-			+ "PRIMARY KEY(IdBook, Username))";
+			+ "PRIMARY KEY(IdReviews, IdBook, Username))";
 	
 	public final String INSERT_REVIEW_STMT = "INSERT INTO REVIEWS (IdBook, Username, dateWritten,"
 			+ " dateApproved, isApproved, reviewText) VALUES(?,?,?,?,?,?)";
+	public final String INSERT_NEW_REVIEW_STMT = "INSERT INTO REVIEWS (IdBook, Username, dateWritten,"
+			+ " reviewText) VALUES(?,?,?,?)";
 	public final String SELECT_ALL_REVIEWS_STMT = "SELECT * FROM REVIEWS";
 	public final String SELECT_ALL_REVIEWS_BY_BOOK_STMT = "SELECT * FROM REVIEWS "
 			+ "WHERE IdBook=?";
 	public final String SELECT_ALL_APPROVED_REVIEWS_BY_BOOK_STMT = "SELECT * FROM REVIEWS "
 			+ "WHERE IdBook=? AND isApproved=1";
+	public final String SELECT_ALL_UN_APPROVED_REVIEWS = "SELECT * FROM REVIEWS "
+			+ "WHERE isApproved=0";
 	public final String SELECT_ALL_REVIEWS_BY_USER_STMT = "SELECT * FROM REVIEWS "
 			+ "WHERE Username=?";
-	public final String APPROVE_REVIEW_BY_REVIEWID_STMT = "UPDATE REVIEWS SET (isApproved = 1) "
+	public final String APPROVE_REVIEW_BY_REVIEWID_STMT = "UPDATE REVIEWS SET isApproved = 1 "
 			+ "WHERE IdReviews=?";
 	
 	

@@ -32,10 +32,14 @@
                     <a href="" data-ng-click="logoutFunc()">Logout</a>
                     <br>
                     <a href="#userBoard">User profile</a>
-
                     <span data-ng-show="loginUserData.adminLogged">
                         <br>
-                        <a href="" data-ng-click="loginUserData.adminMode()">Admin board</a>
+                        <a href="" data-ng-click="loginUserData.adminMode(0)">Admin board</a>
+                        <span data-ng-show="loginUserData.newReviews>0">
+                            &nbsp;|&nbsp;
+                            <a href="" data-ng-click="loginUserData.adminMode(1)">New reviews:{{loginUserData.newReviews}}</a>
+                        </span>
+
                     </span>
                 </div>
             </div>
@@ -279,6 +283,7 @@
                     <div class="form-group">
                         <label for="bookToReview">Book name</label>
                         <p class="form-control-static" name="bookToReview" id="bookToReview">{{bookToReview}}</p>
+                        <small>[bookid:{{bookToReviewId}}]</small>
                     </div>
                     <fieldset data-ng-disabled="addReviewFinish">
                         <div class="form-group">
@@ -403,7 +408,7 @@
                     <button class="btn" data-ng-click="AdminViews.show('reviews')">Reviews</button>
                     <button class="btn" data-ng-click="AdminViews.show('users')">Users</button>
                     <button class="btn" data-ng-click="AdminViews.show('transactions')">Transactions</button>
-                    <button class="btn" data-ng-click="AdminViews.show('books')">Books</button>
+                    <!-- <button class="btn" data-ng-click="AdminViews.show('books')">Books</button> -->
                 </div>
                 <div data-ng-switch="AdminViews.whatToShow">
 
@@ -429,9 +434,9 @@
 
                         </div>
                     </div>
-                    <div data-ng-switch-when="books">
+                    <!-- <div data-ng-switch-when="books">
                         regular booklist....
-                    </div>
+                    </div> -->
                     <div data-ng-switch-default>
 
                     </div>
