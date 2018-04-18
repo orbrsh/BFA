@@ -15,22 +15,26 @@
 </head>
 
 <body>
+    <h1>Books For All</h1>
+    <small>Web programming project - 2018</small>
+    <br>
+    <br>
     <div data-ng-app="bookApp">
         <div data-ng-controller="loginController">
             <div name="WelcomeUser">
-                <input type="button" value="login" data-ng-show="!loginUserData.isLogged" data-ng-click="openLogin()">
-                <input type="button" value="register" data-ng-show="!loginUserData.isLogged" data-ng-click="openRegister()">
-                <div data-ng-show="loginUserData.isLogged">
+                <input class="btn" type="button" value="login" data-ng-show="!loginUserData.isLogged" data-ng-click="openLogin()">
+                <input class="btn" type="button" value="register" data-ng-show="!loginUserData.isLogged" data-ng-click="openRegister()">
+                <div class="loggedUserLine" data-ng-show="loginUserData.isLogged">
                     <!--<span data-ng-show="isLogged"> Hello, {{ loggedUser }}</span>
                     <a href="#userBoard" data-ng-show="isLogged">User board</a>-->
                     <span> Hello, {{ loginUserData.loggedUser }}</span>
                     <a href="#userBoard">User profile</a>
-                    <span data-ng-show="loginUserData.adminLogged">
-                        &nbsp;|&nbsp;
-                        <a href="#adminMode" data-ng-click="loginUserData.adminMode()">Admin board</a>
-                    </span>
                     &nbsp;|&nbsp;
                     <a href="" data-ng-click="logoutFunc()">Logout</a>
+                    <span data-ng-show="loginUserData.adminLogged">
+                        <br>
+                        <a href="" data-ng-click="loginUserData.adminMode()">Admin board</a>
+                    </span>
                 </div>
             </div>
             <div data-ng-show="loginMode" class="modalForm">
@@ -216,14 +220,18 @@
         <!-- login controller -->
         <div data-ng-controller="bookController">
             <div>
-                <button data-ng-click="allbooks()">All books</button>
-                <button data-ng-click="purchasedbooks()" data-ng-show="bookUserData.isLogged">Purchased books</button>
+                <div class="form-group form-inline">
+                    <button class="btn" data-ng-click="allbooks()">All books</button>
+                    <button class="btn" data-ng-click="purchasedbooks()" data-ng-show="bookUserData.isLogged">Purchased books</button>
+                </div>
                 <form data-ng-submit="singlebook()">
-                    <select name="chosenBook" id="chosenBook" data-ng-model="chosenSingleBook" required data-ng-change="singlebook()">
-                        <option value="">Choose one...</option>
-                        <option value="{{bookname}}" data-ng-repeat="bookname in booklistnames">{{bookname}}</option>
-                    </select>
-                    <input type="submit" value="Single book">
+                    <div class="form-group form-inline">
+                        <select class="form-control" name="chosenBook" id="chosenBook" data-ng-model="chosenSingleBook" required data-ng-change="singlebook()">
+                            <option value="">Choose one...</option>
+                            <option value="{{bookname}}" data-ng-repeat="bookname in booklistnames">{{bookname}}</option>
+                        </select>
+                        <input class="btn" type="submit" value="Single book">
+                    </div>
                 </form>
             </div>
 
@@ -294,6 +302,7 @@
                     <div class="form-group">
                         <label for="bookToBuy">Book name</label>
                         <p class="form-control-static" name="bookToBuy" id="bookToBuy">{{ bookToBuy }}</p>
+                        <small>[bookid:{{bookToBuyId}}]</small>
                     </div>
                     <fieldset data-ng-disabled="buyBookFinish">
                         <div class="form-group">

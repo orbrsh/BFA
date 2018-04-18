@@ -17,6 +17,7 @@ a book by
 <p id="{{book.Name +' _description'}}">
     {{book.Description}}
 </p>
+<small>[bookid:{{book.IdBook}}]</small>
 <br> Price: {{book.Price}} $
 <br> Reviews : {{ book.reviews.length }}
 <div data-ng-show="bookUserData.isLogged">
@@ -47,7 +48,7 @@ a book by
 </div>
 <div data-ng-show="(bookUserData.isLogged && !userBoughtThisBook(book.Name))" >
     <!-- data-ng-include="'buyForm.html'"> -->
-    <button class="btn" data-ng-click="buyBookOpen(book.Name)">Buy this book Now!</button> only {{book.Price}} $
+    <button class="btn" data-ng-click="buyBookOpen(book.Name, book.IdBook)">Buy this book Now!</button> only {{book.Price}} $
 <!--     ### buy moved to global scope ### -->
 
 

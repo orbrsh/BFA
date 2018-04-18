@@ -70,3 +70,11 @@
 .registerForm{
     top: 8%;
 }
+
+.loggedUserLine{
+    float: right;
+    border: #607d8b;
+    border-style: dashed;
+    border-width: 1px;
+    padding: 5px;
+}
