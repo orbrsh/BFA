@@ -1,5 +1,4 @@
 
-{{myBook}}
 <img src="images/{{book.Photo}}" alt="image for {{book.Name}">
 <h3>{{book.Name}}</h3>
 a book by
@@ -9,7 +8,8 @@ a book by
     {{(book.likes.length == 1) ? "1 like " : book.likes.length + " likes"}}
     <span class="tooltiptext" data-ng-show="book.likes.length > 0">
         <div data-ng-repeat="myLike in book.likes">
-            <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" data-ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a>
+            <!-- <a href="{{ 'CustomerServlet/user/' + myLike.Username }}" data-ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a> -->
+            <a href="" data-ng-click="bookUserData.profile(myLike.Username)" data-ng-show="bookUserData.adminLogged">{{ myLike.Username }}</a>
             <span data-ng-show="!bookUserData.adminLogged">{{ myLike.Username }}</span>
         </div>
     </span>
@@ -42,7 +42,7 @@ a book by
      <!-- data-ng-include="'reviewForm.html'"> -->
     <button class="btn" data-ng-click="likeBook(book)" data-ng-class="{ 'btn-success': (bookUserData.isLogged && userLikedThisBook(book.likes)) }">like</button>
     <button class="btn" data-ng-click="addReviewOpen(book.Name, book.IdBook)">add review</button>
-    <button class="btn-info" data-ng-click="readBook(book.FullHtml)">read book</button>
+    <button class="btn-info" data-ng-click="readBook(book.FullHtml, book.IdBook)">read book</button>
 
 <!--     ### review moved to global view. -->
 </div>

@@ -31,7 +31,7 @@
                     &nbsp;|&nbsp;
                     <a href="" data-ng-click="logoutFunc()">Logout</a>
                     <br>
-                    <a href="#userBoard">User profile</a>
+                    <a href="" ng-click="loginUserData.profile(null)">User profile</a>
                     <span data-ng-show="loginUserData.adminLogged">
                         <br>
                         <a href="" data-ng-click="loginUserData.adminMode(0)">Admin board</a>
@@ -39,7 +39,6 @@
                             &nbsp;|&nbsp;
                             <a href="" data-ng-click="loginUserData.adminMode(1)">New reviews:{{loginUserData.newReviews}}</a>
                         </span>
-
                     </span>
                 </div>
             </div>
@@ -222,6 +221,45 @@
                 </form>
             </div>
             <!-- register mode -->
+            <div name="userProfileShow" data-ng-show="userProfileShow" class="modalForm registerForm">
+                    <div class="modal-header">
+                            <button type="button" class="close" data-ng-click="userProfileShow=false">&times;</button>
+                            <h4 class="modal-title">UserProfile</h4>
+                        </div>
+
+                <ul data-ng-repeat="userProfile in userProfiles">
+                    <li>
+                        <img data-ng-src="{{((userProfile.Photo == '') || angular.isUndefined(userProfile.Photo) ) ? 'images/img_nogravatar.png' : userProfile.Photo}}"
+                            alt="{{'user'+' photo'}}">
+                    </li>
+                    <li>
+                        <b>Username:</b>
+                        {{userProfile.Username}}
+                    </li>
+                    <li>
+                        <b>Nickname:</b>
+                        {{userProfile.Nickname}}
+                    </li>
+                    <li>
+                        <b>Telephone:</b>
+                        {{userProfile.Phone}}
+                    </li>
+                    <li>
+                        <b>Email:</b>
+                        {{userProfile.Email}}
+                    </li>
+                    <li>
+                        <b>Address:</b>
+                        {{userProfile.Address}}
+                    </li>
+                    <li>
+                        <b>Description:</b>
+                        {{userProfile.Description}}
+                    </li>
+
+                </ul>
+
+            </div>
         </div>
         <!-- login controller -->
         <div data-ng-controller="bookController">
@@ -413,25 +451,15 @@
                 <div data-ng-switch="AdminViews.whatToShow">
 
                     <div data-ng-switch-when="reviews">
-                        'adminReviews.html'
                         <div data-ng-include="'adminReviews.html'">
-                            // reviews show -> yet to be approved, and old ones. -> verify review writer bought the book.
                         </div>
                     </div>
                     <div data-ng-switch-when="users">
-                        'adminUsers.html'
                         <div data-ng-include="'adminUsers.html'">
-                            // browse users (with details) -> del user, confirm msg
                         </div>
                     </div>
-
-                    // book overview - done, including tooltip // ? times bought?
-
                     <div data-ng-switch-when="transactions">
-                        'adminTransactions.html'
                         <div data-ng-include="'adminTransactions.html'">
-                            // recent ebook transactions - purchases, by date, ebook, user.
-
                         </div>
                     </div>
                     <!-- <div data-ng-switch-when="books">

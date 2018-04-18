@@ -13,7 +13,8 @@ bookApp.value('userData', {
     getNewReviewsFunc: null,
     newRevies: 0,
     purchasedBooks: [], // update at login
-    booklistnames: []
+    booklistnames: [],
+    profile: null
 });
 
 bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
@@ -28,17 +29,17 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
 
         var getAllBooks = function getAllBooksInnerFunc() {
             $http.get("BooksServlet/getAllBooks").then(function (response) {
-                var booklistAll = response.data;
-                $scope.booklistnames = [];
-                //$scope.booklistView.All = true;
-                angular.forEach(booklistAll, function (item) {
-                    this.push(item.Name);
-                }, $scope.booklistnames);
-                $scope.booklist = response.data;
-                userData.booklistnames = $scope.booklistnames;
-                //return response.data;
-            },
-            function (response) {});
+                    var booklistAll = response.data;
+                    $scope.booklistnames = [];
+                    //$scope.booklistView.All = true;
+                    angular.forEach(booklistAll, function (item) {
+                        this.push(item.Name);
+                    }, $scope.booklistnames);
+                    $scope.booklist = response.data;
+                    userData.booklistnames = $scope.booklistnames;
+                    //return response.data;
+                },
+                function (response) {});
         };
 
         $scope.booklistnames = [];
@@ -119,7 +120,7 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             $scope.booklistView.Purchased = false;
         };
 
-        $scope.readBook = function (bookHtml) {
+        $scope.readBook = function (bookHtml, bookid) {
             $scope.booklistView.All = false;
             $scope.booklistView.singleBook = false;
             $scope.booklistView.Purchased = false;
@@ -127,15 +128,33 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             //var testBook = "An Everyday Girl—A Project Gutenberg eBook.html";
             $scope.readMode = true;
             $scope.bookReadOn = "book list/" + bookHtml;
+            $scope.bookReadId = bookid;
+            $http.get("BookLocationServlet/book/" + bookid).then(function (response) {
+                    if (response.data === null) {
 
+                        $scope.readModeFuncs.locationOnPage = 0;
+                    } else {
+                        $scope.readModeFuncs.locationOnPage = response.data.bookLocation;
+                    }
+                },
+                function (response) {});
             //get location from db to:
-            $scope.readModeFuncs.locationOnPage = 0;
+            //$scope.readModeFuncs.locationOnPage = 0;
         };
 
         $scope.readModeFuncs = {
             savePosition: function () {
                 $scope.readModeFuncs.locationOnPage = window.scrollY;
-                //servlet to db.
+                var obj = {
+                    idbook: $scope.bookReadId,
+                    username: userData.loggedUser,
+                    bookLocation: $scope.readModeFuncs.locationOnPage
+                };
+
+                $http.post("BookLocationServlet/book/" + $scope.bookReadId, obj).then(function (response) {
+                        console.log("location saved " + obj.bookLocation);
+                    },
+                    function (response) {});
             },
             goBack: function () {
                 window.scrollTo(0, $scope.readModeFuncs.locationOnPage);
@@ -183,7 +202,7 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             };
             $scope.addReviewFinish = true;
 
-            $http.post("ReviewServlet/book/"+bookid, obj).then(function (response) {
+            $http.post("ReviewServlet/book/" + bookid, obj).then(function (response) {
                     // response.data
                     // should response updated reviews list for this book!
                     $scope.reviewFinishText = "Review sent, waiting for admin approval";
@@ -241,7 +260,7 @@ bookApp.controller('bookController', ['$scope', '$http', '$filter', 'userData',
             $scope.buyBookFinish = true;
             var bookId = $scope.bookToBuyId;
 
-            //TOOD: support actual "$scop.buyBook" object with all details
+            //TOOD: support actual "$scopw.buyBook" object with all details
 
             // $http.post("BuyingServlet/book/" + $scope.bookToBuy, $scope.buyBook).then(function (response) {
             $http.post("Purchase/book/" + bookId).then(function (response) {
@@ -416,6 +435,20 @@ bookApp.controller('loginController', ['$scope', '$http', 'userData', function (
         $scope.registerMode = !$scope.registerMode;
         console.log("register mode active");
     };
+
+    userData.profile = function (username) {
+        if (username === null) {
+            username = userData.loggedUser;
+        } else {
+            if (!userData.adminLogged)
+                return;
+        }
+        $http.get("customers/name/" + username).then(function (response) {
+                $scope.userProfiles = response.data;
+                $scope.userProfileShow = true;
+            },
+            function (response) {});
+    };
 }]);
 
 bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
@@ -454,13 +487,14 @@ bookApp.controller('adminController', ['$scope', '$http', '$filter', 'userData',
                 return;
             if ($scope.adminMode === true) {
                 $scope.adminMode = !$scope.adminMode;
+                $scope.AdminViews.adminMenuView = false;
             } else {
                 $scope.adminMode = true;
+                $scope.AdminViews.adminMenuView = true;
                 if (reviewsMode == 1) {
                     $scope.AdminViews.show('reviews');
                 }
             }
-            $scope.AdminViews.adminMenuView = true;
             // getTransactions();
             // getUsers();
             // getReviews();

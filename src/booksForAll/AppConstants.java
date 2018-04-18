@@ -9,7 +9,7 @@ import booksForAll.model.Customer;
 import booksForAll.model.Book;
 import booksForAll.model.Like;
 import booksForAll.model.Review;
-import booksForAll.model.BooksToUser;
+//import booksForAll.model.BooksToUser;
 import booksForAll.model.Purchase;
 
 /**
@@ -36,7 +36,7 @@ public interface AppConstants {
 	
 	public final String BOOKSTOUSERS = "BooksToUsers";
 	public final String BOOKSTOUSERS_FILE = BOOKSTOUSERS + ".json";
-	public final Type BOOKSTOUSER_COLLECTION = new TypeToken<Collection<BooksToUser>>() {}.getType();
+//	public final Type BOOKSTOUSER_COLLECTION = new TypeToken<Collection<BooksToUser>>() {}.getType();
 	
 	public final String PURCHASES = "Purchases";
 	public final String PURCHASES_FILE = PURCHASES + ".json";
@@ -140,20 +140,20 @@ public interface AppConstants {
 			+ "WHERE IdReviews=?";
 	
 	
-	// might not be needed 
-	// start
-	public final String CREATE_BOOKSTOUSERS_TABLE = "CREATE TABLE BOOKSTOUSERS("
-			+ "IdBook INT,"
-			+ "Username varchar(10),"
-			+ "Review varchar(50),"
-			+ "PRIMARY KEY (IdBook))";
-	
-	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS VALUES(?,?,?)";
-	public final String SELECT_ALL_BOOKSTOUSERS_STMT = "SELECT * FROM BOOKSTOUSERS";
-	public final String SELECT_BOOKSTOUSER_BY_NAME_STMT = "SELECT * FROM BOOKSTOUSERS "
-			+ "WHERE Name=?";
-	// end
-	
+//	// might not be needed 
+//	// start
+//	public final String CREATE_BOOKSTOUSERS_TABLE = "CREATE TABLE BOOKSTOUSERS("
+//			+ "IdBook INT,"
+//			+ "Username varchar(10),"
+//			+ "Review varchar(50),"
+//			+ "PRIMARY KEY (IdBook))";
+//	
+//	public final String INSERT_BOOKSTOUSER_STMT = "INSERT INTO BOOKSTOUSERS VALUES(?,?,?)";
+//	public final String SELECT_ALL_BOOKSTOUSERS_STMT = "SELECT * FROM BOOKSTOUSERS";
+//	public final String SELECT_BOOKSTOUSER_BY_NAME_STMT = "SELECT * FROM BOOKSTOUSERS "
+//			+ "WHERE Name=?";
+//	// end
+//	
 	
 	
 	public final String CREATE_PURCHASES_TABLE = "CREATE TABLE PURCHASES("
@@ -162,6 +162,7 @@ public interface AppConstants {
 			+ "IdBook INT NOT NULL,"
 			+ "Username varchar(10) NOT NULL,"
 			+ "DateBought BIGINT,"
+			+ "location BIGINT DEFAULT 0,"
 			+ "PRIMARY KEY(IdPurchase, IdBook, Username))";
 	
 	public final String INSERT_PURCHASE_STMT = "INSERT INTO PURCHASES (IdBook, Username, DateBought) VALUES(?,?,?)";
@@ -172,6 +173,10 @@ public interface AppConstants {
 			+ "WHERE IdBook=?";
 	public final String SELECT_PURCHASE_BY_USERNAME_AND_BOOKID_STMT = "SELECT * FROM PURCHASES "
 			+ "WHERE Username=? AND IdBook=?";
+	public final String UPDATE_BOOK_LOCATION_STMT = "UPDATE PURCHASES SET location = ? "
+			+ "WHERE IdBook=? AND Username=?";
+	public final String SELECT_BOOK_LOCATION_STMT = "SELECT IdBook, Username, location FROM PURCHASES "
+			+ "WHERE IdBook=? AND Username=?";
 	
 }
 
