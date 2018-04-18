@@ -140,7 +140,7 @@ public class ManageLikeDB implements ServletContextListener {
 	 * a collection of Likes objects
 	 * @param is input stream to json file
 	 * @return collection of likes
-	 * @throws IOException
+	 * @throws IOException can't open file
 	 */
 	private Collection<Like> loadLikes(InputStream is) throws IOException{
 		
